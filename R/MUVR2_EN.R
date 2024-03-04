@@ -27,7 +27,7 @@
 #' @import splines glmnet pROC magrittr foreach
 #' @return A MUVR object
 #' @export
-rdCVnet <- function(X,
+MUVR2_EN <- function(X,
                     ## X should be a dataframe
                     Y,
                     ID,
