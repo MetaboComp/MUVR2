@@ -3,7 +3,7 @@
 \name{permutationPlot}
 \alias{permutationPlot}
 \title{Plot permutation analysis using actual model and permutations()
-This is basically a wrapper for the MUVR::plotPerm() function using model objects to make coding nicer and cleaner}
+This is basically a wrapper for the MUVR2::plotPerm() function using model objects to make coding nicer and cleaner}
 \usage{
 permutationPlot(
   MUVRclassObject,
@@ -47,5 +47,5 @@ A permutation plot
 }
 \description{
 Plot permutation analysis using actual model and permutations()
-This is basically a wrapper for the MUVR::plotPerm() function using model objects to make coding nicer and cleaner
+This is basically a wrapper for the MUVR2::plotPerm() function using model objects to make coding nicer and cleaner
 }
