@@ -85,7 +85,7 @@ MUVR2_EN <- function(X,
   modelReturn <- list(call = match.call())
 
   if (methParam$NZV == TRUE) {
-    nzv <- MUVR::nearZeroVar(X)
+    nzv <- MUVR2::nearZeroVar(X)
     if (length(nzv$Position) > 0) {
       modelReturn$nzv <- colnames(X)[nzv$Position]
       X <- X[, -nzv$Position]

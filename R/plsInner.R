@@ -30,7 +30,7 @@ plsInner <- function(xTrain,
     yValInner <- tryCatch({
       ###These functions provide a mechanism for handling unusual conditions, including errors and warnings.
       if (DA == TRUE) {
-        plsModIn <- MUVR::plsda(
+        plsModIn <- MUVR2::plsda(
           xTrain,
           yTrain,
           ncomp = comp,
@@ -39,7 +39,7 @@ plsInner <- function(xTrain,
         )
       }
       else {
-        plsModIn <- MUVR::pls(
+        plsModIn <- MUVR2::pls(
           xTrain,
           yTrain,
           ncomp = comp,
@@ -253,7 +253,7 @@ plsInner <- function(xTrain,
     }
 
     returnIn$virank <-
-      rank(-MUVR::vip(plsModIn)[, nComp])   ##rank each component's variable of importance
+      rank(-MUVR2::vip(plsModIn)[, nComp])   ##rank each component's variable of importance
 
     ###when comp is 0
   } else {

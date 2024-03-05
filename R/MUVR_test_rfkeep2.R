@@ -121,7 +121,7 @@ MUVR_test_rfkeep2 <- function(X,
   ###############
   # Remove nearZeroVariance variables for PLS
   if (methParam$NZV) {
-    nzv <- MUVR::nearZeroVar(X) # Function borrowed from mixOmics
+    nzv <- MUVR2::nearZeroVar(X) # Function borrowed from mixOmics
     if (length(nzv$Position) > 0) {
       modelReturn$nzv <- colnames(X)[nzv$Position]
       X <- X[, -nzv$Position]
@@ -714,7 +714,7 @@ MUVR_test_rfkeep2 <- function(X,
 
                           # Make inner model
                           if (method == 'PLS') {
-                            inMod <- MUVR::plsInner(
+                            inMod <- MUVR2::plsInner(
                               xTrain,
                               yTrain,
                               xVal,
@@ -922,7 +922,7 @@ MUVR_test_rfkeep2 <- function(X,
                       if (method == 'PLS') {
                         # Build min model
                         if (DA) {
-                          plsOutMin <- MUVR::plsda(
+                          plsOutMin <- MUVR2::plsda(
                             subset(xIn, select = incVarMin),
                             yIn,
                             ncomp = nCompOutMin[i],
@@ -930,7 +930,7 @@ MUVR_test_rfkeep2 <- function(X,
                             scale = scale
                           )
                         } else {
-                          plsOutMin <- MUVR::pls(
+                          plsOutMin <- MUVR2::pls(
                             subset(xIn, select = incVarMin),
                             yIn,
                             ncomp = nCompOutMin[i],
@@ -949,7 +949,7 @@ MUVR_test_rfkeep2 <- function(X,
 
                         # Build mid model
                         if (DA) {
-                          plsOutMid <- MUVR::plsda(
+                          plsOutMid <- MUVR2::plsda(
                             subset(xIn, select = incVarMid),
                             yIn,
                             ncomp = nCompOutMid[i],
@@ -957,7 +957,7 @@ MUVR_test_rfkeep2 <- function(X,
                             scale = scale
                           )
                         } else {
-                          plsOutMid <- MUVR::pls(
+                          plsOutMid <- MUVR2::pls(
                             subset(xIn, select = incVarMid),
                             yIn,
                             ncomp = nCompOutMid[i],
@@ -975,7 +975,7 @@ MUVR_test_rfkeep2 <- function(X,
 
                         # Build max model
                         if (DA) {
-                          plsOutMax <- MUVR::plsda(
+                          plsOutMax <- MUVR2::plsda(
                             subset(xIn, select = incVarMax),
                             yIn,
                             ncomp = nCompOutMax[i],
@@ -983,7 +983,7 @@ MUVR_test_rfkeep2 <- function(X,
                             scale = scale
                           )
                         } else {
-                          plsOutMax <- MUVR::pls(
+                          plsOutMax <- MUVR2::pls(
                             subset(xIn, select = incVarMax),
                             yIn,
                             ncomp = nCompOutMax[i],
@@ -1641,7 +1641,7 @@ MUVR_test_rfkeep2 <- function(X,
     # PLS Min fit-predict
     ######################
     if (DA) {
-      plsFitMin <- MUVR::plsda(
+      plsFitMin <- MUVR2::plsda(
         subset(X, select = incVarMin),
         Y,
         ncomp = round(nComp[1]),
@@ -1649,7 +1649,7 @@ MUVR_test_rfkeep2 <- function(X,
         scale = scale
       )
     } else {
-      plsFitMin <- MUVR::pls(
+      plsFitMin <- MUVR2::pls(
         subset(X, select = incVarMin),
         Y,
         ncomp = round(nComp[1]),
@@ -1672,7 +1672,7 @@ MUVR_test_rfkeep2 <- function(X,
     # PLS Mid fit-predict
     ######################
     if (DA) {
-      plsFitMid <- MUVR::plsda(
+      plsFitMid <- MUVR2::plsda(
         subset(X, select = incVarMid),
         Y,
         ncomp = round(nComp[2]),
@@ -1680,7 +1680,7 @@ MUVR_test_rfkeep2 <- function(X,
         scale = scale
       )
     } else {
-      plsFitMid <- MUVR::pls(
+      plsFitMid <- MUVR2::pls(
         subset(X, select = incVarMid),
         Y,
         ncomp = round(nComp[2]),
@@ -1702,7 +1702,7 @@ MUVR_test_rfkeep2 <- function(X,
     # PLS Max fit-predict
     ######################
     if (DA) {
-      plsFitMax <- MUVR::plsda(
+      plsFitMax <- MUVR2::plsda(
         subset(X, select = incVarMax),
         Y,
         ncomp = round(nComp[3]),
@@ -1710,7 +1710,7 @@ MUVR_test_rfkeep2 <- function(X,
         scale = scale
       )
     } else {
-      plsFitMax <- MUVR::pls(
+      plsFitMax <- MUVR2::pls(
         subset(X, select = incVarMax),
         Y,
         ncomp = round(nComp[3]),

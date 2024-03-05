@@ -21,7 +21,7 @@ pls <- function(x,
   x <- as.matrix(x)
   # Remove variables with near zero variance
   if (near.zero.var) {
-    nzv <- MUVR::nearZeroVar(x)
+    nzv <- MUVR2::nearZeroVar(x)
     if (length(nzv$Position > 0)) {
       warning(
         "Zero- or near-zero variance predictors.\nReset predictors matrix to not near-zero variance predictors.\nSee $nzv for problematic predictors."

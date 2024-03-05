@@ -49,7 +49,7 @@ plsda <- function(x,
   #x <- 1:10
   #attr(x,"dim") <- c(2, 5)
 
-  result = MUVR::pls(
+  result = MUVR2::pls(
     x,
     ind.mat,
     ncomp = ncomp,

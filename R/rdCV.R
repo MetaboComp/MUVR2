@@ -504,11 +504,11 @@ rdCV <- function(X,
 
                       if (method == 'PLS') {
                         if (DA) {
-                          plsOut <- MUVR::plsda(xIn,
+                          plsOut <- MUVR2::plsda(xIn,
                                                 yIn,
                                                 ncomp = nCompOut[i])
                         } else {
-                          plsOut <- MUVR::pls(xIn,
+                          plsOut <- MUVR2::pls(xIn,
                                               yIn,
                                               ncomp = nCompOut[i])
                         }
@@ -675,10 +675,10 @@ rdCV <- function(X,
   ## Build overall "Fit" method for calculating R2 and visualisations
   if (method == 'PLS') {
     if (DA == TRUE) {
-      plsFit <- MUVR::plsda(X, Y, ncomp = round(nComp))
+      plsFit <- MUVR2::plsda(X, Y, ncomp = round(nComp))
     } else
     {
-      plsFit <- MUVR::pls(X, Y, ncomp = round(nComp))
+      plsFit <- MUVR2::pls(X, Y, ncomp = round(nComp))
     }
 
     if (length(plsFit$nzv$Position) > 0) {

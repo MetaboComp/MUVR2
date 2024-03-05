@@ -41,7 +41,7 @@ checkinput <- function(X,
 
   #analyze X datatype
   if (class(X)[1] == "data.frame") {
-    X <- MUVR::onehotencoding(X)
+    X <- MUVR2::onehotencoding(X)
     cat("X is transformed to a matrix by onehotencoding.", "\n")
   }
   factor_number <- 0

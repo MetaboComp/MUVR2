@@ -1,5 +1,5 @@
 #' Plot permutation analysis using actual model and permutations()
-#' This is basically a wrapper for the MUVR::plotPerm() function using model objects to make coding nicer and cleaner
+#' This is basically a wrapper for the MUVR2::plotPerm() function using model objects to make coding nicer and cleaner
 #' @param MUVRclassObject A 'MUVR' class object
 #' @param permutation_result  A permutation result. It is a list of 1 items:  permutation_output
 #' @param model 'Min', 'Mid', or 'Max'
