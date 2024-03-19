@@ -23,7 +23,7 @@ svmInner <- function(xTrain,
                      #gamma,
                      #degree,
                      method) {
-  library(rminer)
+  #library(rminer)
   library(kernlab)
   library(e1071)
   returnIn <- list()

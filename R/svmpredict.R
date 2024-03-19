@@ -21,7 +21,7 @@ svmpredict <- function(xTrain,
                        #degree,
                        #gamma,
                        DA) {
-  library(rminer)
+  #library(rminer)
   library(kernlab)
   library(e1071)
   # Allocate return object
