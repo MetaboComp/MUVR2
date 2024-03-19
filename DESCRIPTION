@@ -16,6 +16,7 @@ Imports:
     pROC,
     doParallel,
     foreach,
+    rminer,
     nnet,
     neuralnet,
     caret,
