@@ -20,7 +20,6 @@
 #' @param weigh_added To add a weighing matrix when it is classfication
 #' @param weighing_matrix The matrix used for get a miss classfication score
 #' @param ... additional argument
-#' @import NeuralNetTools nnet neuralnet kernlab klaR doParallel e1071 pROC foreach rminer randomForest ranger
 #' @return A 'MUVR' object
 #' @export
 

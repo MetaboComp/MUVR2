@@ -5,7 +5,7 @@
 \title{Predict plsda
 Adapted and stripped down from mixOmics v 5.2.0 (https://cran.r-project.org/web/packages/mixOmics/)}
 \usage{
-predict.plsdaMUVR(object, newdata, scale = TRUE, onlyPred = FALSE, ...)
+\method{predict}{plsdaMUVR}(object, newdata, scale = TRUE, onlyPred = FALSE, ...)
 }
 \arguments{
 \item{object}{a plsdaMUVR object}

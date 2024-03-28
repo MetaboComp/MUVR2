@@ -1,6 +1,6 @@
 Package: MUVR2
 Title: Multivariate methods with Unbiased Variable selection in R
-Version: 1
+Version: 0.01
 Author: Yingxiao Yan <yingxiao@chalmers.se> Carl Brunius <carl.brunius@chalmers.se>
 Maintainer: Yingxiao Yan <yingxiao@chalmers.se> Carl Brunius <carl.brunius@chalmers.se>
 Description: This is a package dedicated to predictive multivariate modelling for metabolomics.
