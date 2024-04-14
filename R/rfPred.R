@@ -19,6 +19,7 @@ rfPred <- function(xTrain,
                    #If set to FALSE, the forest will not be retained in the output object. If xtest is given, defaults to FALSE.
                    method) {
   # Allocate return object
+  library(randomForest)
   return <- list()
   if (missing(method)) {
     method = "randomForest"

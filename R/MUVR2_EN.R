@@ -439,9 +439,11 @@ MUVR2_EN <- function(X,
                             if (any(!keep %in% colnames(X_original))) {
                               stop("Could not find that variable(s) in X")
                             }
-                            if (any(!keep %in% colnames(X))) {
-                              stop("Some variables you want to keep are of near zero varance")
-                            }
+                          #################################### This is aborted
+                          #### The kept but of zero variance variables will be automatically removed
+                          # if (any(!keep %in% colnames(X))) {
+                          #    stop("Some variables you want to keep are of near zero varance")
+                          #  }
                             filter <- which(colnames(xIn) %in% keep)
                             penaltyfactor[filter] <- 0
 
