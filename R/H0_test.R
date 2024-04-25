@@ -151,7 +151,7 @@ H0_test <- function(MUVRclassObject,
         ##sample(x, size, replace = FALSE, prob = NULL)
         ## default for size is the number of items inferred from the first argument,
         if (method != "rdCVnet") {
-          permMod <- MUVR(
+          permMod <- MUVR2(
             X = X,
             Y = YPerm,
             ID = ID,
@@ -170,7 +170,7 @@ H0_test <- function(MUVRclassObject,
             parallel = parallel
           )
         } else {
-          permMod <- rdCVnet(
+          permMod <- MUVR2_EN(
             X = X,
             Y = YPerm,
             ID = ID,
@@ -253,7 +253,7 @@ H0_test <- function(MUVRclassObject,
                             size = length(Y),)
           }
           if (method != "rdCVnet") {
-            permMod <- MUVR(
+            permMod <- MUVR2(
               X = X,
               Y = YPerm,
               ID = ID,
@@ -270,7 +270,7 @@ H0_test <- function(MUVRclassObject,
               parallel = parallel
             )
           } else {
-            permMod <- rdCVnet(
+            permMod <- MUVR2_EN(
               X = X,
               Y = YPerm,
               ID = ID,
@@ -338,7 +338,7 @@ H0_test <- function(MUVRclassObject,
           }   ##sample(x, size, replace = FALSE, prob = NULL)
           ## default for size is the number of items inferred from the first argument,
           if (method != "rdCVnet") {
-            permMod <- MUVR(
+            permMod <- MUVR2(
               X = X,
               Y = YPerm,
               ID = ID,
@@ -355,7 +355,7 @@ H0_test <- function(MUVRclassObject,
               parallel = parallel
             )
           } else {
-            permMod <- rdCVnet(
+            permMod <- MUVR2_EN(
               X = X,
               Y = YPerm,
               ID = ID,
@@ -486,7 +486,7 @@ H0_test <- function(MUVRclassObject,
                           size = nSamp)     ##sample(x, size, replace = FALSE, prob = NULL)
           ## default for size is the number of items inferred from the first argument,
           if (method != "rdCVnet") {
-            permMod <- MUVR(
+            permMod <- MUVR2(
               X = X,
               Y = YPerm,
               ID = ID,
@@ -504,7 +504,7 @@ H0_test <- function(MUVRclassObject,
               parallel = parallel
             )
           } else {
-            permMod <- rdCVnet(
+            permMod <- MUVR2_EN(
               X = X,
               Y = YPerm,
               ID = ID,
@@ -607,7 +607,7 @@ H0_test <- function(MUVRclassObject,
           }      ##sample(x, size, replace = FALSE, prob = NULL)
           ## default for size is the number of items inferred from the first argument,
           if (method != "rdCVnet") {
-            permMod <- MUVR(
+            permMod <- MUVR_EN(
               X = X,
               Y = YPerm,
               ID = ID,
@@ -625,7 +625,7 @@ H0_test <- function(MUVRclassObject,
               parallel = parallel
             )
           } else {
-            permMod <- rdCVnet(
+            permMod <- MUVR2_EN(
               X = X,
               Y = YPerm,
               ID = ID,
