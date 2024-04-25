@@ -3,18 +3,18 @@
 #'If something goes wrong warning messages are given
 #'@param X   The original data of X, not the result after onehotencoding
 #'@param Y   The original data of Y
-#'@param ML  ML in MUVR
-#'@param DA  DA in MUVR
-#'@param method  RF or PLS so far in MUVR
-#'@param fitness fitness in MUVR
-#'@param nInner nInnerin MUVR
-#'@param nOuter nOuter in MUVR
-#'@param varRatio varRatio in MUVR
+#'@param ML  ML in MUVR2
+#'@param DA  DA in MUVR2
+#'@param method  RF or PLS so far in MUVR2
+#'@param fitness fitness in MUVR2
+#'@param nInner nInnerin MUVR2
+#'@param nOuter nOuter in MUVR2
+#'@param varRatio varRatio in MUVR2
 #'@param scale scale
-#'@param modReturn modReturn in MUVR
-#'@param logg logg in MUVR
-#'@param parallel parallel in MUVR
-#'@return correct_input: the original input(call) and the real input used in MUVR when you enter your input
+#'@param modReturn modReturn in MUVR2
+#'@param logg logg in MUVR2
+#'@param parallel parallel in MUVR2
+#'@return correct_input: the original input(call) and the real input used in MUVR2 when you enter your input
 #'@export
 
 checkinput <- function(X,
@@ -393,7 +393,7 @@ checkinput <- function(X,
 
   cat("\n",
       "\n",
-      "Original input(call) and the input that will used in MUVR:\n")
+      "Original input(call) and the input that will used in MUVR2:\n")
   return(correct_input)
 
 }

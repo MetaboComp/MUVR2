@@ -22,7 +22,7 @@
 ## varRatio=.75
 ## nOuter=6
 ## nPerm=50
-## R12ML=MUVR(X=mlr12,ML=TRUE,nRep=nRep,nOuter=nOuter,varRatio=varRatio,method='RF')
+## R12ML=MUVR2(X=mlr12,ML=TRUE,nRep=nRep,nOuter=nOuter,varRatio=varRatio,method='RF')
 ## permR12=permutations(R12ML)
 ## stopCluster(cl)
 ## permutationPlot(R12ML,permR12)
