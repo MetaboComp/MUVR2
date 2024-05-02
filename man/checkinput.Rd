@@ -27,30 +27,30 @@ checkinput(
 
 \item{Y}{The original data of Y}
 
-\item{ML}{ML in MUVR}
+\item{ML}{ML in MUVR2}
 
-\item{DA}{DA in MUVR}
+\item{DA}{DA in MUVR2}
 
-\item{method}{RF or PLS so far in MUVR}
+\item{method}{RF or PLS so far in MUVR2}
 
-\item{fitness}{fitness in MUVR}
+\item{fitness}{fitness in MUVR2}
 
-\item{nInner}{nInnerin MUVR}
+\item{nInner}{nInnerin MUVR2}
 
-\item{nOuter}{nOuter in MUVR}
+\item{nOuter}{nOuter in MUVR2}
 
-\item{varRatio}{varRatio in MUVR}
+\item{varRatio}{varRatio in MUVR2}
 
 \item{scale}{scale}
 
-\item{modReturn}{modReturn in MUVR}
+\item{modReturn}{modReturn in MUVR2}
 
-\item{logg}{logg in MUVR}
+\item{logg}{logg in MUVR2}
 
-\item{parallel}{parallel in MUVR}
+\item{parallel}{parallel in MUVR2}
 }
 \value{
-correct_input: the original input(call) and the real input used in MUVR when you enter your input
+correct_input: the original input(call) and the real input used in MUVR2 when you enter your input
 }
 \description{
 This can be run to test if the command input of parameters contradict to each other

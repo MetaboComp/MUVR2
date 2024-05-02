@@ -115,11 +115,8 @@ predMV <- function(MUVRclassobject,
       apply(yPredPerMod, 1, mean)   ##mean because it is a regression problem
     return(list(yPred = yPred,
                 yPredPerMod = yPredPerMod))  ###return
-  }
-  #############################################################################################
-  ###########################
-  ##when it is classification problem
-  else if (class(MUVRclassobject)[2] == 'Classification') {
+  } else if (class(MUVRclassobject)[2] == 'Classification') {
+  ##
     yPredPerMod <- array(
       dim = c(
         nrow(newdata),
@@ -161,7 +158,9 @@ predMV <- function(MUVRclassobject,
 
 
         } else if (method == "RF") {
+          mod <- MUVRclassobject$outModels[[n]][[modNum]]
           if (any(!rownames(mod$importance) %in% colnames(newdata))) {
+
             cat('\nMismatch variable names in model',
                 n,
                 ': Return NULL')
@@ -169,12 +168,12 @@ predMV <- function(MUVRclassobject,
           } else {
             #################################################################################################
             ###this does not seem work in ranger. The ranger does not have such name as importance
-            mod <- MUVRclassobject$outModels[[n]][[modNum]]
+
             X <- subset(newdata,
                         select = rownames(mod$importance))
 
             yPredPerMod[, , n] <-
-              predict(mod,       ##random forest model vote type
+              stats::predict(mod,       ##random forest model vote type
                       newdata = X,
                       type = 'vote')  #
           }
@@ -184,7 +183,7 @@ predMV <- function(MUVRclassobject,
           X <- subset(newdata,
                       select = colnames(mod$X))
 
-          yPredPerMod[, , n] <- predict(mod,
+          yPredPerMod[, , n] <- stats::predict(mod,
                                         newx = as.matrix(X))
         }
 

@@ -17,7 +17,7 @@ plotVIRank(
 \arguments{
 \item{MUVRclassObject}{An MUVR class object only applied to PLS, RF not rdCVnet}
 
-\item{n}{Number of top ranking variables to plot (defaults to those selected by MUVR)}
+\item{n}{Number of top ranking variables to plot (defaults to those selected by MUVR2)}
 
 \item{model}{Which model to choose ('min', 'mid' {default} or 'max')}
 
