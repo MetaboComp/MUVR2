@@ -57,3 +57,9 @@ This can be run to test if the command input of parameters contradict to each ot
 And also check the structure of the data
 If something goes wrong warning messages are given
 }
+\examples{
+checkinput(X = XRVIP2,
+          Y = YR2,  ## YR2 a numeric variable
+          DA = FALSE,
+          fitness="RMSEP")
+}

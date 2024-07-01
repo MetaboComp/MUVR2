@@ -22,6 +22,18 @@
 #' @param ... additional argument
 #' @return A 'MUVR' object
 #' @export
+#' @examples
+#' data(freelive2)
+#' nRep <- 2 # Number of MUVR2 repetitions
+#' nOuter <- 3 # Number of outer cross-validation segments
+#' varRatio <- 0.6 # Proportion of variables kept per iteration
+#' method <- 'PLS' # Selected core modeling algorithm
+#' regrModel <- MUVR2(X = XRVIP2,
+#' Y = YR2,
+#' nRep = nRep,
+#' nOuter = nOuter,
+#' varRatio = varRatio,
+#' method = "RF")
 
 MUVR2 <- function(X,
                  Y,
@@ -43,6 +55,10 @@ MUVR2 <- function(X,
                  weighing_matrix = NULL,
                  keep,
                  ...) {
+  if(dim(X)[1]!=length(Y)){
+    stop("The X and Y should have same number of observations")
+  }
+
   if (is.null(weighing_matrix) & DA == TRUE) {
     weighing_matrix <- diag(1, length(levels(Y)), length(levels(Y)))
   }
@@ -739,31 +755,31 @@ MUVR2 <- function(X,
                               weighing_matrix = weighing_matrix
                             )
                           } else if (method == "ANN") {
-                            inMod <- annInner(
-                              xTrain,
-                              yTrain,
-                              xVal,
-                              yVal,
-                              DA = DA,
-                              fitness = fitness,
-                              method = methParam$annMethod,
-                              #nodes=neuralIn,
-                              nodes = methParam$nodes,
-                              threshold = methParam$threshold,
-                              stepmax = methParam$stepmax
-                            )
+                            # inMod <- annInner(
+                            #   xTrain,
+                            #   yTrain,
+                            #   xVal,
+                            #   yVal,
+                            #   DA = DA,
+                            #   fitness = fitness,
+                            #   method = methParam$annMethod,
+                            #   #nodes=neuralIn,
+                            #   nodes = methParam$nodes,
+                            #   threshold = methParam$threshold,
+                            #   stepmax = methParam$stepmax
+                            # )
                           } else if (method == "SVM") {
-                            inMod <- svmInner(
-                              xTrain,
-                              yTrain,
-                              xVal,
-                              yVal,
-                              DA = DA,
-                              fitness = fitness,
-                              method = methParam$svmMethod,
-                              kernel = methParam$kernel
-
-                            )
+                            # inMod <- svmInner(
+                            #   xTrain,
+                            #   yTrain,
+                            #   xVal,
+                            #   yVal,
+                            #   DA = DA,
+                            #   fitness = fitness,
+                            #   method = methParam$svmMethod,
+                            #   kernel = methParam$kernel
+                            #
+                            # )
                           } else {
                             stop('No other core modelling techniques available at present.')
                           }
@@ -1056,74 +1072,74 @@ MUVR2 <- function(X,
                         ###################################################################################Ann predict
                       } else if (method == "ANN") {
                         #if(DA==FALSE){
-                        annOutMin <- annpredict(
-                          xTrain = subset(xIn, select = incVarMin),
-                          yTrain = yIn,
-                          xTest = subset(xTest, select = incVarMin),
-                          yTest = yTest,
-                          DA = DA,
-                          nodes = methParam$nodes,
-                          #nodes=min(c(methParam$neuralmaxIn,floor(sqrt(length(incVarMin))))),
-                          threshold = methParam$threshold,
-                          stepmax = methParam$stepmax,
-                          method = methParam$annMethod
+                        # annOutMin <- annpredict(
+                        #   xTrain = subset(xIn, select = incVarMin),
+                        #   yTrain = yIn,
+                        #   xTest = subset(xTest, select = incVarMin),
+                        #   yTest = yTest,
+                        #   DA = DA,
+                        #   nodes = methParam$nodes,
+                        #   #nodes=min(c(methParam$neuralmaxIn,floor(sqrt(length(incVarMin))))),
+                        #   threshold = methParam$threshold,
+                        #   stepmax = methParam$stepmax,
+                        #   method = methParam$annMethod
+                        #
+                        # )
+                        # if (DA)
+                        # {
+                        #   yPredMinR[testIndex,] <- annOutMin$predicted
+                        # } else {
+                        #   yPredMinR[testIndex] <- annOutMin$predicted
+                        # }
 
-                        )
-                        if (DA)
-                        {
-                          yPredMinR[testIndex,] <- annOutMin$predicted
-                        } else {
-                          yPredMinR[testIndex] <- annOutMin$predicted
-                        }
+                        # annOutMid <- annpredict(
+                        #   xTrain = subset(xIn, select = incVarMid),
+                        #   yTrain = yIn,
+                        #   xTest = subset(xTest, select = incVarMid),
+                        #   yTest = yTest,
+                        #   DA = DA,
+                        #   nodes = methParam$nodes,
+                        #   #nodes=min(c(methParam$neuralmaxIn,floor(sqrt(length(incVarMid))))),
+                        #   threshold = methParam$threshold,
+                        #   stepmax = methParam$stepmax,
+                        #   method = methParam$annMethod
+                        #
+                        # )
 
-                        annOutMid <- annpredict(
-                          xTrain = subset(xIn, select = incVarMid),
-                          yTrain = yIn,
-                          xTest = subset(xTest, select = incVarMid),
-                          yTest = yTest,
-                          DA = DA,
-                          nodes = methParam$nodes,
-                          #nodes=min(c(methParam$neuralmaxIn,floor(sqrt(length(incVarMid))))),
-                          threshold = methParam$threshold,
-                          stepmax = methParam$stepmax,
-                          method = methParam$annMethod
+                        # if (DA)
+                        # {
+                        #   yPredMidR[testIndex,] <- annOutMid$predicted
+                        # } else {
+                        #   yPredMidR[testIndex] <- annOutMid$predicted
+                        # }
 
-                        )
-
-                        if (DA)
-                        {
-                          yPredMidR[testIndex,] <- annOutMid$predicted
-                        } else {
-                          yPredMidR[testIndex] <- annOutMid$predicted
-                        }
-
-                        annOutMax <- annpredict(
-                          xTrain = subset(xIn, select = incVarMax),
-                          yTrain = yIn,
-                          xTest = subset(xTest, select = incVarMax),
-                          yTest = yTest,
-                          DA = DA,
-                          nodes = methParam$nodes,
-                          #nodes=min(c(methParam$nodes,floor(sqrt(length(incVarMax))))),
-                          threshold = methParam$threshold,
-                          stepmax = methParam$stepmax,
-                          method = methParam$annMethod
-
-                        )
-                        if (DA)
-                        {
-                          yPredMaxR[testIndex,] <- annOutMax$predicted
-                        } else {
-                          yPredMaxR[testIndex] <- annOutMax$predicted
-                        }
-                        if (modReturn) {
-                          outMod[[i]] <- list(
-                            annOutMin = annOutMin$model,
-                            annOutMid = annOutMid$model,
-                            annOutMax = annOutMax$model
-                          )
-                        }
-                        #  }
+                        # annOutMax <- annpredict(
+                        #   xTrain = subset(xIn, select = incVarMax),
+                        #   yTrain = yIn,
+                        #   xTest = subset(xTest, select = incVarMax),
+                        #   yTest = yTest,
+                        #   DA = DA,
+                        #   nodes = methParam$nodes,
+                        #   #nodes=min(c(methParam$nodes,floor(sqrt(length(incVarMax))))),
+                        #   threshold = methParam$threshold,
+                        #   stepmax = methParam$stepmax,
+                        #   method = methParam$annMethod
+                        #
+                        # )
+                        # if (DA)
+                        # {
+                        #   yPredMaxR[testIndex,] <- annOutMax$predicted
+                        # } else {
+                        #   yPredMaxR[testIndex] <- annOutMax$predicted
+                        # }
+                        # if (modReturn) {
+                        #   outMod[[i]] <- list(
+                        #     annOutMin = annOutMin$model,
+                        #     annOutMid = annOutMid$model,
+                        #     annOutMax = annOutMax$model
+                        #   )
+                        # }
+                        # #  }
 
 
 
@@ -1131,76 +1147,76 @@ MUVR2 <- function(X,
 
                       } else if (method == "SVM") {
                         #if(DA==FALSE){
-                        svmOutMin <- svmpredict(
-                          xTrain = subset(xIn, select = incVarMin),
-                          yTrain = yIn,
-                          xTest = subset(xTest, select = incVarMin),
-                          yTest = yTest,
-                          DA = DA,
-                          method = methParam$svmMethod,
-                          kernel = methParam$kernel
-                          #nu=methParam$nu,
-                          #degree=methParam$degree,
-                          #gamma=methParam$gamma
+                        # svmOutMin <- svmpredict(
+                        #   xTrain = subset(xIn, select = incVarMin),
+                        #   yTrain = yIn,
+                        #   xTest = subset(xTest, select = incVarMin),
+                        #   yTest = yTest,
+                        #   DA = DA,
+                        #   method = methParam$svmMethod,
+                        #   kernel = methParam$kernel
+                        #   #nu=methParam$nu,
+                        #   #degree=methParam$degree,
+                        #   #gamma=methParam$gamma
+                        #
+                        # )
+                        # if (DA)
+                        # {
+                        #   yPredMinR[testIndex] <- svmOutMin$predicted
+                        #   #yPredMinR[testIndex, ] <- svmOutMin$predicted
+                        # } else {
+                        #   yPredMinR[testIndex] <- svmOutMin$predicted
+                        # }
 
-                        )
-                        if (DA)
-                        {
-                          yPredMinR[testIndex] <- svmOutMin$predicted
-                          #yPredMinR[testIndex, ] <- svmOutMin$predicted
-                        } else {
-                          yPredMinR[testIndex] <- svmOutMin$predicted
-                        }
+                        # svmOutMid <- svmpredict(
+                        #   xTrain = subset(xIn, select = incVarMid),
+                        #   yTrain = yIn,
+                        #   xTest = subset(xTest, select = incVarMid),
+                        #   yTest = yTest,
+                        #   DA = DA,
+                        #   method = methParam$svmMethod,
+                        #   kernel = methParam$kernel
+                        #   #nu=methParam$nu,
+                        #   #degree=methParam$degree,
+                        #   #gamma=methParam$gamma
+                        #
+                        # )
 
-                        svmOutMid <- svmpredict(
-                          xTrain = subset(xIn, select = incVarMid),
-                          yTrain = yIn,
-                          xTest = subset(xTest, select = incVarMid),
-                          yTest = yTest,
-                          DA = DA,
-                          method = methParam$svmMethod,
-                          kernel = methParam$kernel
-                          #nu=methParam$nu,
-                          #degree=methParam$degree,
-                          #gamma=methParam$gamma
+                        # if (DA)
+                        # {
+                        #   yPredMidR[testIndex] <- svmOutMid$predicted
+                        #   #yPredMidR[testIndex, ] <- svmOutMid$predicted
+                        # } else {
+                        #   yPredMidR[testIndex] <- svmOutMid$predicted
+                        # }
 
-                        )
-
-                        if (DA)
-                        {
-                          yPredMidR[testIndex] <- svmOutMid$predicted
-                          #yPredMidR[testIndex, ] <- svmOutMid$predicted
-                        } else {
-                          yPredMidR[testIndex] <- svmOutMid$predicted
-                        }
-
-                        svmOutMax <- svmpredict(
-                          xTrain = subset(xIn, select = incVarMax),
-                          yTrain = yIn,
-                          xTest = subset(xTest, select = incVarMax),
-                          yTest = yTest,
-                          DA = DA,
-                          method = methParam$svmMethod,
-                          kernel = methParam$kernel
-                          #nu=methParam$nu,
-                          #degree=methParam$degree,
-                          #gamma=methParam$gamma
-
-                        )
-                        if (DA)
-                        {
-                          yPredMaxR[testIndex] <- svmOutMax$predicted
-                          #yPredMaxR[testIndex, ] <- svmOutMax$predicted
-                        } else {
-                          yPredMaxR[testIndex] <- svmOutMax$predicted
-                        }
-                        if (modReturn) {
-                          outMod[[i]] <- list(
-                            svmOutMin = svmOutMin$model,
-                            svmOutMid = svmOutMid$model,
-                            svmOutMax = svmOutMax$model
-                          )
-                        }
+                        # svmOutMax <- svmpredict(
+                        #   xTrain = subset(xIn, select = incVarMax),
+                        #   yTrain = yIn,
+                        #   xTest = subset(xTest, select = incVarMax),
+                        #   yTest = yTest,
+                        #   DA = DA,
+                        #   method = methParam$svmMethod,
+                        #   kernel = methParam$kernel
+                        #   #nu=methParam$nu,
+                        #   #degree=methParam$degree,
+                        #   #gamma=methParam$gamma
+                        #
+                        # )
+                        # if (DA)
+                        # {
+                        #   yPredMaxR[testIndex] <- svmOutMax$predicted
+                        #   #yPredMaxR[testIndex, ] <- svmOutMax$predicted
+                        # } else {
+                        #   yPredMaxR[testIndex] <- svmOutMax$predicted
+                        # }
+                        # if (modReturn) {
+                        #   outMod[[i]] <- list(
+                        #     svmOutMin = svmOutMin$model,
+                        #     svmOutMid = svmOutMid$model,
+                        #     svmOutMax = svmOutMax$model
+                        #   )
+                        # }
 
 
                       } else{
@@ -1763,116 +1779,116 @@ MUVR2 <- function(X,
       rfFitMax = rfFitMax
     )
   } else if (method == "ANN") {
-    #if(DA==FALSE){
-    annFitMin <-
-      suppressWarnings(
-        annpredict(
-          xTrain = subset(X, select = incVarMin),
-          yTrain = Y,
-          DA = DA,
-          nodes = methParam$nodes,
-          threshold = methParam$threshold,
-          stepmax = methParam$stepmax,
-          method = methParam$annMethod
-        )
-      )
-    yFitMin <- annFitMin$fit
 
-    annFitMid <-
-      suppressWarnings(
-        annpredict(
-          xTrain = subset(X, select = incVarMid),
-          yTrain = Y,
-          DA = DA,
-          nodes = methParam$nodes,
-          threshold = methParam$threshold,
-          stepmax = methParam$stepmax,
-          method = methParam$annMethod
-        )
-      )
-    yFitMid <- annFitMid$fit
-
-    annFitMax <-
-      suppressWarnings(
-        annpredict(
-          xTrain = subset(X, select = incVarMax),
-          yTrain = Y,
-          DA = DA,
-          nodes = methParam$nodes,
-          threshold = methParam$threshold,
-          stepmax = methParam$stepmax,
-          method = methParam$annMethod
-        )
-      )
-    yFitMax <- annFitMax$fit
-
-    yFit <- cbind(yFitMin, yFitMid, yFitMax)
-    yRep <- ncol(yFit) / 3
-    colnames(yFit) <- rep(c('min', 'mid', 'max'), each = yRep)
-    rownames(yFit) <- ID
-    modelReturn$Fit <- list(
-      yFit = yFit,
-      annFitMin = annFitMin,
-      annFitMid = annFitMid,
-      annFitMax = annFitMax
-    )
+    # annFitMin <-
+    #   suppressWarnings(
+    #     annpredict(
+    #       xTrain = subset(X, select = incVarMin),
+    #       yTrain = Y,
+    #       DA = DA,
+    #       nodes = methParam$nodes,
+    #       threshold = methParam$threshold,
+    #       stepmax = methParam$stepmax,
+    #       method = methParam$annMethod
+    #     )
+    #   )
+    # yFitMin <- annFitMin$fit
+    #
+    # annFitMid <-
+    #   suppressWarnings(
+    #     annpredict(
+    #       xTrain = subset(X, select = incVarMid),
+    #       yTrain = Y,
+    #       DA = DA,
+    #       nodes = methParam$nodes,
+    #       threshold = methParam$threshold,
+    #       stepmax = methParam$stepmax,
+    #       method = methParam$annMethod
+    #     )
+    #   )
+    # yFitMid <- annFitMid$fit
+    #
+    # annFitMax <-
+    #   suppressWarnings(
+    #     annpredict(
+    #       xTrain = subset(X, select = incVarMax),
+    #       yTrain = Y,
+    #       DA = DA,
+    #       nodes = methParam$nodes,
+    #       threshold = methParam$threshold,
+    #       stepmax = methParam$stepmax,
+    #       method = methParam$annMethod
+    #     )
+    #   )
+    # yFitMax <- annFitMax$fit
+    #
+    # yFit <- cbind(yFitMin, yFitMid, yFitMax)
+    # yRep <- ncol(yFit) / 3
+    # colnames(yFit) <- rep(c('min', 'mid', 'max'), each = yRep)
+    # rownames(yFit) <- ID
+    # modelReturn$Fit <- list(
+    #   yFit = yFit,
+    #   annFitMin = annFitMin,
+    #   annFitMid = annFitMid,
+    #   annFitMax = annFitMax
+    # )
 
   } else if (method == "SVM") {
-    svmFitMin <-
-      suppressWarnings(
-        svmpredict(
-          xTrain = subset(X, select = incVarMin),
-          yTrain = Y,
-          DA = DA,
-          method = methParam$svmMethod,
-          kernel = methParam$kernel,
-          #nu=methParam$nu,
-          #degree=methParam$degree,
-          #gamma=methParam$gamma
-        )
-      )
-    yFitMin <- svmFitMin$fit
-
-    svmFitMid <-
-      suppressWarnings(
-        svmpredict(
-          xTrain = subset(X, select = incVarMid),
-          yTrain = Y,
-          DA = DA,
-          method = methParam$svmMethod,
-          kernel = methParam$kernel,
-          #nu=methParam$nu,
-          #degree=methParam$degree,
-          #gamma=methParam$gamma
-        )
-      )
-    yFitMid <- svmFitMid$fit
-
-    svmFitMax <-
-      suppressWarnings(
-        svmpredict(
-          xTrain = subset(X, select = incVarMax),
-          yTrain = Y,
-          DA = DA,
-          method = methParam$svmMethod,
-          kernel = methParam$kernel,
-          #nu=methParam$nu,
-          #degree=methParam$degree,
-          #gamma=methParam$gamma
-        )
-      )
-    yFitMax <- svmFitMax$fit
-
-    yFit <- cbind(yFitMin, yFitMid, yFitMax)
-    yRep <- ncol(yFit) / 3
-    colnames(yFit) <- rep(c('min', 'mid', 'max'), each = yRep)
-    rownames(yFit) <- ID
-    modelReturn$Fit <- list(
-      yFit = yFit,
-      svmFitMin = svmFitMin,
-      svmFitMid = svmFitMid,
-      svmFitMax = svmFitMax
-    )
+    # svmFitMin <-
+    #   suppressWarnings(
+    #     svmpredict(
+    #       xTrain = subset(X, select = incVarMin),
+    #       yTrain = Y,
+    #       DA = DA,
+    #       method = methParam$svmMethod,
+    #       kernel = methParam$kernel,
+    #       #nu=methParam$nu,
+    #       #degree=methParam$degree,
+    #       #gamma=methParam$gamma
+    #     )
+    #   )
+    # yFitMin <- svmFitMin$fit
+    #
+    # svmFitMid <-
+    #   suppressWarnings(
+    #     svmpredict(
+    #       xTrain = subset(X, select = incVarMid),
+    #       yTrain = Y,
+    #       DA = DA,
+    #       method = methParam$svmMethod,
+    #       kernel = methParam$kernel,
+    #       #nu=methParam$nu,
+    #       #degree=methParam$degree,
+    #       #gamma=methParam$gamma
+    #     )
+    #   )
+    # yFitMid <- svmFitMid$fit
+    #
+    # svmFitMax <-
+    #   suppressWarnings(
+    #     svmpredict(
+    #       xTrain = subset(X, select = incVarMax),
+    #       yTrain = Y,
+    #       DA = DA,
+    #       method = methParam$svmMethod,
+    #       kernel = methParam$kernel,
+    #       #nu=methParam$nu,
+    #       #degree=methParam$degree,
+    #       #gamma=methParam$gamma
+    #     )
+    #   )
+    # yFitMax <- svmFitMax$fit
+    #
+    # yFit <- cbind(yFitMin, yFitMid, yFitMax)
+    # yRep <- ncol(yFit) / 3
+    # colnames(yFit) <- rep(c('min', 'mid', 'max'), each = yRep)
+    # rownames(yFit) <- ID
+    # modelReturn$Fit <- list(
+    #   yFit = yFit,
+    #   svmFitMin = svmFitMin,
+    #   svmFitMid = svmFitMid,
+    #   svmFitMax = svmFitMax
+    # )
   }
   else{
     stop ('Other ML methods not implemented')

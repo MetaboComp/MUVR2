@@ -28,7 +28,7 @@ rfInner <- function(xTrain,
                     weighing_matrix) {
   # Allocate return object
   returnIn <- list()
-  library(randomForest)
+  #library(randomForest)
   if (missing(method)) {
     method <- "randomForest"
   }

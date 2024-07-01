@@ -47,3 +47,15 @@ A PLS biplot
 \description{
 PLS biplot:  Makes a biplot of a fitted object (e.g. from a MUVR with PLS core)
 }
+\examples{
+nRep <- 2 # Number of MUVR2 repetitions
+nOuter <- 3 # Number of outer cross-validation segments
+varRatio <- 0.75 # Proportion of variables kept per iteration
+method <- 'PLS' # Selected core modeling algorithm
+regrModel <- MUVR2(X = XRVIP2,
+                  Y = YR2,
+                  nRep = nRep,
+                  nOuter = nOuter,
+                  method = method)
+biplotPLS(regrModel$Fit[[2]])
+}

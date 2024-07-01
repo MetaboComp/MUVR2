@@ -14,6 +14,16 @@
 #' @param logg Logical for whether to sink model progressions to `log.txt`
 #' @return An object containing stuff...
 #' @export
+#' @examples
+#' nRep <- 2 # Number of MUVR2 repetitions
+#' nOuter <- 3 # Number of outer cross-validation segments
+#' varRatio <- 0.75 # Proportion of variables kept per iteration
+#' method <- 'RF' # Selected core modeling algorithm
+#' regrModel <- rdCV(X = XRVIP2,
+#'                   Y = YR2,
+#'                   nRep = nRep,
+#'                   nOuter = nOuter,
+#'                   method = method)
 
 rdCV <- function(X,
                  Y,
@@ -29,7 +39,7 @@ rdCV <- function(X,
                  modReturn = FALSE,
                  logg = FALSE) {
   ### Code adapted from MVWrap - Brokenness and oddities are most likely due to this
-  library(pROC)
+  #library(pROC)
   # Initialize modelReturn with function call
   modelReturn <- list(call = match.call())
   # Start timer
@@ -61,9 +71,9 @@ rdCV <- function(X,
     method <- 'RF'
   }
   if (method == 'RF') {
-    library(randomForest)
+    #library(randomForest)
   } else {
-    library(mixOmics)
+    #library(mixOmics)
   }
 
 

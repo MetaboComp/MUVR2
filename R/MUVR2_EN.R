@@ -24,9 +24,26 @@
 ## @param percent_smoothcurve If select_variables_by smoothcurve, then it is robust
 ## @param Var_option quantile or smoothcurve
 #' @param ... This is to pass in other argument
-#' @import splines glmnet pROC magrittr foreach
+#' @import splines glmnet pROC magrittr foreach doParallel graphics parallel
+#' @importFrom randomForest randomForest
+#' @importFrom ranger ranger
+#' @importFrom grDevices colorRampPalette dev.off png
+#' @importFrom mgcv predict.gam
+#' @importFrom magrittr %>%
+#' @importFrom dplyr filter mutate select
+#' @importFrom stats as.dist coef coefficients cor density dt ecdf hclust heatmap lm loess median predict pt quantile resid sd
 #' @return A MUVR object
 #' @export
+#' @examples
+#' data(freelive2)
+#' nRep <- 2 # Number of MUVR2 repetitions
+#' nOuter <- 4 # Number of outer cross-validation segments
+#' method <- 'PLS' # Selected core modeling algorithm
+#' regrModel <- MUVR2_EN(X = XRVIP2,
+#' Y = YR2,
+#' nRep = nRep,
+#' nOuter = nOuter,
+#' method = "RF")
 MUVR2_EN <- function(X,
                     ## X should be a dataframe
                     Y,
@@ -55,6 +72,10 @@ MUVR2_EN <- function(X,
                     #    percent_smoothcurve=0.05,
                     #    Var_option=c("quantile","smoothcurve"),
                     ...) {
+
+  if(dim(X)[1]!=length(Y)){
+    stop("The X and Y should have same number of observations")
+  }
   if (is.null(weighing_matrix) & DA == TRUE) {
     weighing_matrix <- diag(1, length(levels(Y)), length(levels(Y)))
   }

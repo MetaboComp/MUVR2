@@ -10,6 +10,9 @@
 #' @param ... Additional arguments(see MUVR)
 #' @return MUVR object
 #' @export
+#' @examples
+#' regrModel <- MUVR2(X = XRVIP2,
+#' Y = YR2)
 qMUVR2 <- function(X,
                   Y,
                   ML = FALSE,
@@ -19,8 +22,7 @@ qMUVR2 <- function(X,
                   repMult = 1,
                   nOuter = 5,
                   ...) {
-  library(doParallel)
-  library(MUVR)
+  #library(doParallel)
   if (missing(nCore)) {
     nCore <- detectCores() - 1
   }

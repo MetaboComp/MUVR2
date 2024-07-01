@@ -17,3 +17,19 @@ A confusion matrix of actual vs predicted class
 \description{
 Make a confusion matrix from a MUVR object
 }
+\examples{
+nRep <- 2 # Number of MUVR2 repetitions
+nOuter <- 3 # Number of outer cross-validation segments
+varRatio <- 0.75 # Proportion of variables kept per iteration
+method <- 'RF' # Selected core modeling algorithm
+classModel <- MUVR2(
+  X = Xotu,
+  Y = Yotu,
+  nRep = nRep,
+  nOuter = nOuter,
+  varRatio = varRatio,
+  method = method
+)
+confusionMatrix(classModel)
+
+}

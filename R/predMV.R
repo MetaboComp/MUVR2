@@ -26,9 +26,9 @@ predMV <- function(MUVRclassobject,
     nComps <-
       MUVRclassobject$nCompPerSeg[[modNum]]  ###row is repetition, column is outer segment
   } else if (method == "RF") {
-    library(randomForest)
+    #library(randomForest)
   } else {
-    library(glmnet)
+    #library(glmnet)
   }
   #par(mar=c(4,4,0,0)+.5)
   #####################################

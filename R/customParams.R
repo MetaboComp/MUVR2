@@ -27,7 +27,7 @@
 #' # Standard parameters for random forest
 #' methParam <- customParams() # or
 #' methParam <- customParams('RF')
-#' # Custom `ntreeOut` parameters for random forest
+#' # Custom ntreeOut parameters for random forest
 #' methParam <- customParams('RF',ntreeOut=50) # or
 #' methParam <- customParams('RF')
 #' methParam$ntreeOut <- 50

@@ -607,7 +607,7 @@ H0_test <- function(MUVRclassObject,
           }      ##sample(x, size, replace = FALSE, prob = NULL)
           ## default for size is the number of items inferred from the first argument,
           if (method != "rdCVnet") {
-            permMod <- MUVR_EN(
+            permMod <- MUVR2_EN(
               X = X,
               Y = YPerm,
               ID = ID,

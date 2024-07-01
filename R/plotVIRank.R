@@ -5,7 +5,8 @@
 #' @param cut Optional value to cut length of variable names to `cut` number of characters
 #' @param model Which model to choose ('min', 'mid' {default} or 'max')
 #' @param maptype for rdCvnet dot plot or heat map
-#' @param add_blank put more blank when the rownames is too long
+#' @param add_blank put more blank when the rownames is too long,
+#' @param cextext the cex of the text
 #' @return Barplot of variable rankings (lower is better)
 #' @export
 plotVIRank <- function(MUVRclassObject,
@@ -223,7 +224,9 @@ plotVIRank <- function(MUVRclassObject,
       axes = FALSE,
       ### Do not add any axes
       col = col,
-      xlab = "Variable Importance"
+      xlab = "Variable Importance",
+      cex.axis = cextext,
+      cex.lab = cextext
     )                                 ###when outside n it is grey,  inside it is yellow
     axis(1)                                         ###manually add x axis
     labels <- rownames(VIRankRep)                    ##add labels

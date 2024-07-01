@@ -31,8 +31,7 @@ H0_reference <- function(Y,
 
   Ref <- numeric(n)
   for (p in 1:n) {
-    Y_new <-
-      StatTools::sampling_from_distribution(Y) # More clever sampling ;)
+    Y_new <- sampling_from_distribution(Y) # More clever sampling ;)
 
     if (fitness == "Q2") {
       Ref[p] <- Q2_calculation(Y_new, Y)

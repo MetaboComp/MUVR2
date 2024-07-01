@@ -12,6 +12,8 @@ Description: This is a package dedicated to predictive multivariate modelling fo
 Depends:
     R (>= 3.2.2)
 Imports:
+    stats,
+    graphics,
     randomForest,
     ranger,
     pROC,
@@ -20,8 +22,11 @@ Imports:
     caret,
     glmnet,
     splines,
+    dplyr,
     magrittr,
-    mgcv
+    mgcv,
+    grDevices,
+    parallel
 License: GPL-3
 LazyData: true
 RoxygenNote: 7.3.1
