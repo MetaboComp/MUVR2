@@ -7,6 +7,10 @@
 #' @param missLim Option of specifying upper limit for number of misclassifications
 #' @return Plot of number of variables, proportion of variables overlapping with reference and prediction accuracy (Q2 for regression; MISS otherwise) as a function of number of repetitions.
 #' @export
+#' @examples
+#' \dontrun{
+#'
+#' }
 plotStability <- function(MUVRrdCVclassObject,
                           model = 'min',
                           VAll,

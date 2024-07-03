@@ -21,3 +21,11 @@ miss classification
 \description{
 get the number of miss classifications from classification analysis
 }
+\examples{
+\dontrun{
+data("mosquito")
+actual <- Yotu
+predicted <- sampling_from_distribution(actual)
+getMISS(actual, predicted)
+}
+}

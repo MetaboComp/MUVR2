@@ -32,3 +32,9 @@ A pre-processed data matrix
 \description{
 Perform matrix pre-processing
 }
+\examples{
+\dontrun{
+data("freelive2")
+preProcess(XRVIP2)
+}
+}

@@ -13,8 +13,22 @@
 #' @return An object containing:
 #' @return (`miss`, `auc` or `rmsep`) A fitness metric
 #' @return `virank` variable importance rankings
-#' @export
-#'
+#' @examples
+#' \dontrun{
+#' xTrain<-XRVIP2[1:40,]
+#' yTrain<-YR2[1:40]
+#' xVal<-XRVIP2[41:nrow(XRVIP2),]
+#' yVal<-YR2[41:length(YR2)]
+#' rfInner_object<-
+#'   rfInner(xTrain=xTrain,
+#'           yTrain=yTrain,
+#'           xVal=xVal,
+#'           yVal=yVal,
+#'           mtry=150,
+#'           ntree=150,
+#'           fitness="RMSEP")
+#' }
+#' @noRd
 rfInner <- function(xTrain,
                     yTrain,
                     xVal,

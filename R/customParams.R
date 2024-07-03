@@ -24,6 +24,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Standard parameters for random forest
 #' methParam <- customParams() # or
 #' methParam <- customParams('RF')
@@ -32,6 +33,7 @@
 #' methParam <- customParams('RF')
 #' methParam$ntreeOut <- 50
 #' methParam
+#' }
 customParams <- function(method = c('RF', 'PLS', "SVM", "ANN"),
                          robust = 0.05,
                          ntreeIn = 150,

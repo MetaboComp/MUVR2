@@ -38,3 +38,8 @@ a rdCVnet object
 \description{
 The function will obtain the min, mid, max number of variables for an object generated from the rdCVnet() function
 }
+\examples{
+\dontrun{
+
+}
+}

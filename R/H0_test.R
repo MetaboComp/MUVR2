@@ -13,7 +13,10 @@
 #' @param type Either permutation or resampling, To decide the permutation sampling is performed on original Y values or the probability(If Y categorical)/distributions(If Y continuous) of Y values
 #' @return  permutation_output: A permutation matrix with permuted fitness statistics (nrow=n and ncol=3 for min/mid/max)
 #' @export
-
+#' @examples
+#' \dontrun{
+#'
+#' }
 
 H0_test <- function(MUVRclassObject,
                     n = 50,

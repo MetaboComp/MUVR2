@@ -4,11 +4,18 @@
 #' @param sequence default as F, if T normal factor
 #' @return X_factor
 #' @export
-#'
-#'
+#' @examples
+#' \dontrun{
+#' data("mosquito")
+#' Yotu2<-factor(Yotu,levels=c("VK5","VK7","VK3"))
+#' factor_samesequence(Yotu)
+#' }
 factor_samesequence <- function(X,
                                 level,
                                 sequence) {
+  if(!is.factor(X)){
+    warning("The input needs to be a factor variable")
+  }
   if (missing(level)) {
     if (missing(sequence)) {
       sequence <- FALSE

@@ -37,3 +37,10 @@ a plsdaMUVR object
 PLS-DA
 Adapted and stripped down from mixOmics v 5.2.0 (https://cran.r-project.org/web/packages/mixOmics/)
 }
+\examples{
+\dontrun{
+plsda(Xotu,
+      Yotu)
+)
+}
+}

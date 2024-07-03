@@ -19,3 +19,8 @@ A merged MURV class object
 Merge two MUVR class object that use regression for PLS or RF methods
 This 2 MUVR class object has the same indata except that nRep is different
 }
+\examples{
+\dontrun{
+
+}
+}

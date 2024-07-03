@@ -7,6 +7,11 @@
 #' @param scale Either 'UV', 'Pareto', 'none' or a numeric vector of length equal to the number of columns of X (defaults to 'none').
 #' @return A pre-processed data matrix
 #' @export
+#' @examples
+#' \dontrun{
+#' data("freelive2")
+#' preProcess(XRVIP2)
+#' }
 preProcess <- function(X,
                       offset = 0,
                       zeroOffset = 0,

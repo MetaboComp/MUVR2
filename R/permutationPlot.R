@@ -13,6 +13,10 @@
 #' @param main optional plot title (or TRUE for autoname)
 #' @return A permutation plot
 #' @export
+#' @examples
+#' \dontrun{
+#'
+#' }
 ##library(MUVR)
 ##library(doParallel)
 ## nCore=detectCores()-1

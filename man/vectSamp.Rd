@@ -21,3 +21,9 @@ Sampling of a vector
 Random sampling of a vector into n groups
 Bug: Sampling is faulty when length(vect) < n
 }
+\examples{
+\dontrun{
+data(mosquito)
+vectSamp(Yotu)
+}
+}

@@ -4,12 +4,16 @@
 #'@param minmidmax minmidmax
 #'@export
 #'@return Q2
-# a<-MUVR2(Xotu[1:13,],factor(Yotu[1:13]),method="PLS",DA=T,modReturn = T)
-# classification_prediction_matrix<-a$yPred$min
-# y<-as.factor(as.character(Yotu[1:13]))
-# b<-MUVR2(Xotu,factor(Yotu),method="PLS",DA=T,modReturn = T)
-# classification_prediction_matrix<-b$yPred$min
-# y<-as.factor(as.character(Yotu))
+#' @examples
+#' \dontrun{
+#' a<-MUVR2(Xotu[1:13,],factor(Yotu[1:13]),method="PLS",DA=T,modReturn = T)
+#' classification_prediction_matrix<-a$yPred$min
+#' y<-as.factor(as.character(Yotu[1:13]))
+#' b<-MUVR2(Xotu,factor(Yotu),method="PLS",DA=T,modReturn = T)
+#' classification_prediction_matrix<-b$yPred$min
+#' y<-as.factor(as.character(Yotu))
+#' }
+
 
 Q2_calculation_forclassification <-
   function(classification_prediction_matrix,

@@ -19,3 +19,10 @@ X_factor
 \description{
 factor_samesequence: This function is to change the order of items in the levels of a factor variable
 }
+\examples{
+\dontrun{
+data("mosquito")
+Yotu2<-factor(Yotu,levels=c("VK5","VK7","VK3"))
+factor_samesequence(Yotu)
+}
+}

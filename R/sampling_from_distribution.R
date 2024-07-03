@@ -7,7 +7,16 @@
 #'@param n How many you want to sample
 #'@export
 #'@return a resampled thing
-
+#' @examples
+#' \dontrun{
+#' data(mosquito)
+#' sampling_from_distribution(Yotu)
+#' data(freelive2)
+#' sampling_from_distribution(YR2,
+#' upperlimit=200,
+#' lowerlimit=0,
+#' n=length(YR2))
+#' }
 sampling_from_distribution <- function(X,
                                        upperlimit,
                                        lowerlimit,
@@ -17,45 +26,54 @@ sampling_from_distribution <- function(X,
     n <- length(X)
   }
   if (is.numeric(X)) {
+
+
+    if(!missing(upperlimit)&!missing(extend)){
+      warning("The upper boundary is the smallest value between upperlimit and the upper value generated from extend argument")
+    }
+
+    if(!missing(lowerlimit)&!missing(extend)){
+      warning("The lower boundary is the largest value between lowerlimit and the lower value generated from extend argument")
+    }
+
     if (missing(extend)) {
       extend <- 0.05 * (max(X) - min(X))
     }
     from <- min(X) - extend
     to <- max(X) + extend
-    if (missing(upperlimit)) {
-      upperlimit <- to
-    }
     if (missing(lowerlimit)) {
       lowerlimit <- from
     }
-    if (upperlimit - lowerlimit <= 0) {
-      stop("Dude, upperlimit should be higher than lower limit")
+    if (missing(upperlimit)) {
+      upperlimit <- to
     }
     if (from < lowerlimit) {
       from <- lowerlimit
     }
-    if (to > lowerlimit) {
+    if (to > upperlimit) {
       to <- upperlimit
     }
     denss <- density(
       x = X,
       from = from,
       to = to,
-      n = 10000
+      n = 100000
     )
     dataPerm <- sample(x = denss$x,
                        prob = denss$y,
-                       size = n,)
+                       size = n,
+                       replace=T)
   }
   if (is.factor(X)) {
-    dataPerm <- factor_samesequence(sample(
+    dataPerm <- factor_samesequence(
+      factor(
+      sample(
       levels(factor_samesequence(X)),
       ##when ML is TRUE, DA =FALSE
       size = n,
       replace = TRUE,
-      prob = table(factor_samesequence(X)) /
-        length(X)
-    ))
+      prob = table(factor_samesequence(X)) /length(X)
+    )))
     dataPerm <- factor(dataPerm, levels = levels(X))
   }
 

@@ -6,8 +6,13 @@
 #' @param scale scale in MUVR
 #' @param ... other argument
 #' @return pls prediction
-#' @export
-#'
+#' @examples
+#' \dontrun{
+#' data(freelive2)
+#' object<-pls(XRVIP2,YR2)
+#' predict(object,XRVIP2)
+#' }
+#' @noRd
 predict.plsMUVR <- function(object,
                             newdata,
                             onlyPred = FALSE,
@@ -170,7 +175,13 @@ predict.plsMUVR <- function(object,
 #' @param ... other arguments
 #' @param scale scale in MUVR
 #' @return plsda predictions
-#' @export
+#' @examples
+#' \dontrun{
+#' data(mosquito)
+#' object<-plsda(Xotu,Yotu)
+#' predict(object,Xotu)
+#' }
+#' @noRd
 predict.plsdaMUVR <- function(object,
                               newdata,
                               scale = TRUE,

@@ -11,7 +11,8 @@ plotVIRank(
   model = "min",
   cut,
   maptype = c("heatmap", "dotplot"),
-  add_blank = 4
+  add_blank = 4,
+  cextext = 1
 )
 }
 \arguments{
@@ -25,7 +26,9 @@ plotVIRank(
 
 \item{maptype}{for rdCvnet dot plot or heat map}
 
-\item{add_blank}{put more blank when the rownames is too long}
+\item{add_blank}{put more blank when the rownames is too long,}
+
+\item{cextext}{the cex of the text}
 }
 \value{
 Barplot of variable rankings (lower is better)
@@ -33,4 +36,9 @@ Barplot of variable rankings (lower is better)
 \description{
 Plots variable importance ranking in MUVR object
 Regardless of MV core method, variables are sorted by rank, where lower is better. `plotVIRank` produces boxplots of variable rankings for all model repetitions.
+}
+\examples{
+\dontrun{
+
+}
 }

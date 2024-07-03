@@ -1,5 +1,5 @@
 test_that("MUVR2_EN works", {
-
+data("mosquito")
   nRep <- 2 # Number of MUVR2 repetitions
   nOuter <- 4 # Number of outer cross-validation segments
   method <- 'RF' # Selected core modeling algorithm

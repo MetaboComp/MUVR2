@@ -5,6 +5,10 @@
 #' @param model What type of model to plot ('min', 'mid' or 'max'). Defaults to 'mid'.
 #' @return A pdf with plots of results from multivariate predictions
 #' @export
+#' @examples
+#' \dontrun{
+#'
+#' }
 predMV <- function(MUVRclassobject,
                    newdata,
                    model = 'min') {

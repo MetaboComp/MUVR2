@@ -45,3 +45,8 @@ However, if an analysis has a complex sample dependency which requires constrain
 or if a variable pre-selection is performed for decreased computational burden, then permutaion/resampling loops should be constructed manually.
 In those cases, View(H0_test) can be a first start from which to build custom solutions for permutation analysis.
 }
+\examples{
+\dontrun{
+
+}
+}

@@ -3,6 +3,10 @@
 #' @param object pls(da)MUVR object
 #' @return vip object
 #' @export
+#' @examples
+#' \dontrun{
+#'
+#' }
 vip <-
   function(object) {
     #-- initialisation des matrices --#

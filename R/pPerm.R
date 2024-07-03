@@ -9,6 +9,14 @@
 #' @param extend extend how much it extend
 #' @return p-value
 #' @export
+#' @examples
+#' \dontrun{
+#' data("freelive2")
+#' set.seed(1)
+#' actual <- sample(YR2, 1)
+#' permutation_distribution <- YR2
+#' pPerm(actual, permutation_distribution)
+#' }
 pPerm <- function(actual,
                   ###a value
                   permutation_distribution,

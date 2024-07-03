@@ -37,3 +37,11 @@ a plsMUVR object
 PLS regression
 Adapted and stripped down from mixOmics v 5.2.0 (https://cran.r-project.org/web/packages/mixOmics/)
 }
+\examples{
+\dontrun{
+data(freelive2)
+pls(XRVIP2,
+YR2)
+
+}
+}

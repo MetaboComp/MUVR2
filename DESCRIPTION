@@ -23,6 +23,7 @@ Imports:
     glmnet,
     splines,
     dplyr,
+    psych,
     magrittr,
     mgcv,
     grDevices,

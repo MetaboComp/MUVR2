@@ -8,8 +8,10 @@
 #' @return a `methParam` object
 #' @export
 #' @examples
+#' \dontrun{
 #' # Standard parameters for rdcvNet
 #' methParam <- rdcvNetParams()
+#' }
 rdcvNetParams <- function(robust = 0.05,
                           family = 'gaussian',
                           nRepInner = 1,

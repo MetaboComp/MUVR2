@@ -17,3 +17,11 @@ rmsep
 \description{
 get rmsep for regression
 }
+\examples{
+\dontrun{
+data("mosquito")
+actual <- YR2
+predicted <- sampling_from_distribution(actual)
+get_rmsep(actual, predicted)
+}
+}

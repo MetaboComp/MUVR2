@@ -4,7 +4,10 @@
 #' @param show_outlier deciding show outlier on the information of not
 #' @return A plot
 #' @export
-## my data assumed as exp(x) and x
+#' @examples
+#' \dontrun{
+#'
+#' }
 plotVAL <- function(MUVRclassObject,
                     show_outlier=T) {
   if (class(MUVRclassObject)[1] != "MUVR") {

@@ -35,3 +35,12 @@ Calculate permutation p-value of actual model performance vs null hypothesis dis
 Side is guessed by actual value compared to median(permutation_distribution).
 Test is performed on original data OR ranked for non-parametric statistics.
 }
+\examples{
+\dontrun{
+data("freelive2")
+set.seed(1)
+actual <- sample(YR2, 1)
+permutation_distribution <- YR2
+pPerm(actual, permutation_distribution)
+}
+}

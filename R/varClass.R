@@ -4,7 +4,10 @@
 #' @return A list with names and numbers of variables: all as well as Optimal (Corresponding to 'min' or minial-optimal model),
 #' Redundant (from 'min' up to 'max' or all-relevant ) and Noisy (the rest)
 #' @export
+#' @examples
+#' \dontrun{
 #'
+#' }
 ############################################################################
 #Change MVObject to MUVRclassObject
 #

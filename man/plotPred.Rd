@@ -16,3 +16,11 @@ plotPred(Ytrue, Ypreds)
 Plot predictions
 At present, this function only supports predictions for PLS regression type problems
 }
+\examples{
+\dontrun{
+data("freelive2")
+Ytrue<-YR2
+Ypreds<-sampling_from_distribution(YR2)
+plotPred(Ytrue,Ypreds)
+}
+}

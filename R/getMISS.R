@@ -5,6 +5,14 @@
 #' @param weighing_matrix The matrix used for get a miss classfication score
 #' @return miss classification
 #' @export
+#' @examples
+#' \dontrun{
+#' data("mosquito")
+#' actual <- Yotu
+#' predicted <- sampling_from_distribution(actual)
+#' getMISS(actual, predicted)
+#' }
+
 getMISS <- function (actual,
                      predicted,
                      weigh_added = FALSE,

@@ -9,6 +9,13 @@
 #' @param scale scale
 #' @return a plsdaMUVR object
 #' @export
+#' @examples
+#' \dontrun{
+#' plsda(Xotu,
+#'       Yotu)
+#' )
+#' }
+
 plsda <- function(x,
                   y,
                   ncomp = 2,

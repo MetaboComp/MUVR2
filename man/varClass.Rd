@@ -18,3 +18,8 @@ Redundant (from 'min' up to 'max' or all-relevant ) and Noisy (the rest)
 Report variables belonging to different classes
 Reports names and numbers of variables: all as well as Optimal (min model), redundant (from min up to max) and noisy (the rest)
 }
+\examples{
+\dontrun{
+
+}
+}

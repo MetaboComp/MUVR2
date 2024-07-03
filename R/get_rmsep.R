@@ -4,7 +4,13 @@
 #'
 #' @return rmsep
 #' @export
-
+#' @examples
+#' \dontrun{
+#' data("mosquito")
+#' actual <- YR2
+#' predicted <- sampling_from_distribution(actual)
+#' get_rmsep(actual, predicted)
+#' }
 get_rmsep <- function(actual,
                       predicted) {
   value <-

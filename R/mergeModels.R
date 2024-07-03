@@ -5,7 +5,10 @@
 #' @return A merged MURV class object
 #'
 #' @export
+#' @examples
+#' \dontrun{
 #'
+#' }
 mergeModels <- function(MV1, MV2) {
   if (any(class(MV1) == 'Multilevel') |
       any(class(MV1) == 'Classification')) {

@@ -18,6 +18,7 @@ A confusion matrix of actual vs predicted class
 Make a confusion matrix from a MUVR object
 }
 \examples{
+\dontrun{
 nRep <- 2 # Number of MUVR2 repetitions
 nOuter <- 3 # Number of outer cross-validation segments
 varRatio <- 0.75 # Proportion of variables kept per iteration
@@ -31,5 +32,5 @@ classModel <- MUVR2(
   method = method
 )
 confusionMatrix(classModel)
-
+}
 }

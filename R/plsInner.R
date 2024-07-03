@@ -14,7 +14,21 @@
 #' @return (`miss`, `auc` or `rmsep`) A fitness metric
 #' @return `nComp` Optimised number of components within range (1:comp)
 #' @return `virank` variable importance rankings
-#' @export
+#' @examples
+#' \dontrun{
+#' data("freelive2")
+#' xTrain<-XRVIP2[1:40,]
+#' yTrain<-YR2[1:40]
+#' xVal<-XRVIP2[41:nrow(XRVIP2),]
+#' yVal<-YR2[41:length(YR2)]
+#' plsInner_object<-
+#'   plsInner(xTrain=xTrain,
+#'            yTrain=yTrain,
+#'            xVal=xVal,
+#'            yVal=yVal,
+#'            fitness="RMSEP")
+#' }
+#' @noRd
 plsInner <- function(xTrain,
                      yTrain,
                      xVal,

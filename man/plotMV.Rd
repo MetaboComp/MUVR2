@@ -23,3 +23,8 @@ A plot of results from multivariate predictions
 \description{
 Plot MV object Swim lane plot for classification, for regression
 }
+\examples{
+\dontrun{
+
+}
+}

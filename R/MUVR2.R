@@ -23,6 +23,7 @@
 #' @return A 'MUVR' object
 #' @export
 #' @examples
+#' \dontrun{
 #' data(freelive2)
 #' nRep <- 2 # Number of MUVR2 repetitions
 #' nOuter <- 3 # Number of outer cross-validation segments
@@ -34,6 +35,7 @@
 #' nOuter = nOuter,
 #' varRatio = varRatio,
 #' method = "RF")
+#' }
 
 MUVR2 <- function(X,
                  Y,
@@ -727,7 +729,7 @@ MUVR2 <- function(X,
 
                           # Make inner model
                           if (method == 'PLS') {
-                            inMod <- MUVR2::plsInner(
+                            inMod <- plsInner(
                               xTrain,
                               yTrain,
                               xVal,

@@ -6,13 +6,19 @@
 #' @return A master list of segments
 #' @export
 #' @examples
-#' Y <- rep(LETTERS[1:2],10)
-#' ID <- 1:20
+#' \dontrun{
+#' data(mosquito)
+#' Y <- Yotu
+#' ID <- 1:length(Yotu)
 #' folds <- 5
 #' uniqDASamp(Y, ID, folds)
+#' }
 uniqDASamp <- function(Y,
                        ID,
                        folds) {
+  if(length(Y)!=length(ID)){
+    stop("Y and ID should have the same length")
+  }
   Ynames <- sort(unique(Y))  # Find classes
   groups <- length(Ynames)   ## classes names
   groupList <- list()

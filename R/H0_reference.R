@@ -5,11 +5,18 @@
 #' @param ... some more argument for sampling frm distribution
 #' @return  a histogram of reference distribution
 #' @export
-
+#' @examples
+#' \dontrun{
+#' data("freelive2")
+#' H0_reference(YR2)
+#' }
 H0_reference <- function(Y,
                          n = 1000,
                          fitness = c("Q2", "BER", "MISS", "AUROC"),
                          ...) {
+  if(is.atomic(Y)==F){
+    stop("The input must be an vector")
+  }
   if (missing(fitness)) {
     if (is.factor(Y) | is.character(Y) | is.logical(Y)) {
       fitness <- "BER"

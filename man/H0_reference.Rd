@@ -21,3 +21,9 @@ a histogram of reference distribution
 \description{
 make reference distribution for resampling tests/permutation tests
 }
+\examples{
+\dontrun{
+data("freelive2")
+H0_reference(YR2)
+}
+}

@@ -72,3 +72,12 @@ Plot for comparison of actual model fitness vs permutation/resampling
 Plots histogram of null hypothesis (permutation/resampling) distribution, actual model fitness and cumulative p-value.
 Plot defaults to "greater than" or "smaller than" tests and cumulative probability in Student's t-distribution
 }
+\examples{
+\dontrun{
+data("freelive2")
+set.seed(1)
+actual <- sample(YR2, 1)
+distribution <- YR2
+plotPerm (actual, permutation_distribution)
+}
+}

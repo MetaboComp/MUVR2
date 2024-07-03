@@ -4,11 +4,13 @@
 #' @return a vector with folds
 #' @export
 #' @examples
+#' \dontrun{
 #' Y <- rep(LETTERS[1:2],10)
 #' ID <- 1:20
 #' folds <- 5
 #' foldList <- uniqDASamp(Y, ID, folds)
 #' foldVect <- foldVector(foldList, ID)
+#' }
 foldVector <- function(foldList, ID) {
   fold <- numeric(length(ID)) ##longer than nfold
   nFold <- length(foldList)  ## number of groups

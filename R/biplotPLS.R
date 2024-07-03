@@ -13,16 +13,18 @@
 #' @return A PLS biplot
 #' @export
 #' @examples
-#'nRep <- 2 # Number of MUVR2 repetitions
-#'nOuter <- 3 # Number of outer cross-validation segments
-#'varRatio <- 0.75 # Proportion of variables kept per iteration
-#'method <- 'PLS' # Selected core modeling algorithm
-#'regrModel <- MUVR2(X = XRVIP2,
+#' \dontrun{
+#' nRep <- 2 # Number of MUVR2 repetitions
+#' nOuter <- 3 # Number of outer cross-validation segments
+#' varRatio <- 0.75 # Proportion of variables kept per iteration
+#' method <- 'PLS' # Selected core modeling algorithm
+#' regrModel <- MUVR2(X = XRVIP2,
 #'                   Y = YR2,
 #'                   nRep = nRep,
 #'                   nOuter = nOuter,
 #'                   method = method)
-#'biplotPLS(regrModel$Fit[[2]])
+#' biplotPLS(regrModel$Fit[[2]])
+#' }
 biplotPLS <- function(fit,
                       #####A PLS fit (e.g. from MUVRclassObject$Fit[[2]]) could be [[3]],[[4]]
                       comps = 1:2,

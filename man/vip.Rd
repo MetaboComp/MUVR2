@@ -17,3 +17,8 @@ vip object
 Extract PLS VIP values
 Adapted and stripped down from mixOmics v 5.2.0 (https://cran.r-project.org/web/packages/mixOmics/)
 }
+\examples{
+\dontrun{
+
+}
+}

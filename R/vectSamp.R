@@ -6,6 +6,11 @@
 ## @param sampLen A vector with custom number of samples per group. Is calculated if missing (best choice).
 #' @return a list with n groups containing sub sampled `vect`
 #' @export
+#' @examples
+#' \dontrun{
+#' data(mosquito)
+#' vectSamp(Yotu)
+#' }
 vectSamp <- function(vect,
                     n = 4) {
   # Pick 'n' random samples within vector 'vect'

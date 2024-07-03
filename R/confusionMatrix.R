@@ -4,6 +4,7 @@
 #' @return A confusion matrix of actual vs predicted class
 #' @export
 #' @examples
+#' \dontrun{
 #' nRep <- 2 # Number of MUVR2 repetitions
 #' nOuter <- 3 # Number of outer cross-validation segments
 #' varRatio <- 0.75 # Proportion of variables kept per iteration
@@ -17,7 +18,7 @@
 #'   method = method
 #' )
 #' confusionMatrix(classModel)
-#'
+#' }
 confusionMatrix <- function(MVObj,
                            model = 'mid') {
   if (!any(class(MVObj) == 'Classification')) {

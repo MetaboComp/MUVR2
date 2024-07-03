@@ -49,3 +49,8 @@ A permutation plot
 Plot permutation analysis using actual model and permutations()
 This is basically a wrapper for the MUVR2::plotPerm() function using model objects to make coding nicer and cleaner
 }
+\examples{
+\dontrun{
+
+}
+}

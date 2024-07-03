@@ -21,3 +21,8 @@ Data frame with order, name and average rank of variables (`order`, `name` & `ra
 \description{
 Extract autoselected variables from MUVR model object
 }
+\examples{
+\dontrun{
+
+}
+}

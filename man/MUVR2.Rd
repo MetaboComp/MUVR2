@@ -77,6 +77,7 @@ MUVR2: "Multivariate modeling with Unbiased Variable selection", using PLS and R
 Repeated double cross validation with tuning of variables in the inner loop.
 }
 \examples{
+\dontrun{
 data(freelive2)
 nRep <- 2 # Number of MUVR2 repetitions
 nOuter <- 3 # Number of outer cross-validation segments
@@ -88,4 +89,5 @@ nRep = nRep,
 nOuter = nOuter,
 varRatio = varRatio,
 method = "RF")
+}
 }

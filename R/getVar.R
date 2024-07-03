@@ -9,7 +9,10 @@
 #' @param robust If the option is fitness, robust parameter decides how much deviation it is allowed from the optimal perdiction performance for min and max variabel selection.
 #' @return a rdCVnet object
 #' @export
-## outlier
+#' @examples
+#' \dontrun{
+#'
+#' }
 getVar <- function(rdCVnetObject,
                    option = c("quantile", "fitness"),
                    fit_curve = c("loess", "gam"),

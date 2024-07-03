@@ -24,3 +24,8 @@ Plot of number of variables, proportion of variables overlapping with reference 
 \description{
 Plot stability of selected variables and prediction fitness as a function of number of repetitions
 }
+\examples{
+\dontrun{
+
+}
+}

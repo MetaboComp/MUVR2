@@ -9,12 +9,17 @@
 #' @param cextext the cex of the text
 #' @return Barplot of variable rankings (lower is better)
 #' @export
+#' @examples
+#' \dontrun{
+#'
+#' }
 plotVIRank <- function(MUVRclassObject,
                        n,
                        model = 'min',
                        cut,
                        maptype = c("heatmap", "dotplot"),
-                       add_blank = 4) {
+                       add_blank = 4,
+                       cextext = 1) {
   par(mar = c(4, 4, 4, 4) + .5)
   if (!(class(MUVRclassObject)[1] == 'MUVR')) {
     cat('\nWrong object class: Return NULL')

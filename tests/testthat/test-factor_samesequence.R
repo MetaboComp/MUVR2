@@ -1,3 +1,8 @@
-test_that("factor_samesequence", {
-  expect_equal(2 * 2, 4)
-})
+test_that("factor_samesequence works", {
+  data("freelive2")
+
+  ## the input needs to be a factor variable
+  expect_warning(
+  factor_samesequence(YR2)
+  )
+  })

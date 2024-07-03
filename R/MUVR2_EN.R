@@ -24,7 +24,7 @@
 ## @param percent_smoothcurve If select_variables_by smoothcurve, then it is robust
 ## @param Var_option quantile or smoothcurve
 #' @param ... This is to pass in other argument
-#' @import splines glmnet pROC magrittr foreach doParallel graphics parallel
+#' @import splines glmnet pROC magrittr foreach doParallel graphics parallel psych
 #' @importFrom randomForest randomForest
 #' @importFrom ranger ranger
 #' @importFrom grDevices colorRampPalette dev.off png
@@ -35,6 +35,7 @@
 #' @return A MUVR object
 #' @export
 #' @examples
+#' \dontrun{
 #' data(freelive2)
 #' nRep <- 2 # Number of MUVR2 repetitions
 #' nOuter <- 4 # Number of outer cross-validation segments
@@ -44,6 +45,7 @@
 #' nRep = nRep,
 #' nOuter = nOuter,
 #' method = "RF")
+#' }
 MUVR2_EN <- function(X,
                     ## X should be a dataframe
                     Y,

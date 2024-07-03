@@ -23,3 +23,13 @@ Q2
 \description{
 Q2 calculation for classification
 }
+\examples{
+\dontrun{
+a<-MUVR2(Xotu[1:13,],factor(Yotu[1:13]),method="PLS",DA=T,modReturn = T)
+classification_prediction_matrix<-a$yPred$min
+y<-as.factor(as.character(Yotu[1:13]))
+b<-MUVR2(Xotu,factor(Yotu),method="PLS",DA=T,modReturn = T)
+classification_prediction_matrix<-b$yPred$min
+y<-as.factor(as.character(Yotu))
+}
+}

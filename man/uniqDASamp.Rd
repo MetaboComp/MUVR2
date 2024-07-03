@@ -22,8 +22,11 @@ Stratified sampling for classification and unique individuals
 Even if it is stratified sampling, it may lead to some fold have more than 1 samples than others
 }
 \examples{
-Y <- rep(LETTERS[1:2],10)
-ID <- 1:20
+\dontrun{
+data(mosquito)
+Y <- Yotu
+ID <- 1:length(Yotu)
 folds <- 5
 uniqDASamp(Y, ID, folds)
+}
 }

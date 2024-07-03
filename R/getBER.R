@@ -5,6 +5,14 @@
 #' @param weighing_matrix The matrix used for get a miss classfication score
 #' @return Balanced Error Rate (BER)
 #' @export
+#' @examples
+#' \dontrun{
+#' data("mosquito")
+#' actual <- Yotu
+#'
+#' predicted <- sampling_from_distribution(actual)
+#' getBER(actual, predicted)
+#' }
 getBER <- function (actual,
                     predicted,
                     weigh_added = FALSE,

@@ -29,3 +29,10 @@ A PCA score plot. Exported as png if `file` specified in function call.
 PCA score plot from prcomp()
 Customised PCA score plots with the possibility to choose PCs, exporting to png and the possibility to add color or different plotting symbols according to variable.
 }
+\examples{
+\dontrun{
+data("freelive2")
+pca_object<-prcomp(XRVIP2)
+plotPCA(pca_object)
+}
+}

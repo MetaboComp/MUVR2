@@ -8,7 +8,21 @@
 #' @param method method
 #' @param DA DA
 #' @return  The predicted value of yTest
-#' @export
+#' @examples
+#' \dontrun{
+#' data("freelive2")
+#'xTrain<-XRVIP2[1:40,]
+#'yTrain<-YR2[1:40]
+#'xTest<-XRVIP2[41:nrow(XRVIP2),]
+#'yTest<-YR2[41:length(YR2)]
+#'rfPred_object<-
+#'  rfPred(xTrain=xTrain,
+#'         yTrain=yTrain,
+#'         xTest=xTest,
+#'         yTest=yTest,
+#'         DA=F)
+#' }
+#' @noRd
 rfPred <- function(xTrain,
                    yTrain,
                    xTest,

@@ -6,7 +6,10 @@
 #' @param ylim Optional for imposing y-limits for regression and classification analysis
 #' @return A plot of results from multivariate predictions
 #' @export
+#' @examples
+#' \dontrun{
 #'
+#' }
 #######################################################################################################################3
 #Change  the variables as MUVRclassObject
 #

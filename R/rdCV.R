@@ -15,6 +15,7 @@
 #' @return An object containing stuff...
 #' @export
 #' @examples
+#' \dontrun{
 #' nRep <- 2 # Number of MUVR2 repetitions
 #' nOuter <- 3 # Number of outer cross-validation segments
 #' varRatio <- 0.75 # Proportion of variables kept per iteration
@@ -24,6 +25,7 @@
 #'                   nRep = nRep,
 #'                   nOuter = nOuter,
 #'                   method = method)
+#' }
 
 rdCV <- function(X,
                  Y,

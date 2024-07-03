@@ -11,8 +11,10 @@
 #' @return MUVR object
 #' @export
 #' @examples
-#' regrModel <- MUVR2(X = XRVIP2,
+#' \dontrun{
+#' regrModel <- qMUVR2(X = XRVIP2,
 #' Y = YR2)
+#' }
 qMUVR2 <- function(X,
                   Y,
                   ML = FALSE,

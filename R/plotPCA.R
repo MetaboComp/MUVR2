@@ -8,8 +8,14 @@
 #' @param symbVar Categorical/discrete variable for multiple plot symbols
 #' @param main If provided provides a main title of the plot
 #' @return A PCA score plot. Exported as png if `file` specified in function call.
+#' @importFrom psych principal
 #' @export
-
+#' @examples
+#' \dontrun{
+#' data("freelive2")
+#' pca_object<-prcomp(XRVIP2)
+#' plotPCA(pca_object)
+#' }
 plotPCA <- function(pca,
                     PC1 = 1,
                     PC2 = 2,

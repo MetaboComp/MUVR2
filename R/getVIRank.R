@@ -6,6 +6,10 @@
 #'
 #' @return Data frame with order, name and average rank of variables (`order`, `name` & `rank`)
 #' @export
+#' @examples
+#' \dontrun{
+#'
+#' }
 getVIRank <- function(MUVRclassObject,
                       model = 'mid',
                       n,

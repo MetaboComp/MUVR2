@@ -9,6 +9,14 @@
 #' @param scale scale or not
 #' @return a plsMUVR object
 #' @export
+#' @examples
+#' \dontrun{
+#' data(freelive2)
+#' pls(XRVIP2,
+#' YR2)
+#'
+#' }
+
 pls <- function(x,
                 y,
                 ncomp = 2,

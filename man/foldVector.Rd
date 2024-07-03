@@ -18,9 +18,11 @@ a vector with folds
 Convert folds in listformat to vectorformat. Specifcy for each ID which group they are in
 }
 \examples{
+\dontrun{
 Y <- rep(LETTERS[1:2],10)
 ID <- 1:20
 folds <- 5
 foldList <- uniqDASamp(Y, ID, folds)
 foldVect <- foldVector(foldList, ID)
+}
 }

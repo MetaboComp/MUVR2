@@ -21,3 +21,12 @@ Balanced Error Rate (BER)
 \description{
 get Balanced Error Rate from classification analysis
 }
+\examples{
+\dontrun{
+data("mosquito")
+actual <- Yotu
+
+predicted <- sampling_from_distribution(actual)
+getBER(actual, predicted)
+}
+}

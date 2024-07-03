@@ -8,31 +8,38 @@
 #'@return
 #'new_X_matrix:The new matrix that transform all variables to numeric variables
 #'@export
-#To test the scenario when X has factor and charactor when using PLS
-#add one factor and one character variable(freelive data X, which originally has 112 numeric samples and 1147 observations)
-#factor varaible has 3,6,5factors(nearzero varianece),character variable has 7,4 categories
-#factor_variable1<-as.factor(c(rep("33",105),rep("44",3),rep("55",4)))
-#factor_variable2<-as.factor(c(rep("AB",20),rep("CD",10),rep("EF",30),
+#' @examples
+#' \dontrun{
+#'
+#'#To test the scenario when X has factor and charactor when using PLS
+#'#add one factor and one character variable(freelive data X,
+#'# which originally has 112 numeric samples and 1147 observations)
+#'factor varaible has 3,6,5factors(nearzero varianece),character variable has 7,4 categories
+#'factor_variable1<-as.factor(c(rep("33",105),rep("44",3),rep("55",4)))
+#'factor_variable2<-as.factor(c(rep("AB",20),rep("CD",10),rep("EF",30),
 #                           rep("GH",15),rep("IJ",25),rep("KL",12)))
-#factor_variable3<-as.factor(c(rep("Tessa",25),rep("Olle",30),rep("Yan",12),
-#                            rep("Calle",25),rep("Elisa",20)))
-# factor_variable4<-as.factor(c(rep(NA,112)))
-# character_variable1<-c(rep("one",16),rep("two",16),rep("three",16),
-#                       rep("four",16),rep("five",16),rep("six",16),rep("seven",16))
-#  character_variable2<-c(rep("yes",28),rep("no",28),
-#                          rep("yes",28),rep("no",28))
-# character_variable3<-c(rep("Hahahah",112))
-#  character_variable4<-as.character(c(rep(NA,112)))
-# logical_variable1<-c(rep(TRUE,16),rep(FALSE,16),rep(TRUE,16),rep(FALSE,16),rep(TRUE,16),rep(FALSE,32))
-#  logical_variable2<-c(rep(TRUE,28),rep(FALSE,28),rep(TRUE,28),rep(FALSE,28))
+#'factor_variable3<-as.factor(c(rep("Tessa",25),rep("Olle",30),rep("Yan",12),
+#'                            rep("Calle",25),rep("Elisa",20)))
+#' factor_variable4<-as.factor(c(rep(NA,112)))
+#' character_variable1<-c(rep("one",16),rep("two",16),rep("three",16),
+#'                       rep("four",16),rep("five",16),rep("six",16),rep("seven",16))
+#'  character_variable2<-c(rep("yes",28),rep("no",28),
+#'                          rep("yes",28),rep("no",28))
+#' character_variable3<-c(rep("Hahahah",112))
+#'  character_variable4<-as.character(c(rep(NA,112)))
+#' logical_variable1<-c(rep(TRUE,16),rep(FALSE,16),rep(TRUE,16),
+#' rep(FALSE,16),rep(TRUE,16),rep(FALSE,32))
+#'  logical_variable2<-c(rep(TRUE,28),rep(FALSE,28),rep(TRUE,28),rep(FALSE,28))
+#'
+#'  X<-data.frame(row.names<-1:112)
+#'  X<-cbind(X,XRVIP,
+#'        factor_variable1,factor_variable2,factor_variable3,factor_variable4,
+#'        character_variable1,character_variable2,character_variable3,character_variable4,
+#'         logical_variable1,logical_variable2)
+#'   onehotencoding(X)
 #
-#  X<-data.frame(row.names<-1:112)
-#  X<-cbind(X,XRVIP,
-#        factor_variable1,factor_variable2,factor_variable3,factor_variable4,
-#        character_variable1,character_variable2,character_variable3,character_variable4,
-#         logical_variable1,logical_variable2)
-#   check again by using class(X[,1148])
-#
+#' }
+
 
 onehotencoding <- function(X) {
   if (ncol(as.data.frame(X[, which(sapply(X, class) %in% c('factor', 'character', 'logical'))])) ==

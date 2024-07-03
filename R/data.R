@@ -1,3 +1,5 @@
+
+utils::globalVariables(".")
 #' Effect matrix for the crisp multilevel tutorial
 #'
 #' @name crispEM
