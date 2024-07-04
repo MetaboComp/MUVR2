@@ -14,6 +14,7 @@
 #' @export
 #' @examples
 #' \dontrun{
+#' data("freelive2")
 #' nRep <- 2 # Number of MUVR2 repetitions
 #' nOuter <- 3 # Number of outer cross-validation segments
 #' varRatio <- 0.75 # Proportion of variables kept per iteration
@@ -22,7 +23,8 @@
 #'                   Y = YR2,
 #'                   nRep = nRep,
 #'                   nOuter = nOuter,
-#'                   method = method)
+#'                   method = method,
+#'                   modReturn = TRUE)
 #' biplotPLS(regrModel$Fit[[2]])
 #' }
 biplotPLS <- function(fit,

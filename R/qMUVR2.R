@@ -12,6 +12,7 @@
 #' @export
 #' @examples
 #' \dontrun{
+#' data("freelive2")
 #' regrModel <- qMUVR2(X = XRVIP2,
 #' Y = YR2)
 #' }

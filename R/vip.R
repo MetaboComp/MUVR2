@@ -5,7 +5,10 @@
 #' @export
 #' @examples
 #' \dontrun{
-#'
+#' data("freelive2")
+#' object <- MUVR2::pls(XRVIP2,YR2)
+#' vip_object<-vip(object)
+#' vip_object
 #' }
 vip <-
   function(object) {

@@ -22,7 +22,6 @@ Q2 calculation
 data("freelive2")
 actual <- YR2
 predicted <- MUVR2::sampling_from_distribution(actual)
-set.seed(1)
 Q2_calculation(actual, predicted)
 }
 }

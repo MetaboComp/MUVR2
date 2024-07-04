@@ -10,6 +10,7 @@
 #' folds <- 5
 #' foldList <- uniqDASamp(Y, ID, folds)
 #' foldVect <- foldVector(foldList, ID)
+#' foldVect
 #' }
 foldVector <- function(foldList, ID) {
   fold <- numeric(length(ID)) ##longer than nfold

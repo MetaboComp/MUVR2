@@ -7,7 +7,7 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' data(mosquito)
+#' data("mosquito")
 #' Y <- Yotu
 #' ID <- 1:length(Yotu)
 #' folds <- 5

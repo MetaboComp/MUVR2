@@ -49,6 +49,7 @@ PLS biplot:  Makes a biplot of a fitted object (e.g. from a MUVR with PLS core)
 }
 \examples{
 \dontrun{
+data("freelive2")
 nRep <- 2 # Number of MUVR2 repetitions
 nOuter <- 3 # Number of outer cross-validation segments
 varRatio <- 0.75 # Proportion of variables kept per iteration
@@ -57,7 +58,8 @@ regrModel <- MUVR2(X = XRVIP2,
                   Y = YR2,
                   nRep = nRep,
                   nOuter = nOuter,
-                  method = method)
+                  method = method,
+                  modReturn = TRUE)
 biplotPLS(regrModel$Fit[[2]])
 }
 }

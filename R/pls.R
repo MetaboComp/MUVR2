@@ -12,8 +12,7 @@
 #' @examples
 #' \dontrun{
 #' data(freelive2)
-#' pls(XRVIP2,
-#' YR2)
+#' MUVR2::pls(XRVIP2,YR2)
 #'
 #' }
 

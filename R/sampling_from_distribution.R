@@ -9,13 +9,14 @@
 #'@return a resampled thing
 #' @examples
 #' \dontrun{
-#' data(mosquito)
+#' data("mosquito")
 #' sampling_from_distribution(Yotu)
-#' data(freelive2)
+#' data("freelive2")
 #' sampling_from_distribution(YR2,
-#' upperlimit=200,
-#' lowerlimit=0,
-#' n=length(YR2))
+#'                            upperlimit=200,
+#'                            lowerlimit=0,
+#'                            n=length(YR2)
+#'                            )
 #' }
 sampling_from_distribution <- function(X,
                                        upperlimit,

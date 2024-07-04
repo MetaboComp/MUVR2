@@ -81,14 +81,13 @@ Repeated double cross validation with tuning of variables.
 }
 \examples{
 \dontrun{
-data(freelive2)
+data("freelive2")
 nRep <- 2 # Number of MUVR2 repetitions
 nOuter <- 4 # Number of outer cross-validation segments
-method <- 'PLS' # Selected core modeling algorithm
 regrModel <- MUVR2_EN(X = XRVIP2,
-Y = YR2,
-nRep = nRep,
-nOuter = nOuter,
-method = "RF")
+                      Y = YR2,
+                      nRep = nRep,
+                      nOuter = nOuter,
+                      modReturn = TRUE)
 }
 }

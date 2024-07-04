@@ -11,7 +11,17 @@
 #' @export
 #' @examples
 #' \dontrun{
-#'
+#' data("mosquito")
+#' nRep <- 2
+#' nOuter <- 4
+#' varRatio <-0.6
+#' classModel <- MUVR2_EN(X = Xotu,
+#'                        Y = Yotu,
+#'                        nRep = nRep,
+#'                        nOuter = nOuter,
+#'                        DA = TRUE,
+#'                        modReturn = TRUE)
+#' classModel<-getVar(classModel)
 #' }
 getVar <- function(rdCVnetObject,
                    option = c("quantile", "fitness"),
@@ -22,7 +32,8 @@ getVar <- function(rdCVnetObject,
                    outlier = c("none", "IQR", "residual"),
                    robust = 0.05,
                    quantile = 0.25) {
-
+  if(class(rdCVnetObject)[3]!="rdCVnet"){
+    stop("Only rdCVnet(MUVR-elastic net) is allowed for getVar")}
   if (missing(fit_curve)) {
     fit_curve <- "loess"
   }

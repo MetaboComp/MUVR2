@@ -39,8 +39,8 @@ Adapted and stripped down from mixOmics v 5.2.0 (https://cran.r-project.org/web/
 }
 \examples{
 \dontrun{
-plsda(Xotu,
+data("mosquito")
+MUVR2::plsda(Xotu,
       Yotu)
-)
 }
 }

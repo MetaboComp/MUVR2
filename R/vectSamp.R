@@ -8,7 +8,7 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' data(mosquito)
+#' data("mosquito")
 #' vectSamp(Yotu)
 #' }
 vectSamp <- function(vect,

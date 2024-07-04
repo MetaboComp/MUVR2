@@ -84,10 +84,11 @@ nOuter <- 3 # Number of outer cross-validation segments
 varRatio <- 0.6 # Proportion of variables kept per iteration
 method <- 'PLS' # Selected core modeling algorithm
 regrModel <- MUVR2(X = XRVIP2,
-Y = YR2,
-nRep = nRep,
-nOuter = nOuter,
-varRatio = varRatio,
-method = "RF")
+                   Y = YR2,
+                   nRep = nRep,
+                   nOuter = nOuter,
+                   varRatio = varRatio,
+                   method = method,
+                   modReturn = TRUE)
 }
 }

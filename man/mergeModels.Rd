@@ -21,6 +21,17 @@ This 2 MUVR class object has the same indata except that nRep is different
 }
 \examples{
 \dontrun{
-
+data("freelive2")
+nRep <- 2
+nOuter <- 4
+varRatio <-0.6
+regrModel <- MUVR2(X = XRVIP2,
+                   Y = YR2,
+                   nRep = nRep,
+                  nOuter = nOuter,
+                   varRatio = varRatio,
+                   method = "PLS",
+                   modReturn = TRUE)
+mergedModel<-mergeModels(regrModel,regrModel)
 }
 }

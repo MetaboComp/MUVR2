@@ -20,6 +20,17 @@ Reports names and numbers of variables: all as well as Optimal (min model), redu
 }
 \examples{
 \dontrun{
-
+data("mosquito")
+nRep <- 2
+nOuter <- 4
+classModel <- MUVR2_EN(X = Xotu,
+                       Y = Yotu,
+                       nRep = nRep,
+                       nOuter = nOuter,
+                       DA = TRUE,
+                       modReturn = TRUE)
+classModel<-getVar(classModel,option="quantile")
+varClass(classModel)
 }
+
 }

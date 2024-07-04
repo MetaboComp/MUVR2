@@ -40,6 +40,16 @@ The function will obtain the min, mid, max number of variables for an object gen
 }
 \examples{
 \dontrun{
-
+data("mosquito")
+nRep <- 2
+nOuter <- 4
+varRatio <-0.6
+classModel <- MUVR2_EN(X = Xotu,
+                       Y = Yotu,
+                       nRep = nRep,
+                       nOuter = nOuter,
+                       DA = TRUE,
+                       modReturn = TRUE)
+classModel<-getVar(classModel)
 }
 }

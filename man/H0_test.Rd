@@ -47,6 +47,17 @@ In those cases, View(H0_test) can be a first start from which to build custom so
 }
 \examples{
 \dontrun{
-
+data("freelive2")
+nRep <- 2
+nOuter <- 4
+varRatio <-0.6
+regrModel <- MUVR2(X = XRVIP2,
+                   Y = YR2,
+                   nRep = nRep,
+                  nOuter = nOuter,
+                   varRatio = varRatio,
+                   method = "PLS",
+                   modReturn = TRUE)
+H0_test(regrModel)
 }
 }

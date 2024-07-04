@@ -59,6 +59,7 @@ If something goes wrong warning messages are given
 }
 \examples{
 \dontrun{
+data("freelive2")
 checkinput(X = XRVIP2,
           Y = YR2,  ## YR2 a numeric variable
           DA = FALSE,

@@ -24,5 +24,6 @@ ID <- 1:20
 folds <- 5
 foldList <- uniqDASamp(Y, ID, folds)
 foldVect <- foldVector(foldList, ID)
+foldVect
 }
 }

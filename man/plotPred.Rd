@@ -8,9 +8,9 @@ At present, this function only supports predictions for PLS regression type prob
 plotPred(Ytrue, Ypreds)
 }
 \arguments{
-\item{Ytrue}{True value of Y}
+\item{Ytrue}{True value of Y, should be a vector}
 
-\item{Ypreds}{Predicted value of Y}
+\item{Ypreds}{Predicted value of Y can be a vector or data frame with the same number of rows}
 }
 \description{
 Plot predictions
@@ -21,6 +21,19 @@ At present, this function only supports predictions for PLS regression type prob
 data("freelive2")
 Ytrue<-YR2
 Ypreds<-sampling_from_distribution(YR2)
+plotPred(Ytrue,Ypreds)
+Ytrue<-YR2
+nRep <- 2
+nOuter <- 4
+varRatio <-0.6
+regrModel <- MUVR2(X = XRVIP2,
+                   Y = YR2,
+                   nRep = nRep,
+                   nOuter = nOuter,
+                   varRatio = varRatio,
+                   method = "PLS",
+                   modReturn = TRUE)
+Ypreds<-regrModel$yPred
 plotPred(Ytrue,Ypreds)
 }
 }

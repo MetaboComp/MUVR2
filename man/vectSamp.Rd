@@ -23,7 +23,7 @@ Bug: Sampling is faulty when length(vect) < n
 }
 \examples{
 \dontrun{
-data(mosquito)
+data("mosquito")
 vectSamp(Yotu)
 }
 }

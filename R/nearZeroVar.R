@@ -7,9 +7,9 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' data(freelive2)
+#' data("freelive2")
 #' nearZeroVar(XRVIP2)
-#' data(mosquito)
+#' data("mosquito")
 #' nearZeroVar(Xotu)
 #' }
 nearZeroVar <- function (x,

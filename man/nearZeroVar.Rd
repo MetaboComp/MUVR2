@@ -23,9 +23,9 @@ Adapted and stripped down from mixOmics v 5.2.0 (https://cran.r-project.org/web/
 }
 \examples{
 \dontrun{
-data(freelive2)
+data("freelive2")
 nearZeroVar(XRVIP2)
-data(mosquito)
+data("mosquito")
 nearZeroVar(Xotu)
 }
 }

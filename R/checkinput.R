@@ -18,6 +18,7 @@
 #'@export
 #'@examples
 #'\dontrun{
+#' data("freelive2")
 #'checkinput(X = XRVIP2,
 #'           Y = YR2,  ## YR2 a numeric variable
 #'           DA = FALSE,

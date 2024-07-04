@@ -25,11 +25,18 @@ Q2 calculation for classification
 }
 \examples{
 \dontrun{
-a<-MUVR2(Xotu[1:13,],factor(Yotu[1:13]),method="PLS",DA=T,modReturn = T)
-classification_prediction_matrix<-a$yPred$min
-y<-as.factor(as.character(Yotu[1:13]))
-b<-MUVR2(Xotu,factor(Yotu),method="PLS",DA=T,modReturn = T)
-classification_prediction_matrix<-b$yPred$min
-y<-as.factor(as.character(Yotu))
+data("mosquito")
+nRep <- 2
+nOuter <- 4
+classModel<-MUVR2_EN(Xotu,Yotu,
+                     method="PLS",
+                     nRep=nRep,
+                     nOuter=nOuter,
+                     DA=T,
+                     modReturn = T)
+classification_prediction_matrix <- classModel$yPred
+y <- Yotu
+Q2_calculation_forclassification(classification_prediction_matrix,
+y)
 }
 }

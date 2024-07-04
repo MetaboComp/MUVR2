@@ -51,6 +51,18 @@ This is basically a wrapper for the MUVR2::plotPerm() function using model objec
 }
 \examples{
 \dontrun{
-
+data("freelive2")
+nRep <- 2
+nOuter <- 4
+varRatio <-0.6
+regrModel <- MUVR2(X = XRVIP2,
+                   Y = YR2,
+                   nRep = nRep,
+                  nOuter = nOuter,
+                   varRatio = varRatio,
+                   method = "PLS",
+                   modReturn = TRUE)
+permutation_result<-H0_test(regrModel,n=10)
+permutationPlot(regrModel,permutation_result)
 }
 }

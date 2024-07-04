@@ -7,11 +7,28 @@
 #' @export
 #' @examples
 #' \dontrun{
-#'
+#' data("freelive2")
+#' nRep <- 2
+#' nOuter <- 4
+#' varRatio <-0.6
+#' regrModel <- MUVR2(X = XRVIP2,
+#'                    Y = YR2,
+#'                    nRep = nRep,
+#'                    nOuter = nOuter,
+#'                    varRatio = varRatio,
+#'                    method = "PLS",
+#'                    modReturn=T)
+#' predMV(regrModel,XRVIP2)
 #' }
 predMV <- function(MUVRclassobject,
                    newdata,
                    model = 'min') {
+  if(ncol(MUVRclassobject$inData$X)!=ncol(newdata)){
+    stop("Mismatch between the variables of old and new data")
+    }
+  if(!identical(colnames(MUVRclassobject$inData$X),colnames(newdata))){
+    stop("Mismatch between the variables of old and new data")
+  }
   if (!(class(MUVRclassobject)[1] == 'MUVR')) {
     cat('\nWrong object class: Return NULL')
     return(NULL)

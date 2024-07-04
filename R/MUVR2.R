@@ -21,6 +21,8 @@
 #' @param weighing_matrix The matrix used for get a miss classfication score
 #' @param ... additional argument
 #' @return A 'MUVR' object
+#' @importFrom randomForest randomForest
+#' @importFrom ranger ranger
 #' @export
 #' @examples
 #' \dontrun{
@@ -30,11 +32,12 @@
 #' varRatio <- 0.6 # Proportion of variables kept per iteration
 #' method <- 'PLS' # Selected core modeling algorithm
 #' regrModel <- MUVR2(X = XRVIP2,
-#' Y = YR2,
-#' nRep = nRep,
-#' nOuter = nOuter,
-#' varRatio = varRatio,
-#' method = "RF")
+#'                    Y = YR2,
+#'                    nRep = nRep,
+#'                    nOuter = nOuter,
+#'                    varRatio = varRatio,
+#'                    method = method,
+#'                    modReturn = TRUE)
 #' }
 
 MUVR2 <- function(X,
@@ -57,9 +60,7 @@ MUVR2 <- function(X,
                  weighing_matrix = NULL,
                  keep,
                  ...) {
-  if(dim(X)[1]!=length(Y)){
-    stop("The X and Y should have same number of observations")
-  }
+
 
   if (is.null(weighing_matrix) & DA == TRUE) {
     weighing_matrix <- diag(1, length(levels(Y)), length(levels(Y)))
@@ -324,6 +325,9 @@ MUVR2 <- function(X,
     DA <- FALSE
     fitness <- 'MISS'
     cat('\nMultilevel -> Regression on (-1, 1) & fitness = "MISS"')
+  }
+  if(dim(X)[1]!=length(Y)){
+    stop("The X and Y should have same number of observations")
   }
 
   # No missingness allowed - Please perform imputations before running MUVR

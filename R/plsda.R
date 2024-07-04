@@ -11,9 +11,9 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' plsda(Xotu,
+#' data("mosquito")
+#' MUVR2::plsda(Xotu,
 #'       Yotu)
-#' )
 #' }
 
 plsda <- function(x,

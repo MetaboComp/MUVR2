@@ -15,22 +15,22 @@
 #' @export
 #' @examples
 #' \dontrun{
-#'
+#' data("freelive2")
+#' nRep <- 2
+#' nOuter <- 4
+#' varRatio <-0.6
+#' regrModel <- MUVR2(X = XRVIP2,
+#'                    Y = YR2,
+#'                    nRep = nRep,
+#'                   nOuter = nOuter,
+#'                    varRatio = varRatio,
+#'                    method = "PLS",
+#'                    modReturn = TRUE)
+#' permutation_result<-H0_test(regrModel,n=10)
+#' permutationPlot(regrModel,permutation_result)
 #' }
-##library(MUVR)
-##library(doParallel)
-## nCore=detectCores()-1
-## cl=makeCluster(nCore)
-## registerDoParallel(cl)
-## nRep=2*nCore
-## varRatio=.75
-## nOuter=6
-## nPerm=50
-## R12ML=MUVR2(X=mlr12,ML=TRUE,nRep=nRep,nOuter=nOuter,varRatio=varRatio,method='RF')
-## permR12=permutations(R12ML)
-## stopCluster(cl)
-## permutationPlot(R12ML,permR12)
-##
+
+
 permutationPlot <- function(MUVRclassObject,
                             permutation_result,
                             ####For AUROC, the result is a permutation list. The length of the list is the group number
@@ -52,6 +52,9 @@ permutationPlot <- function(MUVRclassObject,
   }
 
   permutation_type <- MUVRclassObject$inData$fitness
+  if(permutation_type=="RMSEP"){
+    permutation_type <- "Q2"
+  }
   permutation_output <- permutation_result
 
   if (!missing(permutation_type)) {

@@ -75,9 +75,8 @@ Plot defaults to "greater than" or "smaller than" tests and cumulative probabili
 \examples{
 \dontrun{
 data("freelive2")
-set.seed(1)
 actual <- sample(YR2, 1)
 distribution <- YR2
-plotPerm (actual, permutation_distribution)
+plotPerm (actual, distribution)
 }
 }
