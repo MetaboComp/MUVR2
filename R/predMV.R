@@ -1,9 +1,9 @@
 #' Predict MV object using a MUVR class object and a X testing set
 #' At present, this function only supports predictions for PLS regression type problems
-#' @param MUVRclassobject An 'MUVR' class object obtained from the MVWrap function
+#' @param MUVRclassobject An 'MUVR' class object
 #' @param newdata New data for which to predict outcomes
 #' @param model What type of model to plot ('min', 'mid' or 'max'). Defaults to 'mid'.
-#' @return A pdf with plots of results from multivariate predictions
+#' @return The predicted result based on the MUVR model and the newdata
 #' @export
 #' @examples
 #' \dontrun{

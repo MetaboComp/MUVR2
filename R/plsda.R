@@ -8,13 +8,13 @@
 #' @param near.zero.var near.zero.var
 #' @param scale scale
 #' @return a plsdaMUVR object
-#' @export
 #' @examples
 #' \dontrun{
 #' data("mosquito")
-#' MUVR2::plsda(Xotu,
+#' MUVR2:::plsda(Xotu,
 #'       Yotu)
 #' }
+#' @noRd
 
 plsda <- function(x,
                   y,
@@ -56,7 +56,7 @@ plsda <- function(x,
   #x <- 1:10
   #attr(x,"dim") <- c(2, 5)
 
-  result = MUVR2::pls(
+  result = pls(
     x,
     ind.mat,
     ncomp = ncomp,

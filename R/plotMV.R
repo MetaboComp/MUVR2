@@ -1,5 +1,5 @@
 #' Plot MV object Swim lane plot for classification, for regression
-#' @param MUVRclassObject An MUVR class object obtained from the MVWrap function
+#' @param MUVRclassObject An MUVR class object
 #' @param model What type of model to plot ('min', 'mid' or 'max'). Defaults to 'mid'.
 #' @param factCols An optional vector with colors for the factor levels (in the same order as the levels)
 #' @param sampLabels Sample labels (optional; implemented for classification)
@@ -19,7 +19,7 @@
 #'                    varRatio = varRatio,
 #'                    method = "PLS",
 #'                    modReturn = TRUE)
-#' plotMV(regrModel)
+#' plotMV(regrModel, model="min")
 #' }
 #######################################################################################################################3
 #Change  the variables as MUVRclassObject

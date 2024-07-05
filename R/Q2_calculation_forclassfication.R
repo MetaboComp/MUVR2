@@ -2,7 +2,6 @@
 #'@param classification_prediction_matrix prediction values
 #'@param y real values
 #'@param minmidmax minmidmax
-#'@export
 #'@return Q2
 #' @examples
 #' \dontrun{
@@ -20,6 +19,7 @@
 #' Q2_calculation_forclassification(classification_prediction_matrix,
 #' y)
 #' }
+#' @noRd
 
 
 Q2_calculation_forclassification <-

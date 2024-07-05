@@ -25,7 +25,11 @@
 #'                   nOuter = nOuter,
 #'                   method = method,
 #'                   modReturn = TRUE)
-#' biplotPLS(regrModel$Fit[[2]])
+#' biplotPLS(regrModel$Fit[[2]],
+#'           comps = 1:2,
+#'           xCol = YR2,
+#'           labPlSc = FALSE,
+#'           labPlLo = FALSE)
 #' }
 biplotPLS <- function(fit,
                       #####A PLS fit (e.g. from MUVRclassObject$Fit[[2]]) could be [[3]],[[4]]

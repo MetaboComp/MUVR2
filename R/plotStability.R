@@ -20,7 +20,7 @@
 #'                    varRatio = varRatio,
 #'                    method = "PLS",
 #'                    modReturn = TRUE)
-#' plotStability(regrModel)
+#' plotStability(regrModel, model = "min")
 #' }
 plotStability <- function(MUVRrdCVclassObject,
                           model = 'min',

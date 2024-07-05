@@ -923,7 +923,7 @@ MUVR2 <- function(X,
                       if (method == 'PLS') {
                         # Build min model
                         if (DA) {
-                          plsOutMin <- MUVR2::plsda(
+                          plsOutMin <- plsda(
                             subset(xIn, select = incVarMin),
                             yIn,
                             ncomp = nCompOutMin[i],
@@ -931,7 +931,7 @@ MUVR2 <- function(X,
                             scale = scale
                           )
                         } else {
-                          plsOutMin <- MUVR2::pls(
+                          plsOutMin <- pls(
                             subset(xIn, select = incVarMin),
                             yIn,
                             ncomp = nCompOutMin[i],
@@ -950,7 +950,7 @@ MUVR2 <- function(X,
 
                         # Build mid model
                         if (DA) {
-                          plsOutMid <- MUVR2::plsda(
+                          plsOutMid <- plsda(
                             subset(xIn, select = incVarMid),
                             yIn,
                             ncomp = nCompOutMid[i],
@@ -958,7 +958,7 @@ MUVR2 <- function(X,
                             scale = scale
                           )
                         } else {
-                          plsOutMid <- MUVR2::pls(
+                          plsOutMid <- pls(
                             subset(xIn, select = incVarMid),
                             yIn,
                             ncomp = nCompOutMid[i],
@@ -976,7 +976,7 @@ MUVR2 <- function(X,
 
                         # Build max model
                         if (DA) {
-                          plsOutMax <- MUVR2::plsda(
+                          plsOutMax <- plsda(
                             subset(xIn, select = incVarMax),
                             yIn,
                             ncomp = nCompOutMax[i],
@@ -984,7 +984,7 @@ MUVR2 <- function(X,
                             scale = scale
                           )
                         } else {
-                          plsOutMax <- MUVR2::pls(
+                          plsOutMax <- pls(
                             subset(xIn, select = incVarMax),
                             yIn,
                             ncomp = nCompOutMax[i],
@@ -1638,7 +1638,7 @@ MUVR2 <- function(X,
     # PLS Min fit-predict
     ######################
     if (DA) {
-      plsFitMin <- MUVR2::plsda(
+      plsFitMin <- plsda(
         subset(X, select = incVarMin),
         Y,
         ncomp = round(nComp[1]),
@@ -1646,7 +1646,7 @@ MUVR2 <- function(X,
         scale = scale
       )
     } else {
-      plsFitMin <- MUVR2::pls(
+      plsFitMin <- pls(
         subset(X, select = incVarMin),
         Y,
         ncomp = round(nComp[1]),
@@ -1669,7 +1669,7 @@ MUVR2 <- function(X,
     # PLS Mid fit-predict
     ######################
     if (DA) {
-      plsFitMid <- MUVR2::plsda(
+      plsFitMid <- plsda(
         subset(X, select = incVarMid),
         Y,
         ncomp = round(nComp[2]),
@@ -1677,7 +1677,7 @@ MUVR2 <- function(X,
         scale = scale
       )
     } else {
-      plsFitMid <- MUVR2::pls(
+      plsFitMid <- pls(
         subset(X, select = incVarMid),
         Y,
         ncomp = round(nComp[2]),
@@ -1699,7 +1699,7 @@ MUVR2 <- function(X,
     # PLS Max fit-predict
     ######################
     if (DA) {
-      plsFitMax <- MUVR2::plsda(
+      plsFitMax <- plsda(
         subset(X, select = incVarMax),
         Y,
         ncomp = round(nComp[3]),
@@ -1707,7 +1707,7 @@ MUVR2 <- function(X,
         scale = scale
       )
     } else {
-      plsFitMax <- MUVR2::pls(
+      plsFitMax <- pls(
         subset(X, select = incVarMax),
         Y,
         ncomp = round(nComp[3]),

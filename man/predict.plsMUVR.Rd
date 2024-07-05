@@ -28,7 +28,7 @@ Adapted and stripped down from mixOmics v 5.2.0 (https://cran.r-project.org/web/
 \examples{
 \dontrun{
 data(freelive2)
-object<-MUVR2::pls(XRVIP2,YR2)
+object<-MUVR2:::pls(XRVIP2,YR2)
 predict(object,XRVIP2)
 }
 }

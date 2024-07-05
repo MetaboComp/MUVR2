@@ -4,7 +4,6 @@
 #' @param ID Individual identifier (unique)
 #' @param folds Number of folds
 #' @return A master list of segments
-#' @export
 #' @examples
 #' \dontrun{
 #' data("mosquito")
@@ -13,6 +12,7 @@
 #' folds <- 5
 #' uniqDASamp(Y, ID, folds)
 #' }
+#' @noRd
 uniqDASamp <- function(Y,
                        ID,
                        folds) {

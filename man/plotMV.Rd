@@ -7,7 +7,7 @@
 plotMV(MUVRclassObject, model = "min", factCols, sampLabels, ylim = NULL)
 }
 \arguments{
-\item{MUVRclassObject}{An MUVR class object obtained from the MVWrap function}
+\item{MUVRclassObject}{An MUVR class object}
 
 \item{model}{What type of model to plot ('min', 'mid' or 'max'). Defaults to 'mid'.}
 
@@ -36,6 +36,6 @@ regrModel <- MUVR2(X = XRVIP2,
                    varRatio = varRatio,
                    method = "PLS",
                    modReturn = TRUE)
-plotMV(regrModel)
+plotMV(regrModel, model="min")
 }
 }

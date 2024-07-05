@@ -50,6 +50,6 @@ regrModel <- MUVR2(X = XRVIP2,
                    varRatio = varRatio,
                    method = "PLS",
                    modReturn = TRUE)
-plotVIRank(regrModel)
+plotVIRank(regrModel, n=20)
 }
 }

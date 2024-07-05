@@ -60,6 +60,10 @@ regrModel <- MUVR2(X = XRVIP2,
                   nOuter = nOuter,
                   method = method,
                   modReturn = TRUE)
-biplotPLS(regrModel$Fit[[2]])
+biplotPLS(regrModel$Fit[[2]],
+          comps = 1:2,
+          xCol = YR2,
+          labPlSc = FALSE,
+          labPlLo = FALSE)
 }
 }

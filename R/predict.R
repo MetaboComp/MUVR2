@@ -10,7 +10,7 @@
 #' @examples
 #' \dontrun{
 #' data(freelive2)
-#' object<-MUVR2::pls(XRVIP2,YR2)
+#' object<-MUVR2:::pls(XRVIP2,YR2)
 #' predict(object,XRVIP2)
 #' }
 predict.plsMUVR <- function(object,
@@ -179,7 +179,7 @@ predict.plsMUVR <- function(object,
 #' @examples
 #' \dontrun{
 #' data(mosquito)
-#' object<-MUVR2::plsda(Xotu,Yotu)
+#' object<-MUVR2:::plsda(Xotu,Yotu)
 #' predict(object,Xotu)
 #' }
 #' @noRd

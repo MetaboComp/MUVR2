@@ -19,7 +19,7 @@
 #'                    varRatio = varRatio,
 #'                    method = "PLS",
 #'                    modReturn = TRUE)
-#' getVIRank(regrModel)
+#' getVIRank(regrModel model="min")
 #' }
 getVIRank <- function(MUVRclassObject,
                       model = 'mid',

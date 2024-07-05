@@ -37,6 +37,6 @@ regrModel <- MUVR2(X = XRVIP2,
                    varRatio = varRatio,
                    method = "PLS",
                    modReturn = TRUE)
-plotStability(regrModel)
+plotStability(regrModel, model = "min")
 }
 }

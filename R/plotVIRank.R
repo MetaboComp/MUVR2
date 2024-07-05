@@ -22,7 +22,7 @@
 #'                    varRatio = varRatio,
 #'                    method = "PLS",
 #'                    modReturn = TRUE)
-#' plotVIRank(regrModel)
+#' plotVIRank(regrModel, n=20)
 #' }
 plotVIRank <- function(MUVRclassObject,
                        n,
