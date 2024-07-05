@@ -242,7 +242,8 @@ plotVIRank <- function(MUVRclassObject,
       col = col,
       xlab = "Variable Importance",
       cex.axis = cextext,
-      cex.lab = cextext
+      cex.lab = cextext,
+      cex.names = cextext
     )                                 ###when outside n it is grey,  inside it is yellow
     axis(1)                                         ###manually add x axis
     labels <- rownames(VIRankRep)                    ##add labels
@@ -259,7 +260,9 @@ plotVIRank <- function(MUVRclassObject,
          ###label is horzontal
          at = 1:nrow(VIRankRep),
          ###label position
-         labels = labels)
+         labels = labels,
+         cex.axis = cextext
+         )
 
     if (n > nFeat) {
       abline(h = (n - nFeat + 1))
