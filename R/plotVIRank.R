@@ -1,9 +1,10 @@
 #' Plots variable importance ranking in MUVR object
-#' Regardless of MV core method, variables are sorted by rank, where lower is better. `plotVIRank` produces boxplots of variable rankings for all model repetitions.
+#' Regardless of MV core method, variables are sorted by rank, where lower is better.
+#' `plotVIRank` produces boxplots of variable rankings for all model repetitions.
 #' @param MUVRclassObject An MUVR class object only applied to PLS, RF not rdCVnet
 #' @param n Number of top ranking variables to plot (defaults to those selected by MUVR2)
 #' @param cut Optional value to cut length of variable names to `cut` number of characters
-#' @param model Which model to choose ('min', 'mid' {default} or 'max')
+#' @param model Which model to choose ('min', 'mid' (default) or 'max')
 #' @param maptype for rdCvnet dot plot or heat map
 #' @param add_blank put more blank when the rownames is too long,
 #' @param cextext the cex of the text

@@ -3,7 +3,8 @@
 \name{plotVIRank}
 \alias{plotVIRank}
 \title{Plots variable importance ranking in MUVR object
-Regardless of MV core method, variables are sorted by rank, where lower is better. `plotVIRank` produces boxplots of variable rankings for all model repetitions.}
+Regardless of MV core method, variables are sorted by rank, where lower is better.
+`plotVIRank` produces boxplots of variable rankings for all model repetitions.}
 \usage{
 plotVIRank(
   MUVRclassObject,
@@ -20,7 +21,7 @@ plotVIRank(
 
 \item{n}{Number of top ranking variables to plot (defaults to those selected by MUVR2)}
 
-\item{model}{Which model to choose ('min', 'mid' {default} or 'max')}
+\item{model}{Which model to choose ('min', 'mid' (default) or 'max')}
 
 \item{cut}{Optional value to cut length of variable names to `cut` number of characters}
 
@@ -35,7 +36,8 @@ Barplot of variable rankings (lower is better)
 }
 \description{
 Plots variable importance ranking in MUVR object
-Regardless of MV core method, variables are sorted by rank, where lower is better. `plotVIRank` produces boxplots of variable rankings for all model repetitions.
+Regardless of MV core method, variables are sorted by rank, where lower is better.
+`plotVIRank` produces boxplots of variable rankings for all model repetitions.
 }
 \examples{
 \dontrun{
