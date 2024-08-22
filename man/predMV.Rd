@@ -33,7 +33,7 @@ regrModel <- MUVR2(X = XRVIP2,
                    nOuter = nOuter,
                    varRatio = varRatio,
                    method = "PLS",
-                   modReturn=T)
+                   modReturn=TRUE)
 predMV(regrModel,XRVIP2)
 }
 }

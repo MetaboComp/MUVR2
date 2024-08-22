@@ -46,7 +46,7 @@ plotPerm <- function(actual,
                      curve = TRUE,
                      extend = 0.1,
                      multiple_p_shown = NULL,
-                     show_actual_value=T,
+                     show_actual_value = TRUE,
                      show_p = TRUE,
                      round_number = 4) {
   if (!is.null(multiple_p_shown)) {
@@ -340,7 +340,7 @@ if(sd(x_values)!=0){
       }
 
     }
-    if(show_actual_value==T){
+    if(show_actual_value==TRUE){
     text(actual,
          ###x position of the text
          max(h$density) * 0.003,
@@ -627,7 +627,7 @@ if(sd(x_values)!=0){
         }
       }
     }
-    if(show_actual_value==T){
+    if(show_actual_value == TRUE){
     text(actual,
          ###x position of the text
          ymax * 0.003,

@@ -1,7 +1,7 @@
 #'factor_samesequence: This function is to change the order of items in the levels of a factor variable
 #' @param X a factor variable
 #' @param level levels if want to manually set
-#' @param sequence default as F, if T normal factor
+#' @param sequence default as FALSE, if TRUE normal factor
 #' @return X_factor
 #' @examples
 #' \dontrun{

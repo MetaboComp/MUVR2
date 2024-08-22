@@ -5,7 +5,7 @@
 \title{Plot validation metric
 Produces a plot of validation metric vs number of variables in model (inner segment)}
 \usage{
-plotVAL(MUVRclassObject, show_outlier = T)
+plotVAL(MUVRclassObject, show_outlier = TRUE)
 }
 \arguments{
 \item{MUVRclassObject}{An object of class `MUVR`}

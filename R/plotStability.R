@@ -87,7 +87,7 @@ plotStability <- function(MUVRrdCVclassObject,
       ##output is a number of variables in VALL for  repetition i
 
       VA[i] <- sum(names(sort(
-        rowMeans(MUVRrdCVclassObject$VIRankPerRep[[nModel]][, 1:i, drop = F])
+        rowMeans(MUVRrdCVclassObject$VIRankPerRep[[nModel]][, 1:i, drop = FALSE])
       )[1:nV[i]]) %in% VAll)
       ##calculate  the mean of  first i repetitions of VIRankPerRep first and then rank them
       ##choose the first nV[i] and keep the ones that are in VALL
@@ -111,16 +111,16 @@ plotStability <- function(MUVRrdCVclassObject,
       #VARep[i] <- sum(names(sort(MUVRrdCVclassObject$VIRankPerRep[[nModel]][,i])[1:nVRep[i]])%in%VAll)
       VA[i] <- mean(VARep[1:i])
       #    VA[i] <- sum(names(sort(
-      #      rowMeans(MUVRrdCVclassObject$VIRankPerRep[[nModel]][,1:i,drop=F]))[1:nV[i]])%in%VAll)
+      #      rowMeans(MUVRrdCVclassObject$VIRankPerRep[[nModel]][,1:i,drop= FALSE]))[1:nV[i]])%in%VAll)
     }
 
 
     if (DA == TRUE) {
       ############discuss the scenario of DA
       if (!any(class(MUVRrdCVclassObject) == 'rdCVnet')) {
-        predsRep <- MUVRrdCVclassObject$yPredPerRep[[nModel]][, , i, drop = F]
+        predsRep <- MUVRrdCVclassObject$yPredPerRep[[nModel]][, , i, drop = FALSE]
       } else{
-        predsRep <- MUVRrdCVclassObject$yPredPerRep[, , i, drop = F]
+        predsRep <- MUVRrdCVclassObject$yPredPerRep[, , i, drop = FALSE]
       }
       ##row is observations, column is groups, The first value is for the first repetition,
       ##it will be substituted for each i
@@ -149,9 +149,9 @@ plotStability <- function(MUVRrdCVclassObject,
 
     } else {
       if (!any(class(MUVRrdCVclassObject) == 'rdCVnet')) {
-        predsRep <- MUVRrdCVclassObject$yPredPerRep[[nModel]][, i, drop = F]
+        predsRep <- MUVRrdCVclassObject$yPredPerRep[[nModel]][, i, drop = FALSE]
       } else{
-        predsRep <- MUVRrdCVclassObject$yPredPerRep[, i, drop = F]
+        predsRep <- MUVRrdCVclassObject$yPredPerRep[, i, drop = FALSE]
 
       }
 
@@ -162,9 +162,9 @@ plotStability <- function(MUVRrdCVclassObject,
       q2Rep[i] <- 1 - (PRESS / TSS)  ###one q2 for each repetition
 
       if (!any(class(MUVRrdCVclassObject) == 'rdCVnet')) {
-        preds <- MUVRrdCVclassObject$yPredPerRep[[nModel]][, 1:i, drop = F]
+        preds <- MUVRrdCVclassObject$yPredPerRep[[nModel]][, 1:i, drop = FALSE]
       } else{
-        preds <- MUVRrdCVclassObject$yPredPerRep[, 1:i, drop = F]
+        preds <- MUVRrdCVclassObject$yPredPerRep[, 1:i, drop = FALSE]
       }
 
       ####row is all observations, column is first i repetitions

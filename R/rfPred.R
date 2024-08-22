@@ -20,7 +20,7 @@
 #'         yTrain=yTrain,
 #'         xTest=xTest,
 #'         yTest=yTest,
-#'         DA=F)
+#'         DA= FALSE)
 #' }
 #' @noRd
 rfPred <- function(xTrain,

@@ -22,7 +22,7 @@ plotPerm(
   curve = TRUE,
   extend = 0.1,
   multiple_p_shown = NULL,
-  show_actual_value = T,
+  show_actual_value = TRUE,
   show_p = TRUE,
   round_number = 4
 )

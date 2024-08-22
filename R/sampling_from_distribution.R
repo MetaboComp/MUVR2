@@ -63,7 +63,7 @@ sampling_from_distribution <- function(X,
     dataPerm <- sample(x = denss$x,
                        prob = denss$y,
                        size = n,
-                       replace=T)
+                       replace=TRUE)
   }
   if (is.factor(X)) {
     dataPerm <- factor_samesequence(

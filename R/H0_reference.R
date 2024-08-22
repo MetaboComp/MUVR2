@@ -14,7 +14,7 @@ H0_reference <- function(Y,
                          n = 1000,
                          fitness = c("Q2", "BER", "MISS", "AUROC"),
                          ...) {
-  if(is.atomic(Y)==F){
+  if(is.atomic(Y)==FALSE){
     stop("The input must be an vector")
   }
   if (missing(fitness)) {

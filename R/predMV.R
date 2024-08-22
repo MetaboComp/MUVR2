@@ -17,7 +17,7 @@
 #'                    nOuter = nOuter,
 #'                    varRatio = varRatio,
 #'                    method = "PLS",
-#'                    modReturn=T)
+#'                    modReturn=TRUE)
 #' predMV(regrModel,XRVIP2)
 #' }
 predMV <- function(MUVRclassobject,

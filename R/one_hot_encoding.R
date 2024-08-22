@@ -14,7 +14,7 @@
 #'#To test the scenario when X has factor and charactor when using PLS
 #'#add one factor and one character variable(freelive data X,
 #'# which originally has 112 numeric samples and 1147 observations)
-#'factor varaible has 3,6,5factors(nearzero varianece),character variable has 7,4 categories
+#'# factor variable has 3,6,5factors(nearzero varianece),character variable has 7,4 categories
 #'factor_variable1<-as.factor(c(rep("33",105),rep("44",3),rep("55",4)))
 #'factor_variable2<-as.factor(c(rep("AB",20),rep("CD",10),rep("EF",30),
 #                           rep("GH",15),rep("IJ",25),rep("KL",12)))

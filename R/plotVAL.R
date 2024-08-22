@@ -20,7 +20,7 @@
 #' plotVAL(regrModel)
 #' }
 plotVAL <- function(MUVRclassObject,
-                    show_outlier=T) {
+                    show_outlier=TRUE) {
   if (class(MUVRclassObject)[1] != "MUVR") {
     stop("Wrong classobject")
   }
@@ -55,7 +55,7 @@ plotVAL <- function(MUVRclassObject,
         legend = c("Min", "Median", "Max"),
         lty = 1:3,
         cex = 0.5,
-        trace = F,
+        trace = FALSE,
         ####line type
         col = 2:4,
         bty = 'n'
@@ -107,7 +107,7 @@ plotVAL <- function(MUVRclassObject,
           predict.gam(gam_model, dataframe_forpredict)
         fitnessRep_vector <- fitnessRep_vector_origin
         nonZeroRep_vector <- nonZeroRep_vector_origin
-        if(show_outlier==T){
+        if(show_outlier==TRUE){
         plot(
           #exp(nonZeroRep_vector),
           #fitnessRep_vector,
@@ -167,7 +167,7 @@ plotVAL <- function(MUVRclassObject,
                                 newdata = data.frame(nonZeroRep_vector = nonZeroRep_vector_grid))
         fitnessRep_vector <- fitnessRep_vector_origin
         nonZeroRep_vector <- nonZeroRep_vector_origin
-        if(show_outlier==T){
+        if(show_outlier==TRUE){
         plot(
           #exp(nonZeroRep_vector),
           #fitnessRep_vector,
@@ -213,7 +213,7 @@ plotVAL <- function(MUVRclassObject,
           ),
           lty = 1:3,
           cex = 0.5,
-          trace = F,
+          trace = FALSE,
           ####line type
           col = 2:4,
           bty = 'n'
@@ -280,7 +280,7 @@ plotVAL <- function(MUVRclassObject,
                  'Repetitions',
                  'Overall'),
       cex = 0.5,
-      trace = F,
+      trace = FALSE,
       lty = 1,
       col = c('lightgrey', 'darkgrey', 'black'),
       bty = 'n'
@@ -290,7 +290,7 @@ plotVAL <- function(MUVRclassObject,
       legend = c("'Min (Minimal-optimal)", "'Mid'", "'Max' (All-relevant)"),
       lty = 1:3,
       cex = 0.5,
-      trace = F,
+      trace = FALSE,
       ####line type
       col = 2:4,
       bty = 'n'

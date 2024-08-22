@@ -34,6 +34,6 @@ regrModel <- MUVR2(X = XRVIP2,
                    varRatio = varRatio,
                    method = "PLS",
                    modReturn = TRUE)
-getVIRank(regrModel model="min")
+getVIRank(regrModel, model="min")
 }
 }

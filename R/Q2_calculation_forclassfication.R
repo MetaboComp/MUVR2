@@ -12,8 +12,8 @@
 #'                      method="PLS",
 #'                      nRep=nRep,
 #'                      nOuter=nOuter,
-#'                      DA=T,
-#'                      modReturn = T)
+#'                      DA=TRUE,
+#'                      modReturn = TRUE)
 #' classification_prediction_matrix <- classModel$yPred
 #' y <- Yotu
 #' Q2_calculation_forclassification(classification_prediction_matrix,

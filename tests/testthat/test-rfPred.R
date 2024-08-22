@@ -11,7 +11,7 @@ test_that("rfPred works", {
             yTrain=yTrain,
             xTest=xTest,
             yTest=yTest,
-           DA=F)
+           DA= FALSE)
   expect_length(rfPred_object,3)
 
 
@@ -22,7 +22,7 @@ test_that("rfPred works", {
              yTrain=yTest,
              xTest=xTest,
              yTest=yTest,
-             DA=F)
+             DA= FALSE)
 
   )
 })

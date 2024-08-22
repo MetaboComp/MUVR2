@@ -26,7 +26,7 @@
 #'                   nRep = nRep,
 #'                   nOuter = nOuter,
 #'                   method = method,
-#'                   modReturn=T)
+#'                   modReturn=TRUE)
 #' }
 
 rdCV <- function(X,
