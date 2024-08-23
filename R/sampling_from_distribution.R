@@ -8,7 +8,6 @@
 #'@export
 #'@return a resampled thing
 #' @examples
-#' \donttest{
 #' data("mosquito")
 #' sampling_from_distribution(Yotu)
 #' data("freelive2")
@@ -17,7 +16,6 @@
 #'                            lowerlimit=0,
 #'                            n=length(YR2)
 #'                            )
-#' }
 sampling_from_distribution <- function(X,
                                        upperlimit,
                                        lowerlimit,

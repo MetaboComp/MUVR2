@@ -12,6 +12,9 @@ plotPred(Ytrue, Ypreds)
 
 \item{Ypreds}{Predicted value of Y can be a vector or data frame with the same number of rows}
 }
+\value{
+A plot, plot the prediction
+}
 \description{
 Plot predictions
 At present, this function only supports predictions for PLS regression type problems

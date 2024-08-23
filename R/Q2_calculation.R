@@ -4,12 +4,11 @@
 #'@export
 #'@return Q2
 #' @examples
-#' \donttest{
 #' data("freelive2")
 #' actual <- YR2
 #' predicted <- MUVR2::sampling_from_distribution(actual)
 #' Q2_calculation(actual, predicted)
-#' }
+
 Q2_calculation <- function(yhat, y) {
   PRESS <- sum((y - yhat) ^ 2)
   TSS <- sum((y - mean(y)) ^ 2)

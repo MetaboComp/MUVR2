@@ -11,11 +11,10 @@
 #' @importFrom psych principal
 #' @export
 #' @examples
-#' \donttest{
 #' data("freelive2")
 #' pca_object<-prcomp(XRVIP2)
 #' plotPCA(pca_object)
-#' }
+
 plotPCA <- function(pca,
                     PC1 = 1,
                     PC2 = 2,

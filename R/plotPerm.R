@@ -22,12 +22,11 @@
 #' @return Plot
 #' @export
 #' @examples
-#' \donttest{
 #' data("freelive2")
 #' actual <- sample(YR2, 1)
 #' distribution <- YR2
 #' plotPerm (actual, distribution)
-#' }
+
 plotPerm <- function(actual,
                      distribution,
                      ####a distribution

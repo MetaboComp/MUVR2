@@ -6,12 +6,11 @@
 #' @return nzv object
 #' @export
 #' @examples
-#' \donttest{
 #' data("freelive2")
 #' nearZeroVar(XRVIP2)
 #' data("mosquito")
 #' nearZeroVar(Xotu)
-#' }
+
 nearZeroVar <- function (x,
                          freqCut = 95 / 5,
                          uniqueCut = 10) {

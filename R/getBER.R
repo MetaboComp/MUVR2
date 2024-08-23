@@ -6,13 +6,11 @@
 #' @return Balanced Error Rate (BER)
 #' @export
 #' @examples
-#' \donttest{
 #' data("mosquito")
 #' actual <- Yotu
-#'
 #' predicted <- sampling_from_distribution(actual)
 #' getBER(actual, predicted)
-#' }
+
 getBER <- function (actual,
                     predicted,
                     weigh_added = FALSE,

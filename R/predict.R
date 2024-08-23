@@ -7,11 +7,9 @@
 #' @param ... other argument
 #' @return pls prediction
 #' @examples
-#' \donttest{
 #' data(freelive2)
 #' object<-MUVR2:::pls(XRVIP2,YR2)
 #' predict(object,XRVIP2)
-#' }
 #' @noRd
 predict.plsMUVR <- function(object,
                             newdata,
@@ -176,11 +174,9 @@ predict.plsMUVR <- function(object,
 #' @param scale scale in MUVR
 #' @return plsda predictions
 #' @examples
-#' \donttest{
 #' data(mosquito)
 #' object<-MUVR2:::plsda(Xotu,Yotu)
 #' predict(object,Xotu)
-#' }
 #' @noRd
 predict.plsdaMUVR <- function(object,
                               newdata,

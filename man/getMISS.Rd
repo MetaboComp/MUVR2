@@ -22,10 +22,8 @@ miss classification
 get the number of miss classifications from classification analysis
 }
 \examples{
-\donttest{
 data("mosquito")
 actual <- Yotu
 predicted <- sampling_from_distribution(actual)
 getMISS(actual, predicted)
-}
 }

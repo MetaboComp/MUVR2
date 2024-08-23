@@ -10,6 +10,7 @@
 #' data("freelive2")
 #' H0_reference(YR2)
 #' }
+
 H0_reference <- function(Y,
                          n = 1000,
                          fitness = c("Q2", "BER", "MISS", "AUROC"),

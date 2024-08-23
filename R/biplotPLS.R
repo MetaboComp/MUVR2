@@ -31,6 +31,7 @@
 #'           labPlSc = FALSE,
 #'           labPlLo = FALSE)
 #' }
+
 biplotPLS <- function(fit,
                       #####A PLS fit (e.g. from MUVRclassObject$Fit[[2]]) could be [[3]],[[4]]
                       comps = 1:2,

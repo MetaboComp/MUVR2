@@ -4,11 +4,9 @@
 #' @param sequence default as FALSE, if TRUE normal factor
 #' @return X_factor
 #' @examples
-#' \donttest{
 #' data("mosquito")
 #' Yotu2<-factor(Yotu,levels=c("VK5","VK7","VK3"))
-#' factor_samesequence(Yotu)
-#' }
+#' MUVR2:::factor_samesequence(Yotu)
 #' @noRd
 factor_samesequence <- function(X,
                                 level,

@@ -24,7 +24,6 @@ a resampled thing
 Sampling from the distribution of something
 }
 \examples{
-\donttest{
 data("mosquito")
 sampling_from_distribution(Yotu)
 data("freelive2")
@@ -33,5 +32,4 @@ sampling_from_distribution(YR2,
                            lowerlimit=0,
                            n=length(YR2)
                            )
-}
 }

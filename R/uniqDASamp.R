@@ -5,13 +5,11 @@
 #' @param folds Number of folds
 #' @return A master list of segments
 #' @examples
-#' \donttest{
 #' data("mosquito")
 #' Y <- Yotu
 #' ID <- 1:length(Yotu)
 #' folds <- 5
 #' uniqDASamp(Y, ID, folds)
-#' }
 #' @noRd
 uniqDASamp <- function(Y,
                        ID,

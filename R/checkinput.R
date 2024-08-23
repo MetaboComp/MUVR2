@@ -17,13 +17,12 @@
 #'@return correct_input: the original input(call) and the real input used in MUVR2 when you enter your input
 #'@export
 #'@examples
-#'\donttest{
 #' data("freelive2")
 #'checkinput(X = XRVIP2,
 #'           Y = YR2,  ## YR2 a numeric variable
 #'           DA = FALSE,
 #'           fitness="RMSEP")
-#'           }
+
 checkinput <- function(X,
                        Y,
                        ML,

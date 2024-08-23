@@ -3,14 +3,12 @@
 #' @param ID Vector of sampling unit identifier
 #' @return a vector with folds
 #' @examples
-#' \donttest{
 #' Y <- rep(LETTERS[1:2],10)
 #' ID <- 1:20
 #' folds <- 5
 #' foldList <- MUVR2:::uniqDASamp(Y, ID, folds)
-#' foldVect <- foldVector(foldList, ID)
+#' foldVect <- MUVR2:::foldVector(foldList, ID)
 #' foldVect
-#' }
 #' @noRd
 foldVector <- function(foldList, ID) {
   fold <- numeric(length(ID)) ##longer than nfold

@@ -9,11 +9,8 @@
 #' @param scale scale or not
 #' @return a plsMUVR object
 #' @examples
-#' \donttest{
 #' data(freelive2)
 #' MUVR2:::pls(XRVIP2,YR2)
-#'
-#' }
 #' @noRd
 
 pls <- function(x,

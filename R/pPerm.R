@@ -10,12 +10,11 @@
 #' @return p-value
 #' @export
 #' @examples
-#' \donttest{
 #' data("freelive2")
 #' actual <- sample(YR2, 1)
 #' permutation_distribution <- YR2
 #' pPerm(actual, permutation_distribution)
-#' }
+
 pPerm <- function(actual,
                   ###a value
                   permutation_distribution,

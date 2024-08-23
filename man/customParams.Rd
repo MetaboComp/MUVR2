@@ -77,7 +77,6 @@ Make custom parameters for MUVR internal modelling,not rdCV
 Please note that, at present, there is no mtryMax for the outer (consensus) loop in effect
 }
 \examples{
-\donttest{
 # Standard parameters for random forest
 methParam <- customParams() # or
 methParam <- customParams('RF')
@@ -86,5 +85,4 @@ methParam <- customParams('RF',ntreeOut=50) # or
 methParam <- customParams('RF')
 methParam$ntreeOut <- 50
 methParam
-}
 }

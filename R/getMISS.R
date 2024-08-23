@@ -6,12 +6,11 @@
 #' @return miss classification
 #' @export
 #' @examples
-#' \donttest{
 #' data("mosquito")
 #' actual <- Yotu
 #' predicted <- sampling_from_distribution(actual)
 #' getMISS(actual, predicted)
-#' }
+
 
 getMISS <- function (actual,
                      predicted,

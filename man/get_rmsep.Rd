@@ -18,10 +18,8 @@ rmsep
 get rmsep for regression
 }
 \examples{
-\donttest{
 data("mosquito")
 actual <- YR2
 predicted <- sampling_from_distribution(actual)
 get_rmsep(actual, predicted)
-}
 }

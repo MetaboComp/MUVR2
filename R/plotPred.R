@@ -3,6 +3,7 @@
 #' @param Ytrue True value of Y, should be a vector
 #' @param Ypreds Predicted value of Y can be a vector or data frame with the same number of rows
 #' @export
+#' @return A plot, plot the prediction
 #' @examples
 #' \donttest{
 #' data("freelive2")

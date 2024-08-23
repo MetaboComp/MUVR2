@@ -9,11 +9,9 @@
 #' @param scale scale
 #' @return a plsdaMUVR object
 #' @examples
-#' \donttest{
 #' data("mosquito")
 #' MUVR2:::plsda(Xotu,
 #'       Yotu)
-#' }
 #' @noRd
 
 plsda <- function(x,

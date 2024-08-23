@@ -3,12 +3,10 @@
 #' @param object pls(da)MUVR object
 #' @return vip object
 #' @examples
-#' \donttest{
 #' data("freelive2")
 #' object <- MUVR2:::pls(XRVIP2,YR2)
-#' vip_object<-vip(object)
+#' vip_object<-MUVR2:::vip(object)
 #' vip_object
-#' }
 #' @noRd
 vip <-
   function(object) {

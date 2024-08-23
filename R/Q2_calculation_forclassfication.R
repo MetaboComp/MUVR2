@@ -4,7 +4,6 @@
 #'@param minmidmax minmidmax
 #'@return Q2
 #' @examples
-#' \donttest{
 #' data("mosquito")
 #' nRep <- 2
 #' nOuter <- 4
@@ -18,7 +17,6 @@
 #' y <- Yotu
 #' Q2_calculation_forclassification(classification_prediction_matrix,
 #' y)
-#' }
 #' @noRd
 
 

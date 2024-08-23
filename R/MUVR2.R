@@ -38,7 +38,7 @@
 #'                    varRatio = varRatio,
 #'                    method = method,
 #'                    modReturn = TRUE)
-#' }
+#'}
 
 MUVR2 <- function(X,
                  Y,
