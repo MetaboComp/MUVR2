@@ -11,10 +11,10 @@ Authors@R: c(person(given = "Carl",
                     email = "yingxiao@chalmers.se"))
 Author: Carl Brunius [aut], Yingxiao Yan [aut, cre]
 Maintainer: Yingxiao Yan <yingxiao@chalmers.se>
-Description: MUVR2 dedicated to predictive multivariate modelling for metabolomics. 
+Description: Predictive multivariate modelling for metabolomics. 
     Types: Classification and regression. 
-    Methods: Partial Least Squares, random Forest ans Elastic net 
-    Data structures: Paired and unpaired Validation: repeated double cross-validation (Westerhuis et al. (2008)<doi:https://doi.org/10.1007/s11306-007-0099-6>, Filzmoser et al. (2009)<doi:https://doi.org/10.1002/cem.1225>) 
+    Methods: Partial Least Squares, Random Forest ans Elastic Net 
+    Data structures: Paired and unpaired Validation: repeated double cross-validation (Westerhuis et al. (2008)<doi:10.1007/s11306-007-0099-6>, Filzmoser et al. (2009)<doi:10.1002/cem.1225>) 
     Variable selection: Performed internally, through tuning in the inner cross-validation loop.
 URL: https://github.com/MetaboComp/MUVR2
 BugReports: https://github.com/MetaboComp/MUVR2/issues
@@ -44,3 +44,4 @@ Encoding: UTF-8
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+
