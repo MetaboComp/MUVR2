@@ -6,7 +6,7 @@
 #' @return nzv object
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("freelive2")
 #' nearZeroVar(XRVIP2)
 #' data("mosquito")

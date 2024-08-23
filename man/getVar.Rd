@@ -39,7 +39,7 @@ a rdCVnet object
 The function will obtain the min, mid, max number of variables for an object generated from the rdCVnet() function
 }
 \examples{
-\dontrun{
+\donttest{
 data("mosquito")
 nRep <- 2
 nOuter <- 4

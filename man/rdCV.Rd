@@ -54,7 +54,7 @@ An object containing stuff...
 rdCV: Wrapper for repeated double cross-validation without variable selection
 }
 \examples{
-\dontrun{
+\donttest{
 data("freelive2")
 nRep <- 2 # Number of MUVR2 repetitions
 nOuter <- 4 # Number of outer cross-validation segments

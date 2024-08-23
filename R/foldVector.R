@@ -3,7 +3,7 @@
 #' @param ID Vector of sampling unit identifier
 #' @return a vector with folds
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' Y <- rep(LETTERS[1:2],10)
 #' ID <- 1:20
 #' folds <- 5

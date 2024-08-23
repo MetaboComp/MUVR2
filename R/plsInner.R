@@ -15,7 +15,7 @@
 #' @return `nComp` Optimised number of components within range (1:comp)
 #' @return `virank` variable importance rankings
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("freelive2")
 #' xTrain<-XRVIP2[1:40,]
 #' yTrain<-YR2[1:40]

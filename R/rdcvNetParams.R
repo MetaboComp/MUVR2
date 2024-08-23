@@ -8,7 +8,7 @@
 #' @return a `methParam` object
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Standard parameters for rdcvNet
 #' methParam <- rdcvNetParams()
 #' }

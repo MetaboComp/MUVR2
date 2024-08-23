@@ -22,7 +22,7 @@ Identify variables with near zero variance
 Adapted and stripped down from mixOmics v 5.2.0 (https://cran.r-project.org/web/packages/mixOmics/)
 }
 \examples{
-\dontrun{
+\donttest{
 data("freelive2")
 nearZeroVar(XRVIP2)
 data("mosquito")

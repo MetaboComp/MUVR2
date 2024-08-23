@@ -32,7 +32,7 @@ Make custom parameters for rdcvNet internal modelling
 Custom parameters can be set in the function call or by manually setting "slots" in the resulting methParam object
 }
 \examples{
-\dontrun{
+\donttest{
 # Standard parameters for rdcvNet
 methParam <- rdcvNetParams()
 }

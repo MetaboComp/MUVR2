@@ -15,7 +15,7 @@
 #' @return An object containing stuff...
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("freelive2")
 #' nRep <- 2 # Number of MUVR2 repetitions
 #' nOuter <- 4 # Number of outer cross-validation segments
@@ -51,12 +51,12 @@ rdCV <- function(X,
 
   # Check indata
   if (is.null(dim(X))) {
-    cat('\nError: Wrong format of X matrix.\n')
+    warning('\nError: Wrong format of X matrix.\n')
     return(NULL)
   }
   if (!is.null(dim(Y))) {
     ####Y must be only one variable
-    cat('\nY is not a vector: Return NULL')
+    warning('\nY is not a vector: Return NULL')
     return(NULL)
   }
   nSamp <-
@@ -65,7 +65,7 @@ rdCV <- function(X,
     ncol(X)      ####nVar=nVar0 number of variables in X
 
   if (missing(ID)) {
-    cat('\nMissing ID -> Assume all unique (i.e. sample independence)')
+    message('\nMissing ID -> Assume all unique (i.e. sample independence)')
     ID <- 1:nSamp
   }
   if (missing(nInner)) {
@@ -110,7 +110,7 @@ rdCV <- function(X,
     ID <- c(ID, ID)
     DA <- FALSE
     fitness <- 'MISS'
-    cat('\nMultilevel -> Regression on (-1,1) & fitness=MISS')
+    message('\nMultilevel -> Regression on (-1,1) & fitness=MISS')
   }
 
 
@@ -118,7 +118,7 @@ rdCV <- function(X,
     Y <- factor(Y)
   }
   if (is.factor(Y)) {
-    cat('\nY is factor -> Classification (',
+    message('\nY is factor -> Classification (',
         length(unique(Y)),
         ' classes)',
         sep = '')
@@ -129,7 +129,7 @@ rdCV <- function(X,
 
   if (is.numeric(Y) & DA) {
     Y <- as.factor(Y)
-    cat('\nDA=TRUE -> Y as factor -> Classification (',
+    message('\nDA=TRUE -> Y as factor -> Classification (',
         length(unique(Y)),
         ' classes)',
         sep = '')
@@ -139,23 +139,23 @@ rdCV <- function(X,
       if (length(unique(Y)) > 2) {
         ##when y class>2
         fitness <- 'MISS'
-        cat('\nMissing fitness -> MISS')
+        message('\nMissing fitness -> MISS')
       } else if (length(levels(Y)) > 2) {
         fitness <- 'AUROC'
-        cat('\nMissing fitness -> AUROC')
+        message('\nMissing fitness -> AUROC')
       } else {
         fitness <- 'BER'
-        cat('\nMissing fitness -> BER')
+        message('\nMissing fitness -> BER')
       }
     } else {
       fitness <- 'RMSEP'
-      cat('\nMissing fitness -> RMSEP')
+      message('\nMissing fitness -> RMSEP')
     }
   }
 
 
   if (nrow(X) != length(Y)) {
-    cat('\nMust have same nSamp in X and Y: Return NULL')
+    warning('\nMust have same nSamp in X and Y: Return NULL')
     return(NULL)
   }
   ## Store indata in list for later model return

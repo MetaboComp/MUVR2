@@ -13,7 +13,7 @@
 #' @return A PLS biplot
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("freelive2")
 #' nRep <- 2 # Number of MUVR2 repetitions
 #' nOuter <- 3 # Number of outer cross-validation segments
@@ -46,6 +46,9 @@ biplotPLS <- function(fit,
   cex <-
     par()$cex  ###A numerical value giving the amount by which plotting text and symbols should be magnified relative
   ##to the default. This starts as 1 when a device is opened, and is reset when the layout is changed, e.g. by setting mfrow.
+
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
 
   par(mar = c(4, 4, 4, 4) + .5)
 

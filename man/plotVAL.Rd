@@ -20,7 +20,7 @@ Plot validation metric
 Produces a plot of validation metric vs number of variables in model (inner segment)
 }
 \examples{
-\dontrun{
+\donttest{
 data("freelive2")
 nRep <- 2
 nOuter <- 4

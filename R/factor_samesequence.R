@@ -4,7 +4,7 @@
 #' @param sequence default as FALSE, if TRUE normal factor
 #' @return X_factor
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("mosquito")
 #' Yotu2<-factor(Yotu,levels=c("VK5","VK7","VK3"))
 #' factor_samesequence(Yotu)

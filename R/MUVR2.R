@@ -25,7 +25,7 @@
 #' @importFrom ranger ranger
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data(freelive2)
 #' nRep <- 2 # Number of MUVR2 repetitions
 #' nOuter <- 3 # Number of outer cross-validation segments
@@ -127,7 +127,7 @@ MUVR2 <- function(X,
   if (methParam$oneHot == TRUE) {
     if (any(class(X) %in% c("data.frame"))) {
       X <- onehotencoding(X)
-      cat("X is transformed to a matrix by onehotencoding.", "\n")
+      message("X is transformed to a matrix by onehotencoding.", "\n")
     }
   }
   ##now the X here is the new X after onehot encoding
@@ -141,13 +141,13 @@ MUVR2 <- function(X,
     if (length(nzv$Position) > 0) {
       modelReturn$nzv <- colnames(X)[nzv$Position]
       X <- X[, -nzv$Position]
-      cat(
+      message(
         '\n',
         length(nzv$Position),
         'variables with near zero variance detected -> removed from X and stored under $nzv',
         "\n"
       )
-      cat("They are", rownames(nzv$Metrics), "\n")
+      message("They are", rownames(nzv$Metrics), "\n")
     }
   }
 
@@ -194,8 +194,8 @@ MUVR2 <- function(X,
       }
     }
     nkeep <- length(keeps)
-    cat("\n", nkeep, "variables are kept manually.", "\n")
-    cat("They are", keeps, "\n")
+    message("\n", nkeep, "variables are kept manually.", "\n")
+    message("They are", keeps, "\n")
   }
 
   #--------------------------
@@ -214,7 +214,7 @@ MUVR2 <- function(X,
 
   # Sample identifiers; Assume independence if ID is not specified
   if (missing(ID)) {
-    cat('\nMissing ID -> Assume all unique (i.e. sample independence)')
+    warning('\nMissing ID -> Assume all unique (i.e. sample independence)')
     ID <- 1:nSamp
   }
 
@@ -324,7 +324,7 @@ MUVR2 <- function(X,
     ID <- c(ID, ID)
     DA <- FALSE
     fitness <- 'MISS'
-    cat('\nMultilevel -> Regression on (-1, 1) & fitness = "MISS"')
+    message('\nMultilevel -> Regression on (-1, 1) & fitness = "MISS"')
   }
   if(dim(X)[1]!=length(Y)){
     stop("The X and Y should have same number of observations")
@@ -344,7 +344,7 @@ MUVR2 <- function(X,
     Y <- factor(Y)
   }
   if (is.factor(Y)) {
-    cat('\nY is factor -> Classification (',
+    message('\nY is factor -> Classification (',
         length(unique(Y)),
         ' classes)',
         sep = '')
@@ -352,7 +352,7 @@ MUVR2 <- function(X,
   }
   if (is.numeric(Y) & DA) {
     Y <- as.factor(Y)
-    cat('\nDA = TRUE -> Y as factor -> Classification (',
+    message('\nDA = TRUE -> Y as factor -> Classification (',
         length(unique(Y)),
         ' classes)',
         sep = '')
@@ -362,11 +362,11 @@ MUVR2 <- function(X,
   if (missing(fitness)) {
     if (DA) {
       fitness <- 'BER'
-      cat('\nMissing fitness -> BER')
+      message('\nMissing fitness -> BER')
     } else {
       # I.e. for regression
       fitness <- 'RMSEP'
-      cat('\nMissing fitness -> RMSEP')
+      message('\nMissing fitness -> RMSEP')
     }
   }
 

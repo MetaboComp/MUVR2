@@ -9,7 +9,7 @@
 #' @param scale scale or not
 #' @return a plsMUVR object
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data(freelive2)
 #' MUVR2:::pls(XRVIP2,YR2)
 #'

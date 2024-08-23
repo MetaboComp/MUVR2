@@ -5,7 +5,7 @@
 #' @return A plot
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("freelive2")
 #' nRep <- 2
 #' nOuter <- 4

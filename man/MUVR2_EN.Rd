@@ -80,7 +80,7 @@ MUVR: "Multivariate modelling with Unbiased Variable selection", using elastic n
 Repeated double cross validation with tuning of variables.
 }
 \examples{
-\dontrun{
+\donttest{
 data("freelive2")
 nRep <- 2 # Number of MUVR2 repetitions
 nOuter <- 4 # Number of outer cross-validation segments

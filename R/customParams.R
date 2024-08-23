@@ -24,7 +24,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Standard parameters for random forest
 #' methParam <- customParams() # or
 #' methParam <- customParams('RF')

@@ -35,7 +35,7 @@
 #' @return A MUVR object
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("freelive2")
 #' nRep <- 2 # Number of MUVR2 repetitions
 #' nOuter <- 4 # Number of outer cross-validation segments
@@ -97,7 +97,7 @@ MUVR2_EN <- function(X,
   if (methParam$oneHot == TRUE) {
     if (any(class(X) %in% c("data.frame"))) {
       X <- onehotencoding(X)
-      cat("X is transformed to a matrix by onehotencoding.", "\n")
+      message("X is transformed to a matrix by onehotencoding.", "\n")
     }
   } else {
     X <- as.matrix(X)
@@ -111,7 +111,7 @@ MUVR2_EN <- function(X,
     if (length(nzv$Position) > 0) {
       modelReturn$nzv <- colnames(X)[nzv$Position]
       X <- X[, -nzv$Position]
-      cat(
+      message(
         '\n',
         length(nzv$Position),
         'variables with near zero variance detected -> removed from X and stored under $nzv'
@@ -125,7 +125,7 @@ MUVR2_EN <- function(X,
 
   # Sample identifiers
   if (missing(ID)) {
-    cat('\nMissing ID -> Assume all unique (i.e. sample independence)')
+    message('\nMissing ID -> Assume all unique (i.e. sample independence)')
     ID <- 1:nSamp
   }
   if (ML) {
@@ -138,7 +138,7 @@ MUVR2_EN <- function(X,
     ID <- c(ID, ID)
     DA <- FALSE
     fitness <- 'MISS'
-    cat('\nMultilevel -> Regression on (-1,1) & fitness=MISS')
+    message('\nMultilevel -> Regression on (-1,1) & fitness=MISS')
   }
 
 
@@ -184,7 +184,7 @@ MUVR2_EN <- function(X,
     Y <- factor(Y)
   }
   if (is.factor(Y)) {
-    cat('\nY is factor -> Classification (',
+    message('\nY is factor -> Classification (',
         length(unique(Y)),
         ' classes)',
         sep = '')
@@ -192,7 +192,7 @@ MUVR2_EN <- function(X,
   }
   if (is.numeric(Y) & DA) {
     Y <- as.factor(Y)
-    cat('\nDA=TRUE -> Y as factor -> Classification (',
+    message('\nDA=TRUE -> Y as factor -> Classification (',
         length(unique(Y)),
         ' classes)',
         sep = '')
@@ -205,10 +205,10 @@ MUVR2_EN <- function(X,
   if (missing(fitness)) {
     if (DA) {
       fitness <- 'BER'
-      cat('\nMissing fitness -> BER')
+      message('\nMissing fitness -> BER')
     } else {
       fitness <- 'RMSEP'
-      cat('\nMissing fitness -> RMSEP')
+      message('\nMissing fitness -> RMSEP')
     }
   }
 
@@ -219,13 +219,13 @@ MUVR2_EN <- function(X,
     stop('\nNo missing values allowed in X or Y data.\n')
   }
   if (!is.null(dim(Y))) {
-    cat('\nY is not a vector: Return NULL')
+    warning('\nY is not a vector: Return NULL')
     return(NULL)
   }
 
   # Sanity check
   if (nrow(X) != length(Y)) {
-    cat('\nMust have same nSamp in X and Y: Return NULL')
+    warning('\nMust have same nSamp in X and Y: Return NULL')
     return(NULL)
   }
 

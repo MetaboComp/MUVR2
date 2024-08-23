@@ -24,7 +24,7 @@ a resampled thing
 Sampling from the distribution of something
 }
 \examples{
-\dontrun{
+\donttest{
 data("mosquito")
 sampling_from_distribution(Yotu)
 data("freelive2")

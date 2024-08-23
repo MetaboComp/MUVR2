@@ -20,7 +20,7 @@ Merge two MUVR class object that use regression for PLS or RF methods
 This 2 MUVR class object has the same indata except that nRep is different
 }
 \examples{
-\dontrun{
+\donttest{
 data("freelive2")
 nRep <- 2
 nOuter <- 4

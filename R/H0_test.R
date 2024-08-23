@@ -14,7 +14,7 @@
 #' @return  permutation_output: A permutation matrix with permuted fitness statistics (nrow=n and ncol=3 for min/mid/max)
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("freelive2")
 #' nRep <- 2
 #' nOuter <- 4

@@ -17,7 +17,7 @@
 #'@return correct_input: the original input(call) and the real input used in MUVR2 when you enter your input
 #'@export
 #'@examples
-#'\dontrun{
+#'\donttest{
 #' data("freelive2")
 #'checkinput(X = XRVIP2,
 #'           Y = YR2,  ## YR2 a numeric variable
@@ -49,7 +49,7 @@ checkinput <- function(X,
   #analyze X datatype
   if (class(X)[1] == "data.frame") {
     X <- MUVR2::onehotencoding(X)
-    cat("X is transformed to a matrix by onehotencoding.", "\n")
+    message("X is transformed to a matrix by onehotencoding.", "\n")
   }
   factor_number <- 0
   numeric_integer_number <- 0
@@ -71,7 +71,7 @@ checkinput <- function(X,
       factor_number <- factor_number + 1
     }
   }
-  cat(
+  message(
     "\n",
     "In X",
     "\n",
@@ -242,7 +242,7 @@ checkinput <- function(X,
       if (length(levels(Y)) > 10) {
         warning("\n", "There are more than 10 levels in Y.")
       }
-      cat(
+      message(
         "Y is transformed to a factor variable with",
         length(levels(Y)),
         "levels and",
@@ -253,7 +253,7 @@ checkinput <- function(X,
       if (length(levels(Y)) > 10) {
         warning("\n", "There are more than 10 levels in Y.")
       }
-      cat(
+      message(
         "\n",
         "Y is a factor variable with",
         length(levels(Y)),
@@ -262,10 +262,10 @@ checkinput <- function(X,
         "observations."
       )
     } else{
-      cat("\n",
-          "Y is a numeric variable with",
+      message("\n",
+          "Y is a numeric variable with ",
           length(Y),
-          "obsevations",
+          " obsevations",
           "\n")
     }
   }
@@ -398,7 +398,7 @@ checkinput <- function(X,
     )
 
 
-  cat("\n",
+  message("\n",
       "\n",
       "Original input(call) and the input that will used in MUVR2:\n")
   return(correct_input)

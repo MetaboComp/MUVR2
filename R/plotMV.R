@@ -7,7 +7,7 @@
 #' @return A plot of results from multivariate predictions
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("freelive2")
 #' nRep <- 2
 #' nOuter <- 4
@@ -207,6 +207,10 @@ plotMV <- function(MUVRclassObject,
     ##I didn't figure out how to add legend here for classification problem
     # Add legend
     xpdOld <- par()$xpd            #######
+
+    oldpar <- par(no.readonly = TRUE)
+    on.exit(par(oldpar))
+
     par(xpd = TRUE) ###A logical value or NA. If FALSE, all plotting is clipped to the plot region,
     ###if TRUE, all plotting is clipped to the figure region, and if NA, all plotting is clipped to the device region.
 

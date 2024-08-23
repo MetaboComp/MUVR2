@@ -5,7 +5,7 @@
 #' Redundant (from 'min' up to 'max' or all-relevant ) and Noisy (the rest)
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("mosquito")
 #' nRep <- 2
 #' nOuter <- 4

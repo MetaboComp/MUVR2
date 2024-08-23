@@ -18,7 +18,7 @@ Q2
 Q2 calculation
 }
 \examples{
-\dontrun{
+\donttest{
 data("freelive2")
 actual <- YR2
 predicted <- MUVR2::sampling_from_distribution(actual)

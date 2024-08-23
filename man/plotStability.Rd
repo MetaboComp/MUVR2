@@ -25,7 +25,7 @@ Plot of number of variables, proportion of variables overlapping with reference 
 Plot stability of selected variables and prediction fitness as a function of number of repetitions
 }
 \examples{
-\dontrun{
+\donttest{
 data("freelive2")
 nRep <- 2
 nOuter <- 4

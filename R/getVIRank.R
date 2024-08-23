@@ -7,7 +7,7 @@
 #' @return Data frame with order, name and average rank of variables (`order`, `name` & `rank`)
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("freelive2")
 #' nRep <- 2
 #' nOuter <- 4

@@ -22,7 +22,7 @@ a histogram of reference distribution
 make reference distribution for resampling tests/permutation tests
 }
 \examples{
-\dontrun{
+\donttest{
 data("freelive2")
 H0_reference(YR2)
 }

@@ -6,7 +6,7 @@
 #'
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("freelive2")
 #' nRep <- 2
 #' nOuter <- 4
@@ -23,13 +23,13 @@
 mergeModels <- function(MV1, MV2) {
   if (any(class(MV1) == 'Multilevel') |
       any(class(MV1) == 'Classification')) {
-    cat('\nNot yet supported')
+    warning('\nNot yet supported')
     stop()
   }
 
   if (any(class(MV2) == 'Multilevel') |
       any(class(MV2) == 'Classification')) {
-    cat('\nNot yet supported')
+    warning('\nNot yet supported')
     stop()
   }
   #####name in data
@@ -44,7 +44,7 @@ mergeModels <- function(MV1, MV2) {
   in2$nRep <- NULL
 
   if (!identical(in1, in2)) {
-    cat('\nIndata not identical between models')
+    warning('\nIndata not identical between models')
     stop()
   }
   ####save everything of MV1 , whichs indata  is identical as MV2
@@ -67,7 +67,7 @@ mergeModels <- function(MV1, MV2) {
   for (i in 1:3) {
     ###min mid max
     if (DA) {
-      cat('\nNot yet implemented')
+      warning('\nNot yet implemented')
     } else {
       yPPR[[i]] <-
         cbind(yPPR[[i]], MV2$yPredPerRep[[i]])     ###combine 2 matrix

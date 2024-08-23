@@ -3,7 +3,7 @@
 #' @param object pls(da)MUVR object
 #' @return vip object
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("freelive2")
 #' object <- MUVR2:::pls(XRVIP2,YR2)
 #' vip_object<-vip(object)

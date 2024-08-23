@@ -14,7 +14,7 @@
 #' @return (`miss`, `auc` or `rmsep`) A fitness metric
 #' @return `virank` variable importance rankings
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("freelive2")
 #' xTrain<-XRVIP2[1:40,]
 #' yTrain<-YR2[1:40]

@@ -5,7 +5,7 @@
 #' @param folds Number of folds
 #' @return A master list of segments
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("mosquito")
 #' Y <- Yotu
 #' ID <- 1:length(Yotu)

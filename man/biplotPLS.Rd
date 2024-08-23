@@ -48,7 +48,7 @@ A PLS biplot
 PLS biplot:  Makes a biplot of a fitted object (e.g. from a MUVR with PLS core)
 }
 \examples{
-\dontrun{
+\donttest{
 data("freelive2")
 nRep <- 2 # Number of MUVR2 repetitions
 nOuter <- 3 # Number of outer cross-validation segments

@@ -8,7 +8,7 @@
 #'@export
 #'@return a resampled thing
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("mosquito")
 #' sampling_from_distribution(Yotu)
 #' data("freelive2")

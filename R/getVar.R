@@ -10,7 +10,7 @@
 #' @return a rdCVnet object
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("mosquito")
 #' nRep <- 2
 #' nOuter <- 4
@@ -69,7 +69,7 @@ getVar <- function(rdCVnetObject,
         fitness <- c(fitness, t(rdCVnetObject$fitnessRep)[i])
         color_dot <- c(color_dot, "black")
       } else{
-        cat(
+        warning(
           "\n",
           t(rdCVnetObject$nonZeroRep)[i],
           "is an outlier for the number of variables selected. Therefore the combination of",
@@ -107,7 +107,7 @@ getVar <- function(rdCVnetObject,
         color_dot <- c(color_dot, "black")
       } else{
         color_dot <- c(color_dot, "grey")
-        cat(
+        warning(
           "\n",
           t(rdCVnetObject$nonZeroRep)[z],
           "is an outlier for the number of variables selected. Therefore the combination of",

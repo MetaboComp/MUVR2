@@ -36,7 +36,7 @@ Side is guessed by actual value compared to median(permutation_distribution).
 Test is performed on original data OR ranked for non-parametric statistics.
 }
 \examples{
-\dontrun{
+\donttest{
 data("freelive2")
 actual <- sample(YR2, 1)
 permutation_distribution <- YR2

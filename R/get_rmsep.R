@@ -5,7 +5,7 @@
 #' @return rmsep
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("mosquito")
 #' actual <- YR2
 #' predicted <- sampling_from_distribution(actual)

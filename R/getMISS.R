@@ -6,7 +6,7 @@
 #' @return miss classification
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("mosquito")
 #' actual <- Yotu
 #' predicted <- sampling_from_distribution(actual)

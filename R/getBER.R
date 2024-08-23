@@ -6,7 +6,7 @@
 #' @return Balanced Error Rate (BER)
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("mosquito")
 #' actual <- Yotu
 #'

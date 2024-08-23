@@ -50,7 +50,7 @@ Plot permutation analysis using actual model and permutations()
 This is basically a wrapper for the MUVR2::plotPerm() function using model objects to make coding nicer and cleaner
 }
 \examples{
-\dontrun{
+\donttest{
 data("freelive2")
 nRep <- 2
 nOuter <- 4

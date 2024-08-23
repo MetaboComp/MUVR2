@@ -9,7 +9,7 @@
 #' @param DA DA
 #' @return  The predicted value of yTest
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("freelive2")
 #'xTrain<-XRVIP2[1:40,]
 #'yTrain<-YR2[1:40]

@@ -46,7 +46,7 @@ or if a variable pre-selection is performed for decreased computational burden, 
 In those cases, View(H0_test) can be a first start from which to build custom solutions for permutation analysis.
 }
 \examples{
-\dontrun{
+\donttest{
 data("freelive2")
 nRep <- 2
 nOuter <- 4

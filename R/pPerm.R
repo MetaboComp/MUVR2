@@ -10,7 +10,7 @@
 #' @return p-value
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("freelive2")
 #' actual <- sample(YR2, 1)
 #' permutation_distribution <- YR2

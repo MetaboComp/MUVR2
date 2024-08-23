@@ -11,7 +11,7 @@
 #' @importFrom psych principal
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("freelive2")
 #' pca_object<-prcomp(XRVIP2)
 #' plotPCA(pca_object)
@@ -72,7 +72,8 @@ plotPCA <- function(pca,
       pointsize = 36
     )
   }  ### The default pointsize of plotted text, interpreted as big points (1/72 inch) at res ppi.
-
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
 
   if (main == '') {
     par(mar = c(4, 4, 0, 0) + .5)

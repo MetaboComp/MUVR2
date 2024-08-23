@@ -22,7 +22,7 @@ Balanced Error Rate (BER)
 get Balanced Error Rate from classification analysis
 }
 \examples{
-\dontrun{
+\donttest{
 data("mosquito")
 actual <- Yotu
 

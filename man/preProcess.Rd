@@ -33,7 +33,7 @@ A pre-processed data matrix
 Perform matrix pre-processing
 }
 \examples{
-\dontrun{
+\donttest{
 data("freelive2")
 preProcess(XRVIP2)
 }

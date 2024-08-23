@@ -22,7 +22,7 @@ Predict MV object using a MUVR class object and a X testing set
 At present, this function only supports predictions for PLS regression type problems
 }
 \examples{
-\dontrun{
+\donttest{
 data("freelive2")
 nRep <- 2
 nOuter <- 4

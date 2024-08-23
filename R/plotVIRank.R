@@ -11,7 +11,7 @@
 #' @return Barplot of variable rankings (lower is better)
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("freelive2")
 #' nRep <- 2
 #' nOuter <- 4
@@ -32,9 +32,11 @@ plotVIRank <- function(MUVRclassObject,
                        maptype = c("heatmap", "dotplot"),
                        add_blank = 4,
                        cextext = 1) {
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
   par(mar = c(4, 4, 4, 4) + .5)
   if (!(class(MUVRclassObject)[1] == 'MUVR')) {
-    cat('\nWrong object class: Return NULL')
+    warning('\nWrong object class: Return NULL')
 
   }
   # if(missing(n)){n=ncol(MUVRclassObject$inData$X)}

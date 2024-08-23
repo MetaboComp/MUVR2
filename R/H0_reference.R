@@ -6,7 +6,7 @@
 #' @return  a histogram of reference distribution
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("freelive2")
 #' H0_reference(YR2)
 #' }
@@ -48,7 +48,7 @@ H0_reference <- function(Y,
       Ref[p] <- getMISS(Y, Y_new)
 
     } else if (fitness == "AUROC") {
-      cat("This method is not supported. The distribution will be plotted for BER")
+      warning("This method is not supported. The distribution will be plotted for BER")
       Ref[p] <- getBER(Y, Y_new)
       fitness <- "BER"
     }

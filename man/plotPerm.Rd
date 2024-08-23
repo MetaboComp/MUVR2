@@ -73,7 +73,7 @@ Plots histogram of null hypothesis (permutation/resampling) distribution, actual
 Plot defaults to "greater than" or "smaller than" tests and cumulative probability in Student's t-distribution
 }
 \examples{
-\dontrun{
+\donttest{
 data("freelive2")
 actual <- sample(YR2, 1)
 distribution <- YR2

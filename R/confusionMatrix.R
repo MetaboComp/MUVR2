@@ -4,7 +4,7 @@
 #' @return A confusion matrix of actual vs predicted class
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("mosquito")
 #' data("crisp")
 #' nRep <- 2 # Number of MUVR2 repetitions

@@ -8,7 +8,7 @@
 #' @return Plot of number of variables, proportion of variables overlapping with reference and prediction accuracy (Q2 for regression; MISS otherwise) as a function of number of repetitions.
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("freelive2")
 #' nRep <- 2
 #' nOuter <- 4
@@ -211,7 +211,8 @@ plotStability <- function(MUVRrdCVclassObject,
     }
   }
 
-
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
   ######################################################################################################
   ##takes a single numeric argument x and returns a numeric vector containing the smallest integers
   ##not less than the corresponding elements of x.

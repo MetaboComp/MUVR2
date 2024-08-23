@@ -26,7 +26,7 @@ Each factor and character variable with 0 categories will be transformed to one 
 Each logical variable will be transformed to one 01 numeric dummy variable
 }
 \examples{
-\dontrun{
+\donttest{
 
 #To test the scenario when X has factor and charactor when using PLS
 #add one factor and one character variable(freelive data X,

@@ -22,7 +22,7 @@
 #' @return Plot
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("freelive2")
 #' actual <- sample(YR2, 1)
 #' distribution <- YR2
@@ -49,6 +49,10 @@ plotPerm <- function(actual,
                      show_actual_value = TRUE,
                      show_p = TRUE,
                      round_number = 4) {
+
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
+
   if (!is.null(multiple_p_shown)) {
     if (!any(multiple_p_shown %in% c('t', 'non', "smooth", "ecdf", "rank"))) {
       stop("This type can not be implemented")

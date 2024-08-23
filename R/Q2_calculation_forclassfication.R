@@ -4,7 +4,7 @@
 #'@param minmidmax minmidmax
 #'@return Q2
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("mosquito")
 #' nRep <- 2
 #' nOuter <- 4

@@ -4,7 +4,7 @@
 #' @param Ypreds Predicted value of Y can be a vector or data frame with the same number of rows
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("freelive2")
 #' Ytrue<-YR2
 #' Ypreds<-sampling_from_distribution(YR2)
@@ -29,11 +29,13 @@ plotPred <- function(Ytrue,
     stop("Ypreds should be either vector or dataframe or matrix")
   }
 
-
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
   if(!is.data.frame(Ypreds)&!is.matrix(Ypreds)){
   if(length(Ytrue)!=length(Ypreds)){
     stop("The YTrue and YPreds should have same number of observations.")
   }
+
   ###when Y true is a row, Ypreds is a row
 
   par(mar = c(4, 4, 0, 0) + .5)

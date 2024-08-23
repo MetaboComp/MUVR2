@@ -8,7 +8,7 @@
 #' @return A pre-processed data matrix
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("freelive2")
 #' preProcess(XRVIP2)
 #' }
@@ -22,17 +22,17 @@ preProcess <- function(X,
   # Add offset
   X[X == 0] <-
     zeroOffset          ######Add offset(a value) to zero data (defaults to 0)
-  cat('Zero offset:', zeroOffset)
+  message('Zero offset:', zeroOffset)
   X <-
     X + offset                  #########Add offset(a value) to all data points
-  cat('\nOffset:', offset)
+  message('\nOffset:', offset)
   # Perform transformation
   trans <- match.arg(trans, c('log', 'sqrt', 'none'))
   #match.arg(c("gauss", "rect", "ep"),
   #          c("gaussian", "epanechnikov", "rectangular", "triangular"),
   #           several.ok = TRUE)
   #[1] "gaussian"     "rectangular"  "epanechnikov"
-  cat('\nTransformation:', trans)
+  message('\nTransformation:', trans)
   if (trans != 'none') {
     if (trans == 'log') {
       if (any(X <= 0)) {
@@ -52,7 +52,7 @@ preProcess <- function(X,
   # Perform centering and scaling
   if (length(center) != nVar) {
     center <- match.arg(center, c('mean', 'none'))
-    cat('\nCenter:', center)
+    message('\nCenter:', center)
     if (center == 'mean') {
       center <- TRUE
     } else {
@@ -60,7 +60,7 @@ preProcess <- function(X,
     }   ###what does this mean
     ##This is used in the scale function scale(x, center  <-  TRUE, scale  <-  TRUE)
   } else {
-    cat('\nCenter: By vector')
+    message('\nCenter: By vector')
   }
 
   ## center: either a logical value or numeric-alike vector of length equal to the number of columns of x,
@@ -70,7 +70,7 @@ preProcess <- function(X,
   if (length(scale) != nVar) {
     scale <-
       match.arg(scale, c('UV', 'Pareto', 'none'))  ###unit variance
-    cat('\nScale:', scale)
+    message('\nScale:', scale)
     if (scale == 'UV') {
       scale <- TRUE
     }
@@ -85,7 +85,7 @@ preProcess <- function(X,
     }   ####When Pareto scaling
 
   } else {
-    cat('\nScale: By vector')
+    message('\nScale: By vector')
   }
   ## scale: either a logical value or a numeric-alike vector of length equal to the number of columns of x.
   if (!(is.logical(scale) |

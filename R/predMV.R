@@ -6,7 +6,7 @@
 #' @return The predicted result based on the MUVR model and the newdata
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("freelive2")
 #' nRep <- 2
 #' nOuter <- 4
@@ -30,7 +30,7 @@ predMV <- function(MUVRclassobject,
     stop("Mismatch between the variables of old and new data")
   }
   if (!(class(MUVRclassobject)[1] == 'MUVR')) {
-    cat('\nWrong object class: Return NULL')
+    warning('\nWrong object class: Return NULL')
     return(NULL)
   }
   modNum <- ifelse(model == 'min', 1,
@@ -78,7 +78,7 @@ predMV <- function(MUVRclassobject,
           mod <- MUVRclassobject$outModels[[n]][[modNum]]   ###
           if (any(!colnames(mod$X) %in% colnames(newdata))) {
             ###check if training set has variables that is not included in the tesing set
-            cat('\nMismatch variable names in model',
+            warning('\nMismatch variable names in model',
                 n,
                 ': Return NULL')
             return(NULL)
@@ -99,7 +99,7 @@ predMV <- function(MUVRclassobject,
           mod <- MUVRclassobject$outModels[[n]][[modNum]]   ###
           if (any(!rownames(mod$importance) %in% colnames(newdata))) {
             ###variables of higher importance must be included in the testing set
-            cat('\nMismatch variable names in model',
+            warning('\nMismatch variable names in model',
                 n,
                 ': Return NULL')
             return(NULL)
@@ -115,7 +115,7 @@ predMV <- function(MUVRclassobject,
 
           if (any(!colnames(mod$X) %in% colnames(newdata))) {
             ###check if training set has variables that is not included in the tesing set
-            cat('\nMismatch variable names in model',
+            warning('\nMismatch variable names in model',
                 n,
                 ': Return NULL')
             return(NULL)
@@ -165,7 +165,7 @@ predMV <- function(MUVRclassobject,
         if (method == 'PLS') {
           mod <- MUVRclassobject$outModels[[n]][[modNum]]
           if (any(!colnames(mod$X) %in% colnames(newdata))) {
-            cat('\nMismatch variable names in model',
+            warning('\nMismatch variable names in model',
                 n,
                 ': Return NULL')
             return(NULL)
@@ -182,7 +182,7 @@ predMV <- function(MUVRclassobject,
           mod <- MUVRclassobject$outModels[[n]][[modNum]]
           if (any(!rownames(mod$importance) %in% colnames(newdata))) {
 
-            cat('\nMismatch variable names in model',
+            warning('\nMismatch variable names in model',
                 n,
                 ': Return NULL')
             return(NULL)
@@ -226,6 +226,6 @@ predMV <- function(MUVRclassobject,
       yPredPerMod = yPredPerMod
     ))
   } else {
-    cat('\nNot yet implemented')
+    warning('\nNot yet implemented')
   }
 }

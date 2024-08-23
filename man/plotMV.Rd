@@ -24,7 +24,7 @@ A plot of results from multivariate predictions
 Plot MV object Swim lane plot for classification, for regression
 }
 \examples{
-\dontrun{
+\donttest{
 data("freelive2")
 nRep <- 2
 nOuter <- 4

@@ -22,7 +22,7 @@ Data frame with order, name and average rank of variables (`order`, `name` & `ra
 Extract autoselected variables from MUVR model object
 }
 \examples{
-\dontrun{
+\donttest{
 data("freelive2")
 nRep <- 2
 nOuter <- 4

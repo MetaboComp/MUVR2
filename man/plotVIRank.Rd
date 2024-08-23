@@ -40,7 +40,7 @@ Regardless of MV core method, variables are sorted by rank, where lower is bette
 `plotVIRank` produces boxplots of variable rankings for all model repetitions.
 }
 \examples{
-\dontrun{
+\donttest{
 data("freelive2")
 nRep <- 2
 nOuter <- 4
