@@ -9,7 +9,7 @@
 #'new_X_matrix:The new matrix that transform all variables to numeric variables
 #'@export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'
 #'#To test the scenario when X has factor and charactor when using PLS
 #'#add one factor and one character variable(freelive data X,
@@ -45,10 +45,10 @@ onehotencoding <- function(X) {
   if (ncol(as.data.frame(X[, which(sapply(X, class) %in% c('factor', 'character', 'logical'))])) ==
       0)
   {
-    cat("all", ncol(X), "variables are numeric.   ", "\n")
+    message("all", ncol(X), "variables are numeric.   ", "\n")
     new_X_matrix <- as.matrix(X)
   } else{
-    cat("This is onehot encoding. All variables are transformed to numeric.   ",
+    message("This is onehot encoding. All variables are transformed to numeric.   ",
         "\n")
     #find factor and character and logical variable
     X[, which(sapply(X, class) %in% c('factor'))]
@@ -67,7 +67,7 @@ onehotencoding <- function(X) {
       as.data.frame(X[, which(sapply(X, class) %in% c('character'))])
     if (ncol(X_character_frame) != 0)
     {
-      cat("There is/are",
+      message("There is/are",
           ncol(X_character_frame),
           "character variable(s).   ",
           "\n")
@@ -84,7 +84,7 @@ onehotencoding <- function(X) {
       as.data.frame(X[, which(sapply(X, class) %in% c('factor'))])
     if (ncol(X_factor_frame) != 0)
     {
-      cat("There is/are",
+      message("There is/are",
           ncol(X_factor_frame),
           "factor variable(s).   ",
           "\n")
@@ -110,7 +110,7 @@ onehotencoding <- function(X) {
       as.data.frame(X[, which(sapply(X, class) %in% c('logical'))])
     if (ncol(X_logical_frame) != 0)
     {
-      cat("There is/are",
+      message("There is/are",
           ncol(X_logical_frame),
           "logical variable(s)",
           "\n")
@@ -131,11 +131,11 @@ onehotencoding <- function(X) {
 
     if (ncol(X_factor_frame) + ncol(X_logical_frame) == 0)
     {
-      cat("There are no factor,character and logical variables   ", "\n")
+      message("There are no factor,character and logical variables   ", "\n")
 
     } else{
-      cat((ncol(X_factor_frame) + ncol(X_logical_frame)), "non-numeric variable(s)", "\n")
-      cat(ncol(X_numeric_frame), "numeric variable(s)", "\n")
+      message((ncol(X_factor_frame) + ncol(X_logical_frame)), "non-numeric variable(s)", "\n")
+      message(ncol(X_numeric_frame), "numeric variable(s)", "\n")
       ###new factor variables data frame that has factor variable with >2 levels
       X_factor3_name <- character()
       X_factor3_frame <- data.frame(row.names = rownames(X))
@@ -263,7 +263,7 @@ onehotencoding <- function(X) {
       {
         if (length(levels(X_factor3_frame[, n])) > 5)
         {
-          cat(colnames(X_factor3_frame)[n],
+          message(colnames(X_factor3_frame)[n],
               "has",
               length(levels(X_factor3_frame[, n])),
               "(>5) levels.   ",
@@ -344,7 +344,7 @@ onehotencoding <- function(X) {
     )
     new_X_matrix <- as.matrix(new_X_frame)
   }
-  cat(
+  message(
     "There are originally",
     ncol(X),
     "variables",
