@@ -2,9 +2,7 @@
 % Please edit documentation in R/plotVIRank.R
 \name{plotVIRank}
 \alias{plotVIRank}
-\title{Plots variable importance ranking in MUVR object
-Regardless of MV core method, variables are sorted by rank, where lower is better.
-`plotVIRank` produces boxplots of variable rankings for all model repetitions.}
+\title{Plot variable importance ranking}
 \usage{
 plotVIRank(
   MUVRclassObject,
@@ -35,8 +33,7 @@ plotVIRank(
 Barplot of variable rankings (lower is better)
 }
 \description{
-Plots variable importance ranking in MUVR object
-Regardless of MV core method, variables are sorted by rank, where lower is better.
+Plot variable importance ranking in MUVR object. Regardless of MV core method, variables are sorted by rank, where lower is better.
 `plotVIRank` produces boxplots of variable rankings for all model repetitions.
 }
 \examples{

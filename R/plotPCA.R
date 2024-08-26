@@ -1,4 +1,5 @@
-#' PCA score plot from prcomp()
+#' PCA score plot
+#'
 #' Customised PCA score plots with the possibility to choose PCs, exporting to png and the possibility to add color or different plotting symbols according to variable.
 #' @param pca A `prcomp` object
 #' @param PC1 Principal component on x-axis

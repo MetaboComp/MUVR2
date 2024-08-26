@@ -2,8 +2,7 @@
 % Please edit documentation in R/customParams.R
 \name{customParams}
 \alias{customParams}
-\title{Make custom parameters for MUVR internal modelling,not rdCV
-Please note that, at present, there is no mtryMax for the outer (consensus) loop in effect}
+\title{Make custom parameters for internal modelling}
 \usage{
 customParams(
   method = c("RF", "PLS", "SVM", "ANN"),
@@ -61,20 +60,19 @@ customParams(
 
 \item{oneHot}{TRUE or FALSE using onehot endcoding or not}
 
-\item{NZV}{TRUE or FALSE using NZV or not}
+\item{NZV}{TRUE or FALSE using non-zero variance or not}
 
 \item{rfMethod}{randomforest method, which includes randomForest and ranger}
 
 \item{svmMethod}{support vector machine method, which includes svm, ksvm, s}
 
-\item{annMethod}{artificail neural network method which include 2 different ann methods}
+\item{annMethod}{artifical neural network method which includes 2 different ann methods}
 }
 \value{
 a `methParam` object
 }
 \description{
-Make custom parameters for MUVR internal modelling,not rdCV
-Please note that, at present, there is no mtryMax for the outer (consensus) loop in effect
+Make custom parameters for MUVR internal modelling, not rdCV. Please note that, at present, there is no mtryMax for the outer (consensus) loop in effect.
 }
 \examples{
 # Standard parameters for random forest

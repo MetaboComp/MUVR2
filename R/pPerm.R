@@ -1,6 +1,8 @@
-#' Calculate permutation p-value of actual model performance vs null hypothesis distribution
+#' Calculate permutation p-value 
+
+#' Calculate perutation p-value of actual model performance vs null hypothesis distribution.
 #' `pPerm` will calculate the cumulative (1-tailed) probability of `actual` belonging to `permutation_distribution`.
-#' Side is guessed by actual value compared to median(permutation_distribution).
+#' `side` is guessed by actual value compared to median(permutation_distribution).
 #' Test is performed on original data OR ranked for non-parametric statistics.
 #' @param actual Actual model performance (e.g. misclassifications or Q2)
 #' @param permutation_distribution Null hypothesis distribution from permutation test (same metric as `actual`)
@@ -14,7 +16,6 @@
 #' actual <- sample(YR2, 1)
 #' permutation_distribution <- YR2
 #' pPerm(actual, permutation_distribution)
-
 pPerm <- function(actual,
                   ###a value
                   permutation_distribution,

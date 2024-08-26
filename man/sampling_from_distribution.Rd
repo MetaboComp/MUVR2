@@ -7,7 +7,7 @@
 sampling_from_distribution(X, upperlimit, lowerlimit, extend, n)
 }
 \arguments{
-\item{X}{a vector (numeric or factor) where the distribution/probabality will be generated}
+\item{X}{a vector (numeric or factor) where the distribution/probility will be generated}
 
 \item{upperlimit}{if X is numeric, set upper limit}
 

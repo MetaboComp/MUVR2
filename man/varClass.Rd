@@ -2,8 +2,7 @@
 % Please edit documentation in R/varClass.R
 \name{varClass}
 \alias{varClass}
-\title{Report variables belonging to different classes
-Reports names and numbers of variables: all as well as Optimal (min model), redundant (from min up to max) and noisy (the rest)}
+\title{Report variables belonging to different classes}
 \usage{
 varClass(MUVRclassObject)
 }
@@ -11,12 +10,11 @@ varClass(MUVRclassObject)
 \item{MUVRclassObject}{A MUVR class object}
 }
 \value{
-A list with names and numbers of variables: all as well as Optimal (Corresponding to 'min' or minial-optimal model),
-Redundant (from 'min' up to 'max' or all-relevant ) and Noisy (the rest)
+A list with names and numbers of variables: all as well as optimal (Corresponding to 'min' or minial-optimal model),
+redundant (from 'min' up to 'max' or all-relevant ) and noisy (the rest)
 }
 \description{
-Report variables belonging to different classes
-Reports names and numbers of variables: all as well as Optimal (min model), redundant (from min up to max) and noisy (the rest)
+Reports names and numbers of variables: all as well as optimal (min model), redundant (from min up to max) and noisy (the rest).
 }
 \examples{
 \donttest{

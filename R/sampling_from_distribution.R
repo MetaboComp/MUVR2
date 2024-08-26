@@ -1,5 +1,5 @@
 #' Sampling from the distribution of something
-#'@param X a vector (numeric or factor) where the distribution/probabality will be generated
+#'@param X a vector (numeric or factor) where the distribution/probility will be generated
 #'@param upperlimit if X is numeric, set upper limit
 #'@param lowerlimit if X is numeric, set lower limit
 #'@param extend If X is numeric, how much you want to extend from the lower and upper existing X.

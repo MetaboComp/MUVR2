@@ -1,12 +1,14 @@
-#' The function will obtain the min, mid, max number of variables for an object generated from the rdCVnet() function
+#' Get min, mid or max model from Elastic Net modelling
+#'
+#' Obtain the min, mid, or max number of variables for an object generated from the rdCVnet() function.
 #' @param rdCVnetObject an object obtained from the rdCVnet() function
-#' @param option quantile or fitness: In which way do you perform variable selection
+#' @param option quantile or fitness: which way to perform variable selection
 #' @param fit_curve gam or loess method for fitting the curve in the fitness option
-#' @param span parameter for using loess to fit curve in the fitness option:  how smooth the curve need to be
+#' @param span parameter for using loess to fit curve in the fitness option:  how smooth the curve needs to be
 #' @param k parameter for using gam to fit curve in the fitness option
-#' @param outlier if remove ourlier variables or not. There are 3 options: "none","IRQ", "residual"
-#' @param quantile If the option is quantile, this value decides the cut for the first quantile, ranging from 0 to 0.5.
-#' @param robust If the option is fitness, robust parameter decides how much deviation it is allowed from the optimal perdiction performance for min and max variabel selection.
+#' @param outlier if remove outlier variables or not. There are 3 options: "none","IRQ", "residual"
+#' @param quantile if the option is quantile, this value decides the cut for the first quantile, ranging from 0 to 0.5
+#' @param robust if the option is fitness, robust parameter decides how much deviation it is allowed from the optimal perdiction performance for min and max variabel selection
 #' @return a rdCVnet object
 #' @export
 #' @examples

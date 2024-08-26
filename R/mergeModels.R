@@ -1,5 +1,6 @@
-#' Merge two MUVR class object that use regression for PLS or RF methods
-#' This 2 MUVR class object has the same indata except that nRep is different
+#' Merge two MUVR class objects
+#'
+#' Merge two MUVR class objects that use regression for PLS or RF methods. The resultant MUVR class object has the same indata except that nRep is different.
 #' @param MV1 a MUVR class Object
 #' @param MV2 a MUVR class Object
 #' @return A merged MURV class object

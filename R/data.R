@@ -9,7 +9,7 @@ utils::globalVariables(".")
 NULL
 
 
-#' Subject identifier for the rye metabolomics regression tutorial
+#' Subject identifiers for the rye metabolomics regression tutorial
 #'
 #' @name IDR
 #' @docType data
@@ -33,7 +33,7 @@ NULL
 #' @usage data(freelive)
 NULL
 
-#' Subject identifier for the rye metabolomics regression tutorial, using unique individuals
+#' Subject identifiers for the rye metabolomics regression tutorial, using unique individuals
 #'
 #' @name IDR2
 #' @docType data

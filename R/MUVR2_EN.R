@@ -1,5 +1,6 @@
-#' MUVR: "Multivariate modelling with Unbiased Variable selection", using elastic net method
-#' Repeated double cross validation with tuning of variables.
+#' MUVR2 with EN
+#'
+#' "Multivariate modelling with Unbiased Variable selection" using Elastic Net (EN). Repeated double cross validation with tuning of variables using Elastic Net.
 #' @param X Predictor variables. NB: Variables (columns) must have names/unique identifiers. NAs not allowed in data. For multilevel, only the positive half of the difference matrix is specified.
 #' @param Y Response vector (Dependent variable). For classification, a factor (or character) variable should be used. For multilevel, Y is calculated automatically.
 #' @param ID Subject identifier (for sampling by subject; Assumption of independence if not specified)
@@ -23,7 +24,7 @@
 ## @param percent_quantile range from 0 to 0.5. When select_variables_by quantile, this value represent the first quantile.
 ## @param percent_smoothcurve If select_variables_by smoothcurve, then it is robust
 ## @param Var_option quantile or smoothcurve
-#' @param ... This is to pass in other argument
+#' @param ... Pass additional arguments
 #' @import splines glmnet pROC magrittr foreach doParallel graphics parallel psych
 #' @importFrom randomForest randomForest
 #' @importFrom ranger ranger

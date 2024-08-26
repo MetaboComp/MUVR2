@@ -2,9 +2,7 @@
 % Please edit documentation in R/checkinput.R
 \name{checkinput}
 \alias{checkinput}
-\title{This can be run to test if the command input of parameters contradict to each other
-And also check the structure of the data
-If something goes wrong warning messages are given}
+\title{Check input}
 \usage{
 checkinput(
   X,
@@ -53,14 +51,14 @@ checkinput(
 correct_input: the original input(call) and the real input used in MUVR2 when you enter your input
 }
 \description{
-This can be run to test if the command input of parameters contradict to each other
-And also check the structure of the data
-If something goes wrong warning messages are given
+This can be run to test if the command input of parameters contradict each 
+other and check the structure of the data. If something goes wrong, warning 
+messages are given.
 }
 \examples{
 data("freelive2")
 checkinput(X = XRVIP2,
-          Y = YR2,  ## YR2 a numeric variable
-          DA = FALSE,
-          fitness="RMSEP")
+           Y = YR2,  ## YR2 a numeric variable
+           DA = FALSE,
+           fitness="RMSEP")
 }

@@ -1,5 +1,6 @@
-#' Make custom parameters for MUVR internal modelling,not rdCV
-#' Please note that, at present, there is no mtryMax for the outer (consensus) loop in effect
+#' Make custom parameters for internal modelling
+#'
+#' Make custom parameters for MUVR internal modelling, not rdCV. Please note that, at present, there is no mtryMax for the outer (consensus) loop in effect.
 #' @param method PLS or RF (default)
 #' @param robust Robustness (slack) criterion for determining min and max knees (defaults to 0.05)
 #' @param ntreeIn RF parameter: Number of trees in inner cross-validation loop models (defaults to 150)
@@ -12,14 +13,14 @@
 #' @param stepmax ann parameter:
 #' @param oneHot  TRUE or FALSE using onehot endcoding or not
 #' @param scoring_matrix  A matrix that its score can be adjusted
-#' @param NZV TRUE or FALSE using NZV or not
+#' @param NZV TRUE or FALSE using non-zero variance or not
 #' @param rfMethod randomforest method, which includes randomForest and ranger
 #' @param svmMethod support vector machine method, which includes svm, ksvm, s
 #' @param kernel svm parameter: kernal function to use, which includes sigmoid, radical, polynomial
 #' @param nu svm parameter: ratios of errors allowed in the training set range from 0-1
 #' @param degree svm parameter: needed for polynomial kernel in svm
 #' @param gamma svm parameters: needed for "vanilladot","polydot","rbfdot" kernel in svm
-#' @param annMethod artificail neural network method which include 2 different ann methods
+#' @param annMethod artifical neural network method which includes 2 different ann methods
 #' @return a `methParam` object
 #' @export
 #' @examples
@@ -31,7 +32,6 @@
 #' methParam <- customParams('RF')
 #' methParam$ntreeOut <- 50
 #' methParam
-
 customParams <- function(method = c('RF', 'PLS', "SVM", "ANN"),
                          robust = 0.05,
                          ntreeIn = 150,

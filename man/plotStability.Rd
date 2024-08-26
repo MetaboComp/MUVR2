@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotStability.R
 \name{plotStability}
 \alias{plotStability}
-\title{Plot stability of selected variables and prediction fitness as a function of number of repetitions}
+\title{Plot stability}
 \usage{
 plotStability(MUVRrdCVclassObject, model = "min", VAll, nVarLim, missLim)
 }
@@ -22,7 +22,7 @@ Defaults to variables selected from the `model` of the `MUVRrdCVclassObject`}
 Plot of number of variables, proportion of variables overlapping with reference and prediction accuracy (Q2 for regression; MISS otherwise) as a function of number of repetitions.
 }
 \description{
-Plot stability of selected variables and prediction fitness as a function of number of repetitions
+Plot stability of selected variables and prediction fitness as a function of number of repetitions.
 }
 \examples{
 \donttest{

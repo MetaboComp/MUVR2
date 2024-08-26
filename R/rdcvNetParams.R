@@ -1,5 +1,6 @@
 #' Make custom parameters for rdcvNet internal modelling
-#' Custom parameters can be set in the function call or by manually setting "slots" in the resulting methParam object
+#'
+#' Custom parameters can be set in the function call or by manually setting "slots" in the resulting methParam object.
 #' @param robust Robustness (slack) criterion for determining min and max knees (defaults to 0.05)
 #' @param family the options could be "gaussian", "binomial", "poisson", "multinomial", "cox", "mgaussian"
 #' @param oneHot TRUE or FALSE using onehot endcoding or not

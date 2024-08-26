@@ -2,8 +2,7 @@
 % Please edit documentation in R/MUVR2_EN.R
 \name{MUVR2_EN}
 \alias{MUVR2_EN}
-\title{MUVR: "Multivariate modelling with Unbiased Variable selection", using elastic net method
-Repeated double cross validation with tuning of variables.}
+\title{MUVR2 with EN}
 \usage{
 MUVR2_EN(
   X,
@@ -70,14 +69,13 @@ MUVR2_EN(
 
 \item{weighing_matrix}{weighing_matrix}
 
-\item{...}{This is to pass in other argument}
+\item{...}{Pass additional arguments}
 }
 \value{
 A MUVR object
 }
 \description{
-MUVR: "Multivariate modelling with Unbiased Variable selection", using elastic net method
-Repeated double cross validation with tuning of variables.
+"Multivariate modelling with Unbiased Variable selection" using Elastic Net (EN). Repeated double cross validation with tuning of variables using Elastic Net.
 }
 \examples{
 \donttest{

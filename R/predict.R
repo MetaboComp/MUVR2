@@ -1,4 +1,5 @@
 #' Predict pls
+#' 
 #' Adapted and stripped down from mixOmics v 5.2.0 (https://cran.r-project.org/web/packages/mixOmics/)
 #' @param object a plsMUVR object
 #' @param newdata new data

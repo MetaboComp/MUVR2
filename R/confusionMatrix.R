@@ -1,4 +1,6 @@
-#' Make a confusion matrix from a MUVR object
+#' Confusion matrix
+#' 
+#' Make a confusion matrix from a MUVR object.
 #' @param MVObj A MUVR object (classification analysis)
 #' @param model min, mid or max model
 #' @return A confusion matrix of actual vs predicted class

@@ -1,5 +1,6 @@
-#' Plot permutation analysis using actual model and permutations()
-#' This is basically a wrapper for the MUVR2::plotPerm() function using model objects to make coding nicer and cleaner
+#' Plot permutation analysis 
+#'
+#' Plot permutation analysis using actual model and permutation result. This is basically a wrapper for the MUVR2::plotPerm() function using model objects to make coding nicer and cleaner.
 #' @param MUVRclassObject A 'MUVR' class object
 #' @param permutation_result  A permutation result. It is a list of 1 items:  permutation_output
 #' @param model 'Min', 'Mid', or 'Max'
@@ -29,8 +30,6 @@
 #' permutation_result<-H0_test(regrModel,n=10)
 #' permutationPlot(regrModel,permutation_result)
 #' }
-
-
 permutationPlot <- function(MUVRclassObject,
                             permutation_result,
                             ####For AUROC, the result is a permutation list. The length of the list is the group number

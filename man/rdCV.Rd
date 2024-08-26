@@ -2,7 +2,7 @@
 % Please edit documentation in R/rdCV.R
 \name{rdCV}
 \alias{rdCV}
-\title{rdCV: Wrapper for repeated double cross-validation without variable selection}
+\title{Wrapper for repeated double cross-validation without variable selection}
 \usage{
 rdCV(
   X,
@@ -51,7 +51,7 @@ rdCV(
 An object containing stuff...
 }
 \description{
-rdCV: Wrapper for repeated double cross-validation without variable selection
+Wrapper for repeated double cross-validation without variable selection
 }
 \examples{
 \donttest{

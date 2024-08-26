@@ -1,4 +1,6 @@
-#' Plot MV object Swim lane plot for classification, for regression
+#' Plot predictions
+#' 
+#' Plot predicted and actual target variables, with different plots depending on modelling approach.
 #' @param MUVRclassObject An MUVR class object
 #' @param model What type of model to plot ('min', 'mid' or 'max'). Defaults to 'mid'.
 #' @param factCols An optional vector with colors for the factor levels (in the same order as the levels)

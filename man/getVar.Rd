@@ -2,7 +2,7 @@
 % Please edit documentation in R/getVar.R
 \name{getVar}
 \alias{getVar}
-\title{The function will obtain the min, mid, max number of variables for an object generated from the rdCVnet() function}
+\title{Get min, mid or max model from Elastic Net modelling}
 \usage{
 getVar(
   rdCVnetObject,
@@ -18,25 +18,25 @@ getVar(
 \arguments{
 \item{rdCVnetObject}{an object obtained from the rdCVnet() function}
 
-\item{option}{quantile or fitness: In which way do you perform variable selection}
+\item{option}{quantile or fitness: which way to perform variable selection}
 
 \item{fit_curve}{gam or loess method for fitting the curve in the fitness option}
 
-\item{span}{parameter for using loess to fit curve in the fitness option:  how smooth the curve need to be}
+\item{span}{parameter for using loess to fit curve in the fitness option:  how smooth the curve needs to be}
 
 \item{k}{parameter for using gam to fit curve in the fitness option}
 
-\item{outlier}{if remove ourlier variables or not. There are 3 options: "none","IRQ", "residual"}
+\item{outlier}{if remove outlier variables or not. There are 3 options: "none","IRQ", "residual"}
 
-\item{robust}{If the option is fitness, robust parameter decides how much deviation it is allowed from the optimal perdiction performance for min and max variabel selection.}
+\item{robust}{if the option is fitness, robust parameter decides how much deviation it is allowed from the optimal perdiction performance for min and max variabel selection}
 
-\item{quantile}{If the option is quantile, this value decides the cut for the first quantile, ranging from 0 to 0.5.}
+\item{quantile}{if the option is quantile, this value decides the cut for the first quantile, ranging from 0 to 0.5}
 }
 \value{
 a rdCVnet object
 }
 \description{
-The function will obtain the min, mid, max number of variables for an object generated from the rdCVnet() function
+Obtain the min, mid, or max number of variables for an object generated from the rdCVnet() function.
 }
 \examples{
 \donttest{

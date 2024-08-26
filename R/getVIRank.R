@@ -1,10 +1,11 @@
-#' Extract autoselected variables from MUVR model object
-#' @param MUVRclassObject An object of MUVR class
-#' @param model Which model to use ("min", "mid" (default), or "max")
+#' Get variable importance
+#'
+#' Extract autoselected variables from MUVR model object.
+#' @param MUVRclassObject an object of MUVR class
+#' @param model which model to use ("min", "mid" (default), or "max")
 #' @param n customize values
 #' @param all logical, to get the ranks of all variable or not
-#'
-#' @return Data frame with order, name and average rank of variables (`order`, `name` & `rank`)
+#' @return data frame with order, name and average rank of variables (`order`, `name` & `rank`)
 #' @export
 #' @examples
 #' \donttest{
@@ -15,7 +16,7 @@
 #' regrModel <- MUVR2(X = XRVIP2,
 #'                    Y = YR2,
 #'                    nRep = nRep,
-#'                   nOuter = nOuter,
+#'                    nOuter = nOuter,
 #'                    varRatio = varRatio,
 #'                    method = "PLS",
 #'                    modReturn = TRUE)

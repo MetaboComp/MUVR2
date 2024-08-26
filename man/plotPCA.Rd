@@ -2,8 +2,7 @@
 % Please edit documentation in R/plotPCA.R
 \name{plotPCA}
 \alias{plotPCA}
-\title{PCA score plot from prcomp()
-Customised PCA score plots with the possibility to choose PCs, exporting to png and the possibility to add color or different plotting symbols according to variable.}
+\title{PCA score plot}
 \usage{
 plotPCA(pca, PC1 = 1, PC2 = 2, file, colVar, symbVar, main = "")
 }
@@ -26,7 +25,6 @@ plotPCA(pca, PC1 = 1, PC2 = 2, file, colVar, symbVar, main = "")
 A PCA score plot. Exported as png if `file` specified in function call.
 }
 \description{
-PCA score plot from prcomp()
 Customised PCA score plots with the possibility to choose PCs, exporting to png and the possibility to add color or different plotting symbols according to variable.
 }
 \examples{

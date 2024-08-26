@@ -2,8 +2,7 @@
 % Please edit documentation in R/rdcvNetParams.R
 \name{rdcvNetParams}
 \alias{rdcvNetParams}
-\title{Make custom parameters for rdcvNet internal modelling
-Custom parameters can be set in the function call or by manually setting "slots" in the resulting methParam object}
+\title{Make custom parameters for rdcvNet internal modelling}
 \usage{
 rdcvNetParams(
   robust = 0.05,
@@ -28,8 +27,7 @@ rdcvNetParams(
 a `methParam` object
 }
 \description{
-Make custom parameters for rdcvNet internal modelling
-Custom parameters can be set in the function call or by manually setting "slots" in the resulting methParam object
+Custom parameters can be set in the function call or by manually setting "slots" in the resulting methParam object.
 }
 \examples{
 # Standard parameters for rdcvNet

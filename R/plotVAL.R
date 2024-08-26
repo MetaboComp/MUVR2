@@ -1,7 +1,8 @@
 #' Plot validation metric
-#' Produces a plot of validation metric vs number of variables in model (inner segment)
+#'
+#' Produces a plot of validation metric vs number of variables in model (inner segment).
 #' @param MUVRclassObject An object of class `MUVR`
-#' @param show_outlier deciding show outlier on the information of not
+#' @param show_outlier Boolean, show outliers
 #' @return A plot
 #' @export
 #' @examples

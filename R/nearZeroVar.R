@@ -1,5 +1,6 @@
 #' Identify variables with near zero variance
-#' Adapted and stripped down from mixOmics v 5.2.0 (https://cran.r-project.org/web/packages/mixOmics/)
+#' 
+#' Adapted and stripped down from mixOmics v 5.2.0 (https://cran.r-project.org/web/packages/mixOmics/).
 #' @param x a numeric vector or matrix, or a data frame with all numeric data.
 #' @param freqCut the cutoff for the ratio of the most common value to the second most common value.
 #' @param uniqueCut the cutoff for the percentage of distinct values out of the number of total samples.

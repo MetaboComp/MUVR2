@@ -2,7 +2,7 @@
 % Please edit documentation in R/getMISS.R
 \name{getMISS}
 \alias{getMISS}
-\title{get the number of miss classifications from classification analysis}
+\title{Get number of misclassifications}
 \usage{
 getMISS(actual, predicted, weigh_added = FALSE, weighing_matrix)
 }
@@ -11,15 +11,15 @@ getMISS(actual, predicted, weigh_added = FALSE, weighing_matrix)
 
 \item{predicted}{Vector of predicted classifications of samples}
 
-\item{weigh_added}{To add a weighing matrix when it is classfication}
+\item{weigh_added}{Boolean, add a weighing matrix when it is classification}
 
-\item{weighing_matrix}{The matrix used for get a miss classfication score}
+\item{weighing_matrix}{The matrix used to get a misclassification score}
 }
 \value{
-miss classification
+number of misclassifications
 }
 \description{
-get the number of miss classifications from classification analysis
+Get number of misclassifications from classification analysis.
 }
 \examples{
 data("mosquito")
