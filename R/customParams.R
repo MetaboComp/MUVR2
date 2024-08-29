@@ -12,7 +12,6 @@
 #' @param threshold ann parameter:
 #' @param stepmax ann parameter:
 #' @param oneHot  TRUE or FALSE using onehot endcoding or not
-#' @param scoring_matrix  A matrix that its score can be adjusted
 #' @param NZV TRUE or FALSE using non-zero variance or not
 #' @param rfMethod randomforest method, which includes randomForest and ranger
 #' @param svmMethod support vector machine method, which includes svm, ksvm, s
@@ -48,7 +47,6 @@ customParams <- function(method = c('RF', 'PLS', "SVM", "ANN"),
                          nu = 0.1,
                          gamma = 1,
                          degree = 1,
-                         scoring_matrix = FALSE,
                          oneHot,
                          NZV,
                          rfMethod = c('randomForest', 'ranger'),

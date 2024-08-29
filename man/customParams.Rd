@@ -19,7 +19,6 @@ customParams(
   nu = 0.1,
   gamma = 1,
   degree = 1,
-  scoring_matrix = FALSE,
   oneHot,
   NZV,
   rfMethod = c("randomForest", "ranger"),
@@ -56,8 +55,6 @@ customParams(
 
 \item{degree}{svm parameter: needed for polynomial kernel in svm}
 
-\item{scoring_matrix}{A matrix that its score can be adjusted}
-
 \item{oneHot}{TRUE or FALSE using onehot endcoding or not}
 
 \item{NZV}{TRUE or FALSE using non-zero variance or not}
@@ -66,7 +63,7 @@ customParams(
 
 \item{svmMethod}{support vector machine method, which includes svm, ksvm, s}
 
-\item{annMethod}{artifical neural network method which includes 2 different ann methods}
+\item{annMethod}{artificial neural network method which includes 2 different ann methods}
 }
 \value{
 a `methParam` object
