@@ -1,4 +1,4 @@
-#' qMUVR2: Wrapper for speedy access to MUVR (autosetup of parallelization)
+#' Wrapper for speedy access to MUVR2 (autosetup of parallelization)
 #' @param X X-data
 #' @param Y Y-data
 #' @param ML Boolean for multilevel

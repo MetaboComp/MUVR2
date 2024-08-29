@@ -2,7 +2,7 @@
 % Please edit documentation in R/H0_reference.R
 \name{H0_reference}
 \alias{H0_reference}
-\title{make reference distribution for resampling tests/permutation tests}
+\title{Get reference distribution for resampling tests}
 \usage{
 H0_reference(Y, n = 1000, fitness = c("Q2", "BER", "MISS", "AUROC"), ...)
 }
@@ -13,13 +13,13 @@ H0_reference(Y, n = 1000, fitness = c("Q2", "BER", "MISS", "AUROC"), ...)
 
 \item{fitness}{number of repetitions for each permutation (defaults to value of actual model)}
 
-\item{...}{some more argument for sampling frm distribution}
+\item{...}{additional arguments for sampling from distribution}
 }
 \value{
 a histogram of reference distribution
 }
 \description{
-make reference distribution for resampling tests/permutation tests
+Make reference distribution for resampling tests to assess overfitting.
 }
 \examples{
 \donttest{

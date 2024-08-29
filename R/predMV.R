@@ -1,5 +1,5 @@
-#' Predict MV object using a MUVR class object and a X testing set
-#' At present, this function only supports predictions for PLS regression type problems
+#' Predict outcomes 
+#' Predict MV object using a MUVR class object and a X testing set. At present, this function only supports predictions for PLS regression type problems.
 #' @param MUVRclassobject An 'MUVR' class object
 #' @param newdata New data for which to predict outcomes
 #' @param model What type of model to plot ('min', 'mid' or 'max'). Defaults to 'mid'.

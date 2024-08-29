@@ -2,7 +2,7 @@
 % Please edit documentation in R/biplotPLS.R
 \name{biplotPLS}
 \alias{biplotPLS}
-\title{PLS biplot:  Makes a biplot of a fitted object (e.g. from a MUVR with PLS core)}
+\title{PLS biplot}
 \usage{
 biplotPLS(
   fit,
@@ -27,7 +27,7 @@ biplotPLS(
 
 \item{labPlSc}{Boolean to plot observation (sample) names (defaults to TRUE)}
 
-\item{labs}{(Optional) Labels names}
+\item{labs}{(Optional) Label names}
 
 \item{vars}{Which variables to plot (names in rownames(loadings))}
 
@@ -45,7 +45,7 @@ biplotPLS(
 A PLS biplot
 }
 \description{
-PLS biplot:  Makes a biplot of a fitted object (e.g. from a MUVR with PLS core)
+Makes a biplot of a fitted object (e.g. from a MUVR with PLS core).
 }
 \examples{
 \donttest{

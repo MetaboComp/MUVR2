@@ -2,8 +2,7 @@
 % Please edit documentation in R/mergeModels.R
 \name{mergeModels}
 \alias{mergeModels}
-\title{Merge two MUVR class object that use regression for PLS or RF methods
-This 2 MUVR class object has the same indata except that nRep is different}
+\title{Merge two MUVR class objects}
 \usage{
 mergeModels(MV1, MV2)
 }
@@ -16,8 +15,7 @@ mergeModels(MV1, MV2)
 A merged MURV class object
 }
 \description{
-Merge two MUVR class object that use regression for PLS or RF methods
-This 2 MUVR class object has the same indata except that nRep is different
+Merge two MUVR class objects that use regression for PLS or RF methods. The resultant MUVR class object has the same indata except that nRep is different.
 }
 \examples{
 \donttest{

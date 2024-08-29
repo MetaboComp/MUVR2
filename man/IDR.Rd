@@ -3,11 +3,11 @@
 \docType{data}
 \name{IDR}
 \alias{IDR}
-\title{Subject identifier for the rye metabolomics regression tutorial}
+\title{Subject identifiers for the rye metabolomics regression tutorial}
 \usage{
 data(freelive)
 }
 \description{
-Subject identifier for the rye metabolomics regression tutorial
+Subject identifiers for the rye metabolomics regression tutorial
 }
 \keyword{data}

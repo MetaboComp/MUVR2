@@ -1,4 +1,6 @@
-#' MUVR2: "Multivariate modeling with Unbiased Variable selection", using PLS and RF methods
+#' MUVR2 with PLS and RF
+#' 
+#' "Multivariate modelling with Unbiased Variable selection" using PLS and RF.
 #' Repeated double cross validation with tuning of variables in the inner loop.
 #' @param X Predictor variables. NB: Variables (columns) must have names/unique identifiers. NAs not allowed in data. For multilevel, only the positive half of the difference matrix is specified.
 #' @param Y Response vector (Dependent variable). For classification, a factor (or character) variable should be used. For multilevel, Y is calculated automatically.

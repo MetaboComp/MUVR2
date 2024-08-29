@@ -1,28 +1,29 @@
-#'This can be run to test if the command input of parameters contradict to each other
-#'And also check the structure of the data
-#'If something goes wrong warning messages are given
-#'@param X   The original data of X, not the result after onehotencoding
-#'@param Y   The original data of Y
-#'@param ML  ML in MUVR2
-#'@param DA  DA in MUVR2
-#'@param method  RF or PLS so far in MUVR2
-#'@param fitness fitness in MUVR2
-#'@param nInner nInnerin MUVR2
-#'@param nOuter nOuter in MUVR2
-#'@param varRatio varRatio in MUVR2
-#'@param scale scale
-#'@param modReturn modReturn in MUVR2
-#'@param logg logg in MUVR2
-#'@param parallel parallel in MUVR2
-#'@return correct_input: the original input(call) and the real input used in MUVR2 when you enter your input
-#'@export
-#'@examples
+#' Check input
+#'
+#' This can be run to test if the command input of parameters contradict each 
+#' other and check the structure of the data. If something goes wrong, warning 
+#' messages are given.
+#' @param X   The original data of X, not the result after onehotencoding
+#' @param Y   The original data of Y
+#' @param ML  ML in MUVR2
+#' @param DA  DA in MUVR2
+#' @param method  RF or PLS so far in MUVR2
+#' @param fitness fitness in MUVR2
+#' @param nInner nInnerin MUVR2
+#' @param nOuter nOuter in MUVR2
+#' @param varRatio varRatio in MUVR2
+#' @param scale scale
+#' @param modReturn modReturn in MUVR2
+#' @param logg logg in MUVR2
+#' @param parallel parallel in MUVR2
+#' @return correct_input: the original input(call) and the real input used in MUVR2 when you enter your input
+#' @export
+#' @examples
 #' data("freelive2")
-#'checkinput(X = XRVIP2,
-#'           Y = YR2,  ## YR2 a numeric variable
-#'           DA = FALSE,
-#'           fitness="RMSEP")
-
+#' checkinput(X = XRVIP2,
+#'            Y = YR2,  ## YR2 a numeric variable
+#'            DA = FALSE,
+#'            fitness="RMSEP")
 checkinput <- function(X,
                        Y,
                        ML,

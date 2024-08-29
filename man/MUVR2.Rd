@@ -2,8 +2,7 @@
 % Please edit documentation in R/MUVR2.R
 \name{MUVR2}
 \alias{MUVR2}
-\title{MUVR2: "Multivariate modeling with Unbiased Variable selection", using PLS and RF methods
-Repeated double cross validation with tuning of variables in the inner loop.}
+\title{MUVR2 with PLS and RF}
 \usage{
 MUVR2(
   X,
@@ -73,7 +72,7 @@ MUVR2(
 A 'MUVR' object
 }
 \description{
-MUVR2: "Multivariate modeling with Unbiased Variable selection", using PLS and RF methods
+"Multivariate modelling with Unbiased Variable selection" using PLS and RF.
 Repeated double cross validation with tuning of variables in the inner loop.
 }
 \examples{

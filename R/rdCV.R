@@ -1,4 +1,4 @@
-#' rdCV: Wrapper for repeated double cross-validation without variable selection
+#' Wrapper for repeated double cross-validation without variable selection
 #' @param X Independent variables. NB: Variables (columns) must have names/unique identifiers. NAs not allowed in data. For ML, X is upper half only (X1-X2)
 #' @param Y Response vector (Dependent variable). For DA (classification), Y should be factor or character. For ML, Y is omitted. For regression, Y is numeric.
 #' @param ID Subject identifier (for sampling by subject; Assumption of independence if not specified)

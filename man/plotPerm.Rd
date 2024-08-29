@@ -2,9 +2,7 @@
 % Please edit documentation in R/plotPerm.R
 \name{plotPerm}
 \alias{plotPerm}
-\title{Plot for comparison of actual model fitness vs permutation/resampling
-Plots histogram of null hypothesis (permutation/resampling) distribution, actual model fitness and cumulative p-value.
-Plot defaults to "greater than" or "smaller than" tests and cumulative probability in Student's t-distribution}
+\title{Plot for comparison of actual model fitness vs permutation/resampling}
 \usage{
 plotPerm(
   actual,
@@ -68,9 +66,8 @@ plotPerm(
 Plot
 }
 \description{
-Plot for comparison of actual model fitness vs permutation/resampling
 Plots histogram of null hypothesis (permutation/resampling) distribution, actual model fitness and cumulative p-value.
-Plot defaults to "greater than" or "smaller than" tests and cumulative probability in Student's t-distribution
+Plot defaults to "greater than" or "smaller than" tests and cumulative probability in Student's t-distribution.
 }
 \examples{
 data("freelive2")

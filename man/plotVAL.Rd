@@ -2,22 +2,20 @@
 % Please edit documentation in R/plotVAL.R
 \name{plotVAL}
 \alias{plotVAL}
-\title{Plot validation metric
-Produces a plot of validation metric vs number of variables in model (inner segment)}
+\title{Plot validation metric}
 \usage{
 plotVAL(MUVRclassObject, show_outlier = TRUE)
 }
 \arguments{
 \item{MUVRclassObject}{An object of class `MUVR`}
 
-\item{show_outlier}{deciding show outlier on the information of not}
+\item{show_outlier}{Boolean, show outliers}
 }
 \value{
 A plot
 }
 \description{
-Plot validation metric
-Produces a plot of validation metric vs number of variables in model (inner segment)
+Produces a plot of validation metric vs number of variables in model (inner segment).
 }
 \examples{
 \donttest{

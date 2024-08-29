@@ -2,7 +2,7 @@
 % Please edit documentation in R/getBER.R
 \name{getBER}
 \alias{getBER}
-\title{get Balanced Error Rate from classification analysis}
+\title{Get BER}
 \usage{
 getBER(actual, predicted, weigh_added = FALSE, weighing_matrix)
 }
@@ -11,15 +11,15 @@ getBER(actual, predicted, weigh_added = FALSE, weighing_matrix)
 
 \item{predicted}{Vector of predicted classifications of samples}
 
-\item{weigh_added}{To add a weighing matrix when it is classfication}
+\item{weigh_added}{To add a weighing matrix when it is classification}
 
-\item{weighing_matrix}{The matrix used for get a miss classfication score}
+\item{weighing_matrix}{The matrix used to get a misclassification score}
 }
 \value{
-Balanced Error Rate (BER)
+BER
 }
 \description{
-get Balanced Error Rate from classification analysis
+Get Balanced Error Rate (BER) in classification.
 }
 \examples{
 data("mosquito")

@@ -1,8 +1,9 @@
 #' Report variables belonging to different classes
-#' Reports names and numbers of variables: all as well as Optimal (min model), redundant (from min up to max) and noisy (the rest)
+#'
+#' Reports names and numbers of variables: all as well as optimal (min model), redundant (from min up to max) and noisy (the rest).
 #' @param MUVRclassObject A MUVR class object
-#' @return A list with names and numbers of variables: all as well as Optimal (Corresponding to 'min' or minial-optimal model),
-#' Redundant (from 'min' up to 'max' or all-relevant ) and Noisy (the rest)
+#' @return A list with names and numbers of variables: all as well as optimal (Corresponding to 'min' or minial-optimal model),
+#' redundant (from 'min' up to 'max' or all-relevant ) and noisy (the rest)
 #' @export
 #' @examples
 #' \donttest{

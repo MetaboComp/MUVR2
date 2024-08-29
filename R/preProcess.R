@@ -10,7 +10,6 @@
 #' @examples
 #' data("freelive2")
 #' preProcess(XRVIP2)
-
 preProcess <- function(X,
                       offset = 0,
                       zeroOffset = 0,

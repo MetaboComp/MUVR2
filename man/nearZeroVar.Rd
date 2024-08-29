@@ -2,8 +2,7 @@
 % Please edit documentation in R/nearZeroVar.R
 \name{nearZeroVar}
 \alias{nearZeroVar}
-\title{Identify variables with near zero variance
-Adapted and stripped down from mixOmics v 5.2.0 (https://cran.r-project.org/web/packages/mixOmics/)}
+\title{Identify variables with near zero variance}
 \usage{
 nearZeroVar(x, freqCut = 95/5, uniqueCut = 10)
 }
@@ -18,8 +17,7 @@ nearZeroVar(x, freqCut = 95/5, uniqueCut = 10)
 nzv object
 }
 \description{
-Identify variables with near zero variance
-Adapted and stripped down from mixOmics v 5.2.0 (https://cran.r-project.org/web/packages/mixOmics/)
+Adapted and stripped down from mixOmics v 5.2.0 (https://cran.r-project.org/web/packages/mixOmics/).
 }
 \examples{
 data("freelive2")

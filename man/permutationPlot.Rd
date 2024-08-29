@@ -2,8 +2,7 @@
 % Please edit documentation in R/permutationPlot.R
 \name{permutationPlot}
 \alias{permutationPlot}
-\title{Plot permutation analysis using actual model and permutations()
-This is basically a wrapper for the MUVR2::plotPerm() function using model objects to make coding nicer and cleaner}
+\title{Plot permutation analysis}
 \usage{
 permutationPlot(
   MUVRclassObject,
@@ -46,8 +45,7 @@ permutationPlot(
 A permutation plot
 }
 \description{
-Plot permutation analysis using actual model and permutations()
-This is basically a wrapper for the MUVR2::plotPerm() function using model objects to make coding nicer and cleaner
+Plot permutation analysis using actual model and permutation result. This is basically a wrapper for the MUVR2::plotPerm() function using model objects to make coding nicer and cleaner.
 }
 \examples{
 \donttest{

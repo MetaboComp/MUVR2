@@ -1,5 +1,6 @@
-#' Plots variable importance ranking in MUVR object
-#' Regardless of MV core method, variables are sorted by rank, where lower is better.
+#' Plot variable importance ranking
+#' 
+#' Plot variable importance ranking in MUVR object. Regardless of MV core method, variables are sorted by rank, where lower is better.
 #' `plotVIRank` produces boxplots of variable rankings for all model repetitions.
 #' @param MUVRclassObject An MUVR class object only applied to PLS, RF not rdCVnet
 #' @param n Number of top ranking variables to plot (defaults to those selected by MUVR2)

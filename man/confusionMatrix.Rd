@@ -2,7 +2,7 @@
 % Please edit documentation in R/confusionMatrix.R
 \name{confusionMatrix}
 \alias{confusionMatrix}
-\title{Make a confusion matrix from a MUVR object}
+\title{Confusion matrix}
 \usage{
 confusionMatrix(MVObj, model = "mid")
 }
@@ -15,7 +15,7 @@ confusionMatrix(MVObj, model = "mid")
 A confusion matrix of actual vs predicted class
 }
 \description{
-Make a confusion matrix from a MUVR object
+Make a confusion matrix from a MUVR object.
 }
 \examples{
 \donttest{

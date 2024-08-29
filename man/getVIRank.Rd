@@ -2,24 +2,24 @@
 % Please edit documentation in R/getVIRank.R
 \name{getVIRank}
 \alias{getVIRank}
-\title{Extract autoselected variables from MUVR model object}
+\title{Get variable importance}
 \usage{
 getVIRank(MUVRclassObject, model = "mid", n, all = FALSE)
 }
 \arguments{
-\item{MUVRclassObject}{An object of MUVR class}
+\item{MUVRclassObject}{an object of MUVR class}
 
-\item{model}{Which model to use ("min", "mid" (default), or "max")}
+\item{model}{which model to use ("min", "mid" (default), or "max")}
 
 \item{n}{customize values}
 
 \item{all}{logical, to get the ranks of all variable or not}
 }
 \value{
-Data frame with order, name and average rank of variables (`order`, `name` & `rank`)
+data frame with order, name and average rank of variables (`order`, `name` & `rank`)
 }
 \description{
-Extract autoselected variables from MUVR model object
+Extract autoselected variables from MUVR model object.
 }
 \examples{
 \donttest{
@@ -30,7 +30,7 @@ varRatio <-0.6
 regrModel <- MUVR2(X = XRVIP2,
                    Y = YR2,
                    nRep = nRep,
-                  nOuter = nOuter,
+                   nOuter = nOuter,
                    varRatio = varRatio,
                    method = "PLS",
                    modReturn = TRUE)

@@ -2,8 +2,7 @@
 % Please edit documentation in R/plotPred.R
 \name{plotPred}
 \alias{plotPred}
-\title{Plot predictions
-At present, this function only supports predictions for PLS regression type problems}
+\title{Plot predictions for PLS regression}
 \usage{
 plotPred(Ytrue, Ypreds)
 }
@@ -16,8 +15,7 @@ plotPred(Ytrue, Ypreds)
 A plot, plot the prediction
 }
 \description{
-Plot predictions
-At present, this function only supports predictions for PLS regression type problems
+At present, this function only supports predictions for PLS regression type problems.
 }
 \examples{
 \donttest{

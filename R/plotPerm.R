@@ -1,6 +1,7 @@
 #' Plot for comparison of actual model fitness vs permutation/resampling
+#'
 #' Plots histogram of null hypothesis (permutation/resampling) distribution, actual model fitness and cumulative p-value.
-#' Plot defaults to "greater than" or "smaller than" tests and cumulative probability in Student's t-distribution
+#' Plot defaults to "greater than" or "smaller than" tests and cumulative probability in Student's t-distribution.
 #' @param actual Actual model fitness (e.g. Q2, AUROC or number of misclassifications)
 #' @param distribution Null hypothesis (permutation) distribution of similar metric as `actual`
 #' @param xlab Label for x-axis (e.g. 'Q2 using real value',"Q2 using distributions","BER" 'AUROC', or 'Misclassifications')

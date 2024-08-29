@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_rmsep.R
 \name{get_rmsep}
 \alias{get_rmsep}
-\title{get rmsep for regression}
+\title{Get RMSEP}
 \usage{
 get_rmsep(actual, predicted)
 }
@@ -12,10 +12,10 @@ get_rmsep(actual, predicted)
 \item{predicted}{Vector of predicted classifications of samples}
 }
 \value{
-rmsep
+RMSEP
 }
 \description{
-get rmsep for regression
+Get Root Mean Square Error of Prediction (RMSEP) in classification.
 }
 \examples{
 data("mosquito")

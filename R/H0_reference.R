@@ -1,8 +1,10 @@
-#' make reference distribution for resampling tests/permutation tests
+#' Get reference distribution for resampling tests
+#'
+#' Make reference distribution for resampling tests to assess overfitting.
 #' @param Y the target variable
 #' @param n number of permutations to run
 #' @param fitness number of repetitions for each permutation (defaults to value of actual model)
-#' @param ... some more argument for sampling frm distribution
+#' @param ... additional arguments for sampling from distribution
 #' @return  a histogram of reference distribution
 #' @export
 #' @examples
@@ -10,7 +12,6 @@
 #' data("freelive2")
 #' H0_reference(YR2)
 #' }
-
 H0_reference <- function(Y,
                          n = 1000,
                          fitness = c("Q2", "BER", "MISS", "AUROC"),

@@ -1,9 +1,12 @@
-#' PLS biplot:  Makes a biplot of a fitted object (e.g. from a MUVR with PLS core)
+#' PLS biplot
+#'
+#' Makes a biplot of a fitted object (e.g. from a MUVR with PLS core).
+#'
 #' @param fit A PLS fit (e.g. from MUVRclassObject$Fit[[2]])
 #' @param comps Which components to plot
 #' @param xCol (Optional) Continuous vector for grey scale gradient of observation (sample) color (e.g. Y vector in regression analysis)
 #' @param labPlSc Boolean to plot observation (sample) names (defaults to TRUE)
-#' @param labs (Optional) Labels names
+#' @param labs (Optional) Label names
 #' @param vars Which variables to plot (names in rownames(loadings))
 #' @param labPlLo Boolean to plot variable names (defaults to TRUE)
 #' @param pchSc Plotting character for observation scores
@@ -31,7 +34,6 @@
 #'           labPlSc = FALSE,
 #'           labPlLo = FALSE)
 #' }
-
 biplotPLS <- function(fit,
                       #####A PLS fit (e.g. from MUVRclassObject$Fit[[2]]) could be [[3]],[[4]]
                       comps = 1:2,

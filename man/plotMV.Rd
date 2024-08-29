@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotMV.R
 \name{plotMV}
 \alias{plotMV}
-\title{Plot MV object Swim lane plot for classification, for regression}
+\title{Plot predictions}
 \usage{
 plotMV(MUVRclassObject, model = "min", factCols, sampLabels, ylim = NULL)
 }
@@ -21,7 +21,7 @@ plotMV(MUVRclassObject, model = "min", factCols, sampLabels, ylim = NULL)
 A plot of results from multivariate predictions
 }
 \description{
-Plot MV object Swim lane plot for classification, for regression
+Plot predicted and actual target variables, with different plots depending on modelling approach.
 }
 \examples{
 \donttest{

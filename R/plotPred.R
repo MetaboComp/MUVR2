@@ -1,5 +1,6 @@
-#' Plot predictions
-#' At present, this function only supports predictions for PLS regression type problems
+#' Plot predictions for PLS regression
+#'
+#' At present, this function only supports predictions for PLS regression type problems.
 #' @param Ytrue True value of Y, should be a vector
 #' @param Ypreds Predicted value of Y can be a vector or data frame with the same number of rows
 #' @export

@@ -2,7 +2,7 @@
 % Please edit documentation in R/qMUVR2.R
 \name{qMUVR2}
 \alias{qMUVR2}
-\title{qMUVR2: Wrapper for speedy access to MUVR (autosetup of parallelization)}
+\title{Wrapper for speedy access to MUVR2 (autosetup of parallelization)}
 \usage{
 qMUVR2(
   X,
@@ -39,7 +39,7 @@ qMUVR2(
 MUVR object
 }
 \description{
-qMUVR2: Wrapper for speedy access to MUVR (autosetup of parallelization)
+Wrapper for speedy access to MUVR2 (autosetup of parallelization)
 }
 \examples{
 \dontrun{

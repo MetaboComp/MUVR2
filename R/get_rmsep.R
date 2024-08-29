@@ -1,7 +1,9 @@
-#' get rmsep for regression
+#' Get RMSEP
+#' 
+#' Get Root Mean Square Error of Prediction (RMSEP) in classification.
 #' @param actual Vector of actual classifications of samples
 #' @param predicted Vector of predicted classifications of samples
-#' @return rmsep
+#' @return RMSEP
 #' @export
 #' @examples
 #' data("mosquito")

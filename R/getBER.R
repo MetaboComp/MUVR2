@@ -1,16 +1,17 @@
-#' get Balanced Error Rate from classification analysis
+#' Get BER
+#'
+#' Get Balanced Error Rate (BER) in classification.
 #' @param actual Vector of actual classifications of samples
 #' @param predicted Vector of predicted classifications of samples
-#' @param weigh_added To add a weighing matrix when it is classfication
-#' @param weighing_matrix The matrix used for get a miss classfication score
-#' @return Balanced Error Rate (BER)
+#' @param weigh_added To add a weighing matrix when it is classification
+#' @param weighing_matrix The matrix used to get a misclassification score
+#' @return BER
 #' @export
 #' @examples
 #' data("mosquito")
 #' actual <- Yotu
 #' predicted <- sampling_from_distribution(actual)
 #' getBER(actual, predicted)
-
 getBER <- function (actual,
                     predicted,
                     weigh_added = FALSE,

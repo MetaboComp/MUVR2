@@ -1,8 +1,10 @@
-#' Plot stability of selected variables and prediction fitness as a function of number of repetitions
+#' Plot stability 
+#' 
+#' Plot stability of selected variables and prediction fitness as a function of number of repetitions.
 #' @param MUVRrdCVclassObject MUVR class object or rdCV object
 #' @param model 'min' (default), 'mid' or 'max'
 #' @param VAll Option of specifying which variables (i.e. names) to consider as reference set.
-#'             Defaults to variables selected from the `model` of the `MUVRrdCVclassObject`
+#' Defaults to variables selected from the `model` of the `MUVRrdCVclassObject`
 #' @param nVarLim Option of specifying upper limit for number of variables
 #' @param missLim Option of specifying upper limit for number of misclassifications
 #' @return Plot of number of variables, proportion of variables overlapping with reference and prediction accuracy (Q2 for regression; MISS otherwise) as a function of number of repetitions.
