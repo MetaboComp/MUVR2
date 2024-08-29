@@ -20,7 +20,7 @@
 #' @param nu svm parameter: ratios of errors allowed in the training set range from 0-1
 #' @param degree svm parameter: needed for polynomial kernel in svm
 #' @param gamma svm parameters: needed for "vanilladot","polydot","rbfdot" kernel in svm
-#' @param annMethod artifical neural network method which includes 2 different ann methods
+#' @param annMethod artificial neural network method which includes 2 different ann methods
 #' @return a `methParam` object
 #' @export
 #' @examples
