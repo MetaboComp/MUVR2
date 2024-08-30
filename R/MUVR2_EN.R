@@ -75,12 +75,7 @@ MUVR2_EN <- function(X,
                     #    Var_option=c("quantile","smoothcurve"),
                     ...) {
 
-  if(dim(X)[1]!=length(Y)){
-    stop("The X and Y should have same number of observations")
-  }
-  if (is.null(weighing_matrix) & DA == TRUE) {
-    weighing_matrix <- diag(1, length(levels(Y)), length(levels(Y)))
-  }
+
 
   #library(glmnet)
 
@@ -141,7 +136,12 @@ MUVR2_EN <- function(X,
     fitness <- 'MISS'
     message('\nMultilevel -> Regression on (-1,1) & fitness=MISS')
   }
-
+  if(dim(X)[1]!=length(Y)){
+    stop("The X and Y should have same number of observations")
+  }
+  if (is.null(weighing_matrix) & DA == TRUE) {
+    weighing_matrix <- diag(1, length(levels(Y)), length(levels(Y)))
+  }
 
   # Call in packages
   #library(pROC) # for roc and auroc
