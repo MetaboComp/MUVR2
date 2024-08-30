@@ -459,15 +459,24 @@ MUVR2_EN <- function(X,
                             avect[count]  ## avect is the alpha vector
                           penaltyfactor <- rep(1, ncol(xIn))
                           if (!is.null(keep)) {
-                            if (any(!keep %in% colnames(X_original))) {
+                            if (any(!keep %in% c(colnames(X_original),
+                                                 colnames(X)))) {
                               stop("Could not find that variable(s) in X")
+
                             }
                           #################################### This is aborted
                           #### The kept but of zero variance variables will be automatically removed
                           # if (any(!keep %in% colnames(X))) {
                           #    stop("Some variables you want to keep are of near zero varance")
                           #  }
-                            filter <- which(colnames(xIn) %in% keep)
+                            keep_frame<-X_original[,keep,drop=FALSE]
+                            suppressMessages(
+
+                            keep_frame_onehot<-onehotencoding(keep_frame)
+                            )
+                            filter <- which(colnames(xIn) %in% c(keep,
+                                                                 colnames(keep_frame_onehot)))
+
                             penaltyfactor[filter] <- 0
 
                           }
@@ -499,7 +508,13 @@ MUVR2_EN <- function(X,
 
                       penaltyfactor <- rep(1, ncol(xIn))
                       if (!is.null(keep)) {
-                        filter <- which(colnames(xIn) %in% keep)
+                        keep_frame<-X_original[,keep,drop=FALSE]
+                        suppressMessages(
+
+                          keep_frame_onehot<-onehotencoding(keep_frame)
+                        )
+                        filter <- which(colnames(xIn) %in% c(keep,
+                                                             colnames(keep_frame_onehot)))
                         penaltyfactor[filter] <- 0
                       }
 
@@ -1309,7 +1324,13 @@ MUVR2_EN <- function(X,
   # Fit-predict model
   penaltyfactor <- rep(1, ncol(X))
   if (!is.null(keep)) {
-    filter <- which(colnames(X) %in% keep)
+    keep_frame<-X_original[,keep,drop=FALSE]
+    suppressMessages(
+
+      keep_frame_onehot<-onehotencoding(keep_frame)
+    )
+    filter <- which(colnames(X) %in% c(keep,
+                                         colnames(keep_frame_onehot)))
     penaltyfactor[filter] <- 0
   }
 
