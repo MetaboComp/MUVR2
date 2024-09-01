@@ -1,5 +1,5 @@
 #' Plot variable importance ranking
-#' 
+#'
 #' Plot variable importance ranking in MUVR object. Regardless of MV core method, variables are sorted by rank, where lower is better.
 #' `plotVIRank` produces boxplots of variable rankings for all model repetitions.
 #' @param MUVRclassObject An MUVR class object only applied to PLS, RF not rdCVnet
@@ -33,9 +33,9 @@ plotVIRank <- function(MUVRclassObject,
                        maptype = c("heatmap", "dotplot"),
                        add_blank = 4,
                        cextext = 1) {
-  oldpar <- par(no.readonly = TRUE)
-  on.exit(par(oldpar))
-  par(mar = c(4, 4, 4, 4) + .5)
+  # oldpar <- par(no.readonly = TRUE)
+  # on.exit(par(oldpar))
+  # par(mar = c(4, 4, 4, 4) + .5)
   if (!(class(MUVRclassObject)[1] == 'MUVR')) {
     warning('\nWrong object class: Return NULL')
 
@@ -76,8 +76,8 @@ plotVIRank <- function(MUVRclassObject,
     if (maptype == "heatmap") {
       ################################################################
       ##### par(mar=c(5, 4, 4, 8),xpd=TRUE)  ### This is to give some place to legend
-      par(mar = c(add_blank, 4, 4, 8),
-          xpd = TRUE)
+      # par(mar = c(add_blank, 4, 4, 8),
+      #     xpd = TRUE)
       matrix_count_t <- t(matrix_count)
       matrix_count_t_sdnot0 <-
         matrix(NA, nrow = nrow(matrix_count_t), 0)
@@ -156,8 +156,8 @@ plotVIRank <- function(MUVRclassObject,
       )
 
     } else{
-      par(mar = c(5, 4, 4, 8),
-          xpd = TRUE)
+      #par(mar = c(5, 4, 4, 8),
+      #    xpd = TRUE)
       plot(
         1,
         type = "n",
@@ -202,8 +202,8 @@ plotVIRank <- function(MUVRclassObject,
     ##############################################################################################################
     ## PLS or RF
   } else{
-    par(mar = c(4, add_blank , 2, 2),
-        xpd = TRUE)
+    # par(mar = c(4, add_blank , 2, 2),
+    #     xpd = TRUE)
     nModel  <-  ifelse(model == 'min',
                        1,
                        ifelse(model == 'mid', 2, 3))
