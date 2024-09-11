@@ -325,7 +325,7 @@ MUVR2_EN <- function(X,
                     if (modReturn) {
                       outMod <- list()
                     }
-                    cat('\n', '   Repetition ', r, ' of ', nRep, ':', sep =
+                    message('\n', '   Repetition ', r, ' of ', nRep, ':', sep =
                           '')
                     # Sampling into holdout segments
                     if (DA & identical(unikID, ID)) {
@@ -382,7 +382,7 @@ MUVR2_EN <- function(X,
                       i <- a
 
 
-                      cat('\n Segment ', i, ' (Inner repeat): ', sep = '') # Counter
+                      message('\n Segment ', i, ' (Inner repeat): ', sep = '') # Counter
                       ## Draw out test set
                       testID <-
                         allTest[[i]] # Draw out segment = holdout set BASED ON UNIQUE ID
@@ -432,7 +432,7 @@ MUVR2_EN <- function(X,
 
                       for (j in 1:methParam$nRepInner) {
                         ##Is the same as nInners
-                        cat(j, '... ')
+                        message(j, '... ')
 
 
 
@@ -1028,7 +1028,7 @@ MUVR2_EN <- function(X,
   ##########################################################################################
   ### non zero repetition
 
-  #cat("please use the getVIRank function to see which one to use ")
+  #message("please use the getVIRank function to see which one to use ")
 
   ##
   ##################################################################################################
@@ -1453,7 +1453,7 @@ MUVR2_EN <- function(X,
   # Stop timer
   end.time <- proc.time()[3]
   modelReturn$calcMins <- (end.time - start.time) / 60
-  cat('\n Elapsed time', (end.time - start.time) / 60, 'mins \n')
+  message('\n Elapsed time', (end.time - start.time) / 60, 'mins \n')
   class(modelReturn) <- c('MUVR',
                           ifelse(DA,
                                  'Classification',

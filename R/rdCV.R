@@ -253,7 +253,7 @@ rdCV <- function(X,
                         list()
                     } ##Logical for returning outer segment models (defaults to FALSE)
 
-                    cat('\n', '   Repetition ', r, ' of ', nRep, ':', sep =
+                    message('\n', '   Repetition ', r, ' of ', nRep, ':', sep =
                           '')
 
                     if (DA) {
@@ -311,7 +311,7 @@ rdCV <- function(X,
                       # i=1
                       # i=i+1
                       ###Choose the number ith nOuter as test set in turn
-                      cat('\n Segment ', i, ':', sep = '') # Counter
+                      message('\n Segment ', i, ':', sep = '') # Counter
                       ## Draw out test set
                       testID <-
                         allTest[[i]] # Draw out segment = holdout set BASED ON UNIQUE ID
@@ -408,7 +408,7 @@ rdCV <- function(X,
                       for (j in 1:nInner) {
                         # j <- 1
                         # j <- j+1
-                        cat('.') # Counter
+                        message('.') # Counter
                         valID <-
                           allVal[[j]] # Draw out segment = validation set
                         ##in the jth nInner in inner segments each allVal[[i]] has all Y group data
@@ -734,7 +734,7 @@ rdCV <- function(X,
 
   modelReturn$calcMins <- (end.time - start.time) / 60
 
-  cat('\n Elapsed time', (end.time - start.time) / 60, 'mins \n')
+  message('\n Elapsed time', (end.time - start.time) / 60, 'mins \n')
 
   class(modelReturn) <- c('rdCVObject',
                           method,

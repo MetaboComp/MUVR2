@@ -1,4 +1,4 @@
-#' Calculate permutation p-value 
+#' Calculate permutation p-value
 
 #' Calculate perutation p-value of actual model performance vs null hypothesis distribution.
 #' `pPerm` will calculate the cumulative (1-tailed) probability of `actual` belonging to `permutation_distribution`.
@@ -169,7 +169,7 @@ pPerm <- function(actual,
     }
 
     p <- p_actual
-    cat("/n Resolution limited to ", 1 / (length(rank) - 1))
+    message("/n Resolution limited to ", 1 / (length(rank) - 1))
     p_object$p <- p
     p_object$points <- NULL
 

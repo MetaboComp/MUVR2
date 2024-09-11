@@ -1,15 +1,15 @@
 #' Perform permutation or resampling tests
-#' 
-#' This function will extract data and parameter settings from a MUVR object 
-#' and run standard permutation or resampling test. This will fit a standard 
-#' case of multivariate predictive modelling in either a regression, 
-#' classification or multilevel case. However, if an analysis has a complex 
-#' sample dependency which requires constrained permutation of your response 
-#' vector or if a variable pre-selection is performed for decreased 
-#' computational burden, then permutaion/resampling loops should be constructed 
-#' manually. In those cases, View(H0_test) can be a first start from which to 
+#'
+#' This function will extract data and parameter settings from a MUVR object
+#' and run standard permutation or resampling test. This will fit a standard
+#' case of multivariate predictive modelling in either a regression,
+#' classification or multilevel case. However, if an analysis has a complex
+#' sample dependency which requires constrained permutation of your response
+#' vector or if a variable pre-selection is performed for decreased
+#' computational burden, then permutaion/resampling loops should be constructed
+#' manually. In those cases, View(H0_test) can be a first start from which to
 #' build custom solutions for permutation analysis.
-#' 
+#'
 #' @param MUVRclassObject a 'MUVR' class object
 #' @param n number of permutations to run
 #' @param nRep number of repetitions for each permutation (defaults to value of actual model)
@@ -159,7 +159,7 @@ H0_test <- function(MUVRclassObject,
       ###hBER could be added too when we want to integrate it into the permutationtest
       for (p in 1:n) {
         ####these is to repeat random selection for n times
-        cat('\n"', name, '" permutation ', p, ' of ', n, '\n', sep = '')
+        message('\n"', name, '" permutation ', p, ' of ', n, '\n', sep = '')
 
         #if (ML==TRUE) {YPerm=sample(c(-1,1),   ##when ML is TRUE, DA =FALSE
         #                       size=nSamp,
@@ -227,7 +227,7 @@ H0_test <- function(MUVRclassObject,
 
         timeLeft <- (timePerRep * (n - p)) / 60
 
-        cat('\nEstimated time left:', timeLeft, 'mins\n\n')
+        message('\nEstimated time left:', timeLeft, 'mins\n\n')
       }
       if (class(MUVRclassObject)[3] == "rdCVnet") {
         permutation_output <- as.data.frame(permutation_output[, 1])
@@ -250,7 +250,7 @@ H0_test <- function(MUVRclassObject,
 
         for (p in 1:n) {
           ####these is to repeat random selection for n times
-          cat('\n"', name, '" permutation ', p, ' of ', n, '\n', sep = '')
+          message('\n"', name, '" permutation ', p, ' of ', n, '\n', sep = '')
           denss <- density(
             x = Y,
             from = min(Y),
@@ -316,7 +316,7 @@ H0_test <- function(MUVRclassObject,
 
           timeLeft <- (timePerRep * (n - p)) / 60
 
-          cat('\nEstimated time left:', timeLeft, 'mins\n\n')
+          message('\nEstimated time left:', timeLeft, 'mins\n\n')
         }
         if (class(MUVRclassObject)[3] == "rdCVnet") {
           permutation_output <- as.data.frame(permutation_output[, 1])
@@ -334,7 +334,7 @@ H0_test <- function(MUVRclassObject,
       if (permutation_type == "MISS" | permutation_type == "BER") {
         for (p in 1:n) {
           ####these is to repeat random selection for n times
-          cat('\n"', name, '" permutation ', p, ' of ', n, '\n', sep = '')
+          message('\n"', name, '" permutation ', p, ' of ', n, '\n', sep = '')
 
           if (ML == TRUE) {
             YPerm <- as.numeric(sample(
@@ -411,7 +411,7 @@ H0_test <- function(MUVRclassObject,
 
           timeLeft <- (timePerRep * (n - p)) / 60
 
-          cat('\nEstimated time left:', timeLeft, 'mins\n\n')
+          message('\nEstimated time left:', timeLeft, 'mins\n\n')
         }
 
         if (class(MUVRclassObject)[3] == "rdCVnet") {
@@ -491,7 +491,7 @@ H0_test <- function(MUVRclassObject,
       for (s in 1:num) {
         for (p in 1:n) {
           ####these is to repeat random selection for n times
-          cat('\n"',
+          message('\n"',
               "group",
               s,
               name,
@@ -563,7 +563,7 @@ H0_test <- function(MUVRclassObject,
           timeLeft <-
             (timePerRep * (n * num - ((s - 1) * n + p))) / 60
 
-          cat('\nEstimated time left:', timeLeft, 'mins\n\n')
+          message('\nEstimated time left:', timeLeft, 'mins\n\n')
         }
       }
 
@@ -594,7 +594,7 @@ H0_test <- function(MUVRclassObject,
       for (s in 1:num) {
         for (p in 1:n) {
           ####these is to repeat random selection for n times
-          cat('\n"',
+          message('\n"',
               "group",
               s,
               name,
@@ -684,7 +684,7 @@ H0_test <- function(MUVRclassObject,
           timeLeft <-
             (timePerRep * (n * num - ((s - 1) * n + p))) / 60
 
-          cat('\nEstimated time left:', timeLeft, 'mins\n\n')
+          message('\nEstimated time left:', timeLeft, 'mins\n\n')
         }
       }
 

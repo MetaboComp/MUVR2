@@ -1,5 +1,5 @@
 #' MUVR2 with PLS and RF
-#' 
+#'
 #' "Multivariate modelling with Unbiased Variable selection" using PLS and RF.
 #' Repeated double cross validation with tuning of variables in the inner loop.
 #' @param X Predictor variables. NB: Variables (columns) must have names/unique identifiers. NAs not allowed in data. For multilevel, only the positive half of the difference matrix is specified.
@@ -534,7 +534,7 @@ MUVR2 <- function(X,
                     }
 
                     # Intermediate info output
-                    cat('\n', '   Repetition ', r, ' of ', nRep, ':', sep = '')
+                    message('\n', '   Repetition ', r, ' of ', nRep, ':', sep = '')
 
                     # Allocate output for models (i.e. for later prediction of external samples)
                     if (modReturn) {
@@ -592,7 +592,7 @@ MUVR2 <- function(X,
                       # i <- i + 1
 
                       # Intermediate info output
-                      cat('\n Segment ', i, ' (variables):', sep = '') # Counter
+                      message('\n Segment ', i, ' (variables):', sep = '') # Counter
 
                       # Draw out test set
                       testID <-
@@ -652,7 +652,7 @@ MUVR2 <- function(X,
                         nVar <- var[count]
 
                         # Intermediate info output
-                        cat(nVar)
+                        message(nVar)
                         ###############################################################################################################################################################################
                         # Tweak method parameters for low number of variables
                         if (method == 'PLS')
@@ -708,7 +708,7 @@ MUVR2 <- function(X,
                           # j <- j + 1
 
                           # Intermediate info output
-                          cat('.') # Counter
+                          message('.') # Counter
 
                           # Extract validation segment
                           valID <- allVal[[j]] # Extract IDs
@@ -2001,7 +2001,7 @@ MUVR2 <- function(X,
   modelReturn$calcMins <- (end.time - start.time) / 60
 
   # Output
-  cat('\n Elapsed time', modelReturn$calcMins, 'mins \n')
+  message('\n Elapsed time', modelReturn$calcMins, 'mins \n')
 
 
   ################################# add Var

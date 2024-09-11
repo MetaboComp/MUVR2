@@ -11,10 +11,11 @@
 #' @return MUVR object
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("freelive2")
 #' regrModel <- qMUVR2(X = XRVIP2,
-#'                     Y = YR2)
+#'                     Y = YR2,
+#'                     nCore = 1)
 #' }
 qMUVR2 <- function(X,
                   Y,
@@ -33,7 +34,7 @@ qMUVR2 <- function(X,
   cl <- makeCluster(nCore)
   registerDoParallel(cl)
   if (ML) {
-    mod <-
+    mod <-F
       MUVR2(
         X = X,
         ML = TRUE,
