@@ -33,14 +33,14 @@ H0_test(
 permutation_output: A permutation matrix with permuted fitness statistics (nrow=n and ncol=3 for min/mid/max)
 }
 \description{
-This function will extract data and parameter settings from a MUVR object 
-and run standard permutation or resampling test. This will fit a standard 
-case of multivariate predictive modelling in either a regression, 
-classification or multilevel case. However, if an analysis has a complex 
-sample dependency which requires constrained permutation of your response 
-vector or if a variable pre-selection is performed for decreased 
-computational burden, then permutaion/resampling loops should be constructed 
-manually. In those cases, View(H0_test) can be a first start from which to 
+This function will extract data and parameter settings from a MUVR object
+and run standard permutation or resampling test. This will fit a standard
+case of multivariate predictive modelling in either a regression,
+classification or multilevel case. However, if an analysis has a complex
+sample dependency which requires constrained permutation of your response
+vector or if a variable pre-selection is performed for decreased
+computational burden, then permutaion/resampling loops should be constructed
+manually. In those cases, View(H0_test) can be a first start from which to
 build custom solutions for permutation analysis.
 }
 \examples{

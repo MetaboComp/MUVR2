@@ -534,7 +534,7 @@ MUVR2 <- function(X,
                     }
 
                     # Intermediate info output
-                    message('\n', '   Repetition ', r, ' of ', nRep, ':', sep = '')
+                    message('\n', '   Repetition ', r, ' of ', nRep, ':', sep = '', appendLF = FALSE)
 
                     # Allocate output for models (i.e. for later prediction of external samples)
                     if (modReturn) {
@@ -592,7 +592,7 @@ MUVR2 <- function(X,
                       # i <- i + 1
 
                       # Intermediate info output
-                      message('\n Segment ', i, ' (variables):', sep = '') # Counter
+                      message('\n Segment ', i, ' (variables):', sep = '', appendLF = FALSE) # Counter
 
                       # Draw out test set
                       testID <-
@@ -652,7 +652,7 @@ MUVR2 <- function(X,
                         nVar <- var[count]
 
                         # Intermediate info output
-                        message(nVar)
+                        message(nVar, appendLF = FALSE)
                         ###############################################################################################################################################################################
                         # Tweak method parameters for low number of variables
                         if (method == 'PLS')
@@ -708,7 +708,7 @@ MUVR2 <- function(X,
                           # j <- j + 1
 
                           # Intermediate info output
-                          message('.') # Counter
+                          message('.', appendLF = FALSE) # Counter
 
                           # Extract validation segment
                           valID <- allVal[[j]] # Extract IDs
@@ -2001,7 +2001,7 @@ MUVR2 <- function(X,
   modelReturn$calcMins <- (end.time - start.time) / 60
 
   # Output
-  message('\n Elapsed time', modelReturn$calcMins, 'mins \n')
+  message('\n Elapsed time ', modelReturn$calcMins, ' mins \n', appendLF = FALSE)
 
 
   ################################# add Var

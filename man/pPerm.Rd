@@ -2,7 +2,7 @@
 % Please edit documentation in R/pPerm.R
 \name{pPerm}
 \alias{pPerm}
-\title{Calculate permutation p-value 
+\title{Calculate permutation p-value
 Calculate perutation p-value of actual model performance vs null hypothesis distribution.
 `pPerm` will calculate the cumulative (1-tailed) probability of `actual` belonging to `permutation_distribution`.
 `side` is guessed by actual value compared to median(permutation_distribution).
@@ -31,7 +31,7 @@ pPerm(
 p-value
 }
 \description{
-Calculate permutation p-value 
+Calculate permutation p-value
 Calculate perutation p-value of actual model performance vs null hypothesis distribution.
 `pPerm` will calculate the cumulative (1-tailed) probability of `actual` belonging to `permutation_distribution`.
 `side` is guessed by actual value compared to median(permutation_distribution).

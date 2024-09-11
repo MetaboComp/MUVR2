@@ -159,7 +159,7 @@ H0_test <- function(MUVRclassObject,
       ###hBER could be added too when we want to integrate it into the permutationtest
       for (p in 1:n) {
         ####these is to repeat random selection for n times
-        message('\n"', name, '" permutation ', p, ' of ', n, '\n', sep = '')
+        message('\n"', name, '" permutation ', p, ' of ', n, '\n', sep = '', appendLF = FALSE)
 
         #if (ML==TRUE) {YPerm=sample(c(-1,1),   ##when ML is TRUE, DA =FALSE
         #                       size=nSamp,
@@ -227,7 +227,7 @@ H0_test <- function(MUVRclassObject,
 
         timeLeft <- (timePerRep * (n - p)) / 60
 
-        message('\nEstimated time left:', timeLeft, 'mins\n\n')
+        message('\nEstimated time left: ', timeLeft, ' mins\n\n', appendLF = FALSE)
       }
       if (class(MUVRclassObject)[3] == "rdCVnet") {
         permutation_output <- as.data.frame(permutation_output[, 1])
@@ -250,7 +250,7 @@ H0_test <- function(MUVRclassObject,
 
         for (p in 1:n) {
           ####these is to repeat random selection for n times
-          message('\n"', name, '" permutation ', p, ' of ', n, '\n', sep = '')
+          message('\n"', name, '" permutation ', p, ' of ', n, '\n', sep = '', appendLF = FALSE)
           denss <- density(
             x = Y,
             from = min(Y),
@@ -316,7 +316,7 @@ H0_test <- function(MUVRclassObject,
 
           timeLeft <- (timePerRep * (n - p)) / 60
 
-          message('\nEstimated time left:', timeLeft, 'mins\n\n')
+          message('\nEstimated time left: ', timeLeft, ' mins\n\n', appendLF = FALSE)
         }
         if (class(MUVRclassObject)[3] == "rdCVnet") {
           permutation_output <- as.data.frame(permutation_output[, 1])
@@ -334,7 +334,7 @@ H0_test <- function(MUVRclassObject,
       if (permutation_type == "MISS" | permutation_type == "BER") {
         for (p in 1:n) {
           ####these is to repeat random selection for n times
-          message('\n"', name, '" permutation ', p, ' of ', n, '\n', sep = '')
+          message('\n"', name, '" permutation ', p, ' of ', n, '\n', sep = '', appendLF = FALSE)
 
           if (ML == TRUE) {
             YPerm <- as.numeric(sample(
@@ -411,7 +411,7 @@ H0_test <- function(MUVRclassObject,
 
           timeLeft <- (timePerRep * (n - p)) / 60
 
-          message('\nEstimated time left:', timeLeft, 'mins\n\n')
+          message('\nEstimated time left: ', timeLeft, ' mins\n\n', appendLF = FALSE)
         }
 
         if (class(MUVRclassObject)[3] == "rdCVnet") {
@@ -500,7 +500,7 @@ H0_test <- function(MUVRclassObject,
               ' of ',
               n,
               '\n',
-              sep = '')
+              sep = '', appendLF = FALSE)
 
           YPerm <- sample(Y,
                           size = nSamp)     ##sample(x, size, replace = FALSE, prob = NULL)
@@ -563,7 +563,7 @@ H0_test <- function(MUVRclassObject,
           timeLeft <-
             (timePerRep * (n * num - ((s - 1) * n + p))) / 60
 
-          message('\nEstimated time left:', timeLeft, 'mins\n\n')
+          message('\nEstimated time left: ', timeLeft, ' mins\n\n', appendLF = FALSE)
         }
       }
 
@@ -603,7 +603,7 @@ H0_test <- function(MUVRclassObject,
               ' of ',
               n,
               '\n',
-              sep = '')
+              sep = '', appendLF = FALSE)
 
           if (ML) {
             YPerm <- as.numeric(sample(
@@ -684,7 +684,7 @@ H0_test <- function(MUVRclassObject,
           timeLeft <-
             (timePerRep * (n * num - ((s - 1) * n + p))) / 60
 
-          message('\nEstimated time left:', timeLeft, 'mins\n\n')
+          message('\nEstimated time left: ', timeLeft, ' mins\n\n', appendLF = FALSE)
         }
       }
 

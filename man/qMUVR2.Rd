@@ -42,9 +42,10 @@ MUVR object
 Wrapper for speedy access to MUVR2 (autosetup of parallelization)
 }
 \examples{
-\dontrun{
+\donttest{
 data("freelive2")
 regrModel <- qMUVR2(X = XRVIP2,
-                    Y = YR2)
+                    Y = YR2,
+                    nCore = 1)
 }
 }
