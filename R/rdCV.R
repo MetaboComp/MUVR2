@@ -26,7 +26,7 @@
 #'                   nRep = nRep,
 #'                   nOuter = nOuter,
 #'                   method = method,
-#'                   modReturn=TRUE)
+#'                   modReturn = TRUE)
 #' }
 
 rdCV <- function(X,
@@ -253,8 +253,7 @@ rdCV <- function(X,
                         list()
                     } ##Logical for returning outer segment models (defaults to FALSE)
 
-                    message('\n', '   Repetition ', r, ' of ', nRep, ':', sep =
-                          '', appendLF = FALSE)
+                    message('\n', '   Repetition ', r, ' of ', nRep, ':', sep ='', appendLF = FALSE)
 
                     if (DA) {
                       groupTest <- list()  ## Allocate list for samples within group
