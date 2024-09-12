@@ -18,31 +18,30 @@
 #'                     nCore = 1)
 #' }
 qMUVR2 <- function(X,
-                  Y,
-                  ML = FALSE,
-                  method = 'RF',
-                  varRatio = 0.65,
-                  nCore,
-                  repMult = 1,
-                  nOuter = 5,
-                  ...) {
+                   Y,
+                   ML = FALSE,
+                   method = 'RF',
+                   varRatio = 0.65,
+                   nCore,
+                   repMult = 1,
+                   nOuter = 5,
+                   ...) {
   #library(doParallel)
   if (missing(nCore)) {
     nCore <- detectCores() - 1
   }
   nRep <- repMult * nCore
-  cl <- makeCluster(nCore)
-  registerDoParallel(cl)
+  registerDoParallel(nCore)
   if (ML) {
     mod <-F
-      MUVR2(
-        X = X,
-        ML = TRUE,
-        method = method,
-        nRep = nRep,
-        nOuter = nOuter,
-        varRatio = varRatio
-      )
+    MUVR2(
+      X = X,
+      ML = TRUE,
+      method = method,
+      nRep = nRep,
+      nOuter = nOuter,
+      varRatio = varRatio
+    )
   } else {
     ###This is when ML we don,t use true Y, we use man-made Y
     mod <-
@@ -56,6 +55,7 @@ qMUVR2 <- function(X,
         ...
       )
   }
-  stopCluster(cl)
+  registerDoSEQ()
   return(mod)
 }
+
