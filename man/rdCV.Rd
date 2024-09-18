@@ -65,6 +65,6 @@ regrModel <- rdCV(X = XRVIP2,
                   nRep = nRep,
                   nOuter = nOuter,
                   method = method,
-                  modReturn=TRUE)
+                  modReturn = TRUE)
 }
 }

@@ -64,9 +64,7 @@ MUVR2 <- function(X,
                  ...) {
 
 
-  if (is.null(weighing_matrix) & DA == TRUE) {
-    weighing_matrix <- diag(1, length(levels(Y)), length(levels(Y)))
-  }
+
   ##library(kernlab)
   ##library(e1071)
   # Start timer
@@ -146,7 +144,7 @@ MUVR2 <- function(X,
       message(
         '\n',
         length(nzv$Position),
-        'variables with near zero variance detected -> removed from X and stored under $nzv',
+        ' variables with near zero variance detected -> removed from X and stored under $nzv',
         "\n"
       )
       message("They are", rownames(nzv$Metrics), "\n")
@@ -346,6 +344,12 @@ MUVR2 <- function(X,
     Y <- factor(Y)
   }
   if (is.factor(Y)) {
+    level1<-levels(Y)
+    Y <- factor_samesequence(Y)
+    level2<-levels(Y)
+    if(length(level2)<length(level1)){
+      message("The ", paste(level1[!level1%in%level2],collapse = ", "), " level in your Y has zero observations", appendLF = FALSE)
+    }
     message('\nY is factor -> Classification (',
         length(unique(Y)),
         ' classes)',
@@ -354,11 +358,22 @@ MUVR2 <- function(X,
   }
   if (is.numeric(Y) & DA) {
     Y <- as.factor(Y)
+    level1<-levels(Y)
+    Y <- factor_samesequence(Y)
+    level2<-levels(Y)
+    if(length(level2)<length(level1)){
+      message("The ", paste(level1[!level1%in%level2],collapse = ", "), " level in your Y has zero observations", appendLF = FALSE)
+    }
     message('\nDA = TRUE -> Y as factor -> Classification (',
         length(unique(Y)),
         ' classes)',
         sep = '')
   }
+
+  if (is.null(weighing_matrix) & DA == TRUE) {
+    weighing_matrix <- diag(1, length(levels(Y)), length(levels(Y)))
+  }
+
 
   # Check fitness criterion
   if (missing(fitness)) {
