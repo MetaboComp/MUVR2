@@ -4,8 +4,8 @@
 \alias{pPerm}
 \title{Calculate permutation p-value
 Calculate perutation p-value of actual model performance vs null hypothesis distribution.
-`pPerm` will calculate the cumulative (1-tailed) probability of `actual` belonging to `permutation_distribution`.
-`side` is guessed by actual value compared to median(permutation_distribution).
+\code{pPerm} will calculate the cumulative (1-tailed) probability of \code{actual} belonging to \code{permutation_distribution}.
+\code{side} is guessed by actual value compared to median(permutation_distribution).
 Test is performed on original data OR ranked for non-parametric statistics.}
 \usage{
 pPerm(
@@ -19,7 +19,7 @@ pPerm(
 \arguments{
 \item{actual}{Actual model performance (e.g. misclassifications or Q2)}
 
-\item{permutation_distribution}{Null hypothesis distribution from permutation test (same metric as `actual`)}
+\item{permutation_distribution}{Null hypothesis distribution from permutation test (same metric as \code{actual})}
 
 \item{side}{Smaller or greater than (automatically guessed if omitted) (Q2 and AUC is a "greater than" test, whereas misclassifications is "smaller than")}
 
@@ -33,8 +33,8 @@ p-value
 \description{
 Calculate permutation p-value
 Calculate perutation p-value of actual model performance vs null hypothesis distribution.
-`pPerm` will calculate the cumulative (1-tailed) probability of `actual` belonging to `permutation_distribution`.
-`side` is guessed by actual value compared to median(permutation_distribution).
+\code{pPerm} will calculate the cumulative (1-tailed) probability of \code{actual} belonging to \code{permutation_distribution}.
+\code{side} is guessed by actual value compared to median(permutation_distribution).
 Test is performed on original data OR ranked for non-parametric statistics.
 }
 \examples{

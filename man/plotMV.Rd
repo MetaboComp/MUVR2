@@ -39,3 +39,6 @@ regrModel <- MUVR2(X = XRVIP2,
 plotMV(regrModel, model="min")
 }
 }
+\seealso{
+\code{\link[=ggplotMV]{ggplotMV()}} for the ggplot2 version
+}

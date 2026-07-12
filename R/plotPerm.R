@@ -21,6 +21,7 @@
 #' @param multiple_p_shown show many p values
 #' @param round_number How many digits does it keep
 #' @return Plot
+#' @seealso [ggplotPerm()] for the ggplot2 version
 #' @export
 #' @examples
 #' data("freelive2")

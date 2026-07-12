@@ -19,7 +19,7 @@ biplotPLS(
 )
 }
 \arguments{
-\item{fit}{A PLS fit (e.g. from MUVRclassObject$Fit[[2]])}
+\item{fit}{A PLS fit (e.g. from \code{MUVRclassObject$Fit[[2]]})}
 
 \item{comps}{Which components to plot}
 
@@ -66,4 +66,7 @@ biplotPLS(regrModel$Fit[[2]],
           labPlSc = FALSE,
           labPlLo = FALSE)
 }
+}
+\seealso{
+\code{\link[=ggbiplotPLS]{ggbiplotPLS()}} for the ggplot2 version
 }

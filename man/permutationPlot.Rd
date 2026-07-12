@@ -64,3 +64,6 @@ permutation_result<-H0_test(regrModel,n=10)
 permutationPlot(regrModel,permutation_result)
 }
 }
+\seealso{
+\code{\link[=ggpermutationPlot]{ggpermutationPlot()}} for the ggplot2 version
+}

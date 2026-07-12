@@ -38,3 +38,6 @@ Ypreds<-regrModel$yPred
 plotPred(Ytrue,Ypreds)
 }
 }
+\seealso{
+\code{\link[=ggplotPred]{ggplotPred()}} for the ggplot2 version
+}

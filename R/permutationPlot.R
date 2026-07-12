@@ -13,6 +13,7 @@
 #' @param breaks optional custom histogram breaks (defaults to 'sturges')
 #' @param main optional plot title (or TRUE for autoname)
 #' @return A permutation plot
+#' @seealso [ggpermutationPlot()] for the ggplot2 version
 #' @export
 #' @examples
 #' \donttest{

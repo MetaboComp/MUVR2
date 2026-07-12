@@ -66,7 +66,7 @@ customParams(
 \item{annMethod}{artificial neural network method which includes 2 different ann methods}
 }
 \value{
-a `methParam` object
+a \code{methParam} object
 }
 \description{
 Make custom parameters for MUVR internal modelling, not rdCV. Please note that, at present, there is no mtryMax for the outer (consensus) loop in effect.

@@ -51,8 +51,8 @@ checkinput(
 correct_input: the original input(call) and the real input used in MUVR2 when you enter your input
 }
 \description{
-This can be run to test if the command input of parameters contradict each 
-other and check the structure of the data. If something goes wrong, warning 
+This can be run to test if the command input of parameters contradict each
+other and check the structure of the data. If something goes wrong, warning
 messages are given.
 }
 \examples{

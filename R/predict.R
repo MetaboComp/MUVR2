@@ -11,6 +11,7 @@
 #' data(freelive2)
 #' object<-MUVR2:::pls(XRVIP2,YR2)
 #' predict(object,XRVIP2)
+#' @exportS3Method stats::predict
 #' @noRd
 predict.plsMUVR <- function(object,
                             newdata,
@@ -178,6 +179,7 @@ predict.plsMUVR <- function(object,
 #' data(mosquito)
 #' object<-MUVR2:::plsda(Xotu,Yotu)
 #' predict(object,Xotu)
+#' @exportS3Method stats::predict
 #' @noRd
 predict.plsdaMUVR <- function(object,
                               newdata,

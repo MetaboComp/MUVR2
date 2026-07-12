@@ -56,9 +56,9 @@ MUVR2(
 
 \item{modReturn}{Boolean for returning outer segment models (defaults to FALSE). Setting modReturn = TRUE is required for making MUVR predictions using predMV().}
 
-\item{logg}{Boolean for whether to sink model progressions to `log.txt`}
+\item{logg}{Boolean for whether to sink model progressions to \code{log.txt}}
 
-\item{parallel}{Boolean for whether to perform `foreach` parallel processing (Requires a registered parallel backend; Defaults to `TRUE`)}
+\item{parallel}{Boolean for whether to perform \code{foreach} parallel processing (Requires a registered parallel backend; Defaults to \code{TRUE})}
 
 \item{weigh_added}{To add a weighing matrix when it is classfication}
 

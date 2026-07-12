@@ -28,7 +28,7 @@ plotPerm(
 \arguments{
 \item{actual}{Actual model fitness (e.g. Q2, AUROC or number of misclassifications)}
 
-\item{distribution}{Null hypothesis (permutation) distribution of similar metric as `actual`}
+\item{distribution}{Null hypothesis (permutation) distribution of similar metric as \code{actual}}
 
 \item{xlab}{Label for x-axis (e.g. 'Q2 using real value',"Q2 using distributions","BER" 'AUROC', or 'Misclassifications')}
 
@@ -74,4 +74,7 @@ data("freelive2")
 actual <- sample(YR2, 1)
 distribution <- YR2
 plotPerm (actual, distribution)
+}
+\seealso{
+\code{\link[=ggplotPerm]{ggplotPerm()}} for the ggplot2 version
 }

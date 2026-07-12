@@ -9,7 +9,7 @@
 #' @param symbVar Categorical/discrete variable for multiple plot symbols
 #' @param main If provided provides a main title of the plot
 #' @return A PCA score plot. Exported as png if `file` specified in function call.
-#' @importFrom psych principal
+#' @seealso [ggplotPCA()] for the ggplot2 version
 #' @export
 #' @examples
 #' data("freelive2")

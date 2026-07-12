@@ -1,0 +1,181 @@
+#' Plot actual model fitness against a permutation/resampling distribution (ggplot2)
+#'
+#' `ggplot2` version of [plotPerm()]. Plots a histogram of the null hypothesis
+#' (permutation or resampling) distribution, the actual model fitness as a
+#' vertical line, and the cumulative p-value of the actual fitness under that
+#' distribution (see [pPerm()]).
+#'
+#' Unlike [plotPerm()], which draws the Student's t curve on a second, hidden
+#' axis, the ggplot2 version puts the histogram and every curve on the same
+#' density scale, so the curve and the histogram can be read against each other.
+#'
+#' @param actual Actual model fitness (e.g. Q2, AUROC or number of misclassifications)
+#' @param distribution Null hypothesis (permutation) distribution of a similar
+#'   metric as `actual`
+#' @param xlab Label for x-axis
+#' @param ylab Label for y-axis
+#' @param side Cumulative p either "greater" or "smaller" than the H0
+#'   distribution (defaults to the side of median(H0))
+#' @param type One of 't', 'non', "smooth", "rank" or "ecdf"
+#' @param xlim Optional x-limits
+#' @param ylim Optional y-limits
+#' @param bins Number of histogram bins
+#' @param main Optional plot title
+#' @param permutation_visual Mark the "median" or "mean" of the H0 distribution,
+#'   or "none" (default)
+#' @param curve Whether to add the fitted curve for the chosen `type`
+#' @param extend How far beyond the data range to extend the curve, as a
+#'   proportion of the data range
+#' @param show_p Whether to annotate the p-value
+#' @param show_actual_value Whether to annotate the actual value
+#' @param multiple_p_shown Optional vector of types whose p-values should all be
+#'   shown (e.g. `c("t", "smooth")`)
+#' @param round_number Number of significant digits in the annotations
+#' @return A `ggplot` object
+#' @seealso [plotPerm()] for the base graphics version, [pPerm()] for the p-value
+#' @export
+#' @examples
+#' data("freelive2")
+#' actual <- sample(YR2, 1)
+#' distribution <- YR2
+#' ggplotPerm(actual, distribution)
+ggplotPerm <- function(actual,
+                       distribution,
+                       xlab = NULL,
+                       ylab = "Density",
+                       side = c("greater", "smaller"),
+                       type = "t",
+                       xlim = NULL,
+                       ylim = NULL,
+                       bins = 30,
+                       main = NULL,
+                       permutation_visual = "none",
+                       curve = TRUE,
+                       extend = 0.1,
+                       multiple_p_shown = NULL,
+                       show_actual_value = TRUE,
+                       show_p = TRUE,
+                       round_number = 4) {
+  validTypes <- c("t", "non", "smooth", "ecdf", "rank")
+  if (!permutation_visual %in% c("mean", "median", "none")) {
+    stop("`permutation_visual` must be one of 'mean', 'median' or 'none'.")
+  }
+  if (!is.null(multiple_p_shown) && !all(multiple_p_shown %in% validTypes)) {
+    stop("`multiple_p_shown` must contain only: ",
+         paste(validTypes, collapse = ", "))
+  }
+  if (!all(type %in% validTypes)) {
+    stop("`type` must be one of: ", paste(validTypes, collapse = ", "))
+  }
+  if (missing(side) || is.null(side) || length(side) > 1) {
+    side <- ifelse(actual < median(distribution), "smaller", "greater")
+  }
+
+  types <- if (is.null(multiple_p_shown)) type[1] else multiple_p_shown
+  pPerms <- lapply(types, function(ty) {
+    pPerm(actual, distribution, side, type = ty, extend = extend)
+  })
+  names(pPerms) <- types
+
+  ## pPerm returns a character (e.g. "<0.001") when the p-value hits its floor
+  pLabels <- vapply(pPerms, function(pp) {
+    if (is.numeric(pp$p)) {
+      paste0("p = ", signif(pp$p, round_number))
+    } else {
+      paste0("p ", pp$p)
+    }
+  }, character(1))
+  if (length(types) > 1) {
+    pLabels <- paste(types, pLabels)
+  }
+
+  ran <- range(c(actual, distribution))
+  from <- ran[1] - diff(ran) * extend
+  to <- ran[2] + diff(ran) * extend
+  if (is.null(xlim)) {
+    xlim <- c(from, to)
+  }
+
+  hist_df <- data.frame(value = as.numeric(distribution))
+  p <- ggplot(hist_df, aes(x = .data$value)) +
+    geom_histogram(aes(y = after_stat(.data$density)),
+                   bins = bins,
+                   fill = "grey80",
+                   colour = "grey40")
+
+  ## Density curves, on the same scale as the histogram
+  curves <- list()
+  if (isTRUE(curve)) {
+    if ("t" %in% types && sd(distribution) > 0) {
+      x <- seq(from, to, length.out = 500)
+      curves$t <- data.frame(
+        x = x,
+        y = dt((x - mean(distribution)) / sd(distribution),
+               df = length(distribution) - 1) / sd(distribution),
+        curve = "t"
+      )
+    }
+    if ("smooth" %in% types) {
+      dens <- pPerms[["smooth"]]$dens
+      curves$smooth <- data.frame(x = dens$x, y = dens$y, curve = "smooth")
+    }
+  }
+  if (length(curves) > 0) {
+    curveDf <- do.call(rbind, curves)
+    p <- p +
+      geom_line(data = curveDf,
+                aes(x = .data$x, y = .data$y, colour = .data$curve),
+                linewidth = 0.9,
+                inherit.aes = FALSE) +
+      scale_colour_manual(values = c("t" = "darkgreen", "smooth" = "red"),
+                          name = NULL)
+    if (length(curves) == 1) {
+      p <- p + guides(colour = "none")
+    }
+  }
+
+  ## Where to hang the annotations: at the top of whatever is tallest
+  yMax <- max(c(unlist(lapply(curves, function(d) d$y)),
+                max(hist(distribution, breaks = bins, plot = FALSE)$density)))
+
+  p <- p + geom_vline(xintercept = actual, linewidth = 0.6)
+
+  if (isTRUE(show_p)) {
+    p <- p + annotate("text",
+                      x = actual,
+                      y = yMax * 0.9,
+                      hjust = if (side == "smaller") -0.1 else 1.1,
+                      label = paste(pLabels, collapse = "\n"))
+  }
+  if (isTRUE(show_actual_value)) {
+    p <- p + annotate("text",
+                      x = actual,
+                      y = 0,
+                      vjust = -0.5,
+                      hjust = if (side == "smaller") -0.1 else 1.1,
+                      label = signif(actual, round_number))
+  }
+  if (permutation_visual != "none") {
+    centre <- if (permutation_visual == "mean") {
+      mean(distribution)
+    } else {
+      median(distribution)
+    }
+    p <- p +
+      geom_vline(xintercept = centre, linetype = 2, colour = "grey30") +
+      annotate("text",
+               x = centre,
+               y = yMax,
+               vjust = 1,
+               hjust = -0.1,
+               label = paste0(permutation_visual, " = ",
+                              signif(centre, round_number)))
+  }
+
+  ## coord_cartesian rather than scale limits: zooming should not drop the
+  ## histogram bars that fall outside the window
+  p +
+    coord_cartesian(xlim = xlim, ylim = ylim) +
+    labs(x = xlab, y = ylab, title = main) +
+    theme_bw()
+}
