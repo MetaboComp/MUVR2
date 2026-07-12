@@ -4,10 +4,16 @@
 \name{IDR2}
 \alias{IDR2}
 \title{Subject identifiers for the rye metabolomics regression tutorial, using unique individuals}
+\format{
+A numeric vector of length 58, one entry per individual.
+}
 \usage{
 data(freelive2)
 }
 \description{
 Subject identifiers for the rye metabolomics regression tutorial, using unique individuals
+}
+\seealso{
+\link{XRVIP2}, \link{YR2}
 }
 \keyword{data}

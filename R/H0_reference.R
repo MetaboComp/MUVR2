@@ -5,7 +5,10 @@
 #' @param n number of permutations to run
 #' @param fitness number of repetitions for each permutation (defaults to value of actual model)
 #' @param ... additional arguments for sampling from distribution
-#' @return  a histogram of reference distribution
+#' @return The reference distribution, invisibly: a numeric vector of length `n`.
+#'   A histogram of it is drawn as a side effect.
+#' @seealso [H0_test()] for the resampled *modelling* distribution. Comparing the
+#'   two is how you tell whether the modelling strategy is itself overfitting.
 #' @export
 #' @examples
 #' \donttest{
@@ -85,4 +88,8 @@ H0_reference <- function(Y,
     labels = paste0("mean=",
                     signif(mean(Ref), 2))
   )
+
+  ## The distribution itself, so that it can be compared against the resampled
+  ## modelling distribution from H0_test() rather than only looked at
+  invisible(Ref)
 }

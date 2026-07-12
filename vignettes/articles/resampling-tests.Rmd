@@ -1,0 +1,194 @@
+---
+title: "Resampling and permutation tests"
+description: >
+  Is the model actually better than nothing? Build a null distribution, get a
+  p-value, and check whether the modelling strategy is overfitting in the first
+  place.
+---
+
+```{r, include = FALSE}
+source("_common.R")
+```
+
+A Q2 of 0.4 or a balanced error rate of 0.3 means nothing on its own. The question
+is what those numbers would have looked like if there were no association at all
+between predictors and target. That is what this article is about, and you should
+run it before believing any model.
+
+The idea is old: scramble the target variable, refit, and see how well the model
+does on nonsense. Repeat many times, and you have a null-hypothesis distribution
+to compare the real model against.
+
+## Permutation, and why MUVR2 resamples instead
+
+A classic **permutation** test draws the null target by sampling the real target
+*without replacement* — every null target is an exact reordering of the real one,
+with exactly the same values in exactly the same proportions.
+
+MUVR2 offers something slightly different by default, a **resampling** test. The
+null target is drawn *from the empirical distribution* of the real target. In
+regression that means values that were never observed but come from the same
+distribution; in classification it means sampling classes according to their
+observed probabilities (i.e. sampling with replacement).
+
+The argument for it: a model's predictions are not confined to the exact values or
+class proportions of the target it was trained on, so there is no reason the null
+target should be either. Resampling puts a little more variability into the null,
+which makes the resulting null distribution slightly broader and the p-values
+slightly more conservative.
+
+Both are available; `type` picks between them.
+
+```{r setup}
+library(MUVR2)
+data("mosquito")
+```
+
+## The actual model
+
+```{r actual}
+model <- 1   # 1 = min, 2 = mid, 3 = max
+
+MUVR2_actual <- MUVR2(X = Xotu,
+                      Y = Yotu,
+                      nRep = nRep_article,
+                      nOuter = 5,
+                      varRatio = 0.75,
+                      method = "RF",
+                      modReturn = TRUE)
+
+actualFit <- MUVR2_actual$ber[model]
+actualFit
+```
+
+## The null distribution
+
+`H0_test()` takes the fitted model, pulls its data and settings out of it, and
+refits it `n` times against a resampled target.
+
+Twenty-five resamplings is far too few for a real analysis — **use at least 100** —
+but it keeps this page buildable. Note also that the resampling models inherit the
+actual model's settings by default, which is what you want; if computation forces
+your hand, you can lower `nRep`, `nOuter` or `varRatio` in the `H0_test()` call.
+That broadens the null distribution and inflates p-values, i.e. it errs on the side
+of caution.
+
+```{r h0}
+nResample <- 25   # use >= 100 for real work
+
+resamplings <- H0_test(MUVR2_actual, n = nResample, type = "resampling")
+resampleFit <- resamplings[, model]
+
+summary(resampleFit)
+```
+
+## Three ways to get a p-value
+
+The actual fitness has to be compared against that distribution somehow, and there
+are three options — none of which is a formality, because they disagree.
+
+**Empirical (`type = "smooth"`)** — the cumulative probability under a smoothed
+curve fitted to the resampled distribution. **This is the recommended one.**
+Resampled fitness distributions are frequently not Gaussian, and this test does not
+assume they are.
+
+```{r perm-smooth, fig.show = "hold", out.width = "49%", fig.width = 5.5}
+plotPerm(actual = actualFit, distribution = resampleFit,
+         type = "smooth", curve = TRUE, xlim = c(0, 1), xlab = "BER")
+ggplotPerm(actual = actualFit, distribution = resampleFit,
+           type = "smooth", curve = TRUE, xlim = c(0, 1), xlab = "BER")
+```
+
+**Student's t (`type = "t"`)** — assumes the resampled distribution is
+t-distributed and takes the cumulative probability from that. Fine when the
+distribution really is Gaussian; misleading when it is not.
+
+```{r perm-t, fig.show = "hold", out.width = "49%", fig.width = 5.5}
+plotPerm(actual = actualFit, distribution = resampleFit,
+         type = "t", curve = TRUE, xlim = c(0, 1), xlab = "BER")
+ggplotPerm(actual = actualFit, distribution = resampleFit,
+           type = "t", curve = TRUE, xlim = c(0, 1), xlab = "BER")
+```
+
+**Rank-order (`type = "rank"`)** — the non-parametric test of Szymańska *et al.*
+(2012), based purely on where the actual fitness ranks within the null
+distribution. Assumption-free, but its resolution is bounded: it can never report a
+p-value below 1/`nResample`. With 25 resamplings, that floor is 0.04.
+
+```{r perm-rank, fig.show = "hold", out.width = "49%", fig.width = 5.5}
+plotPerm(actual = actualFit, distribution = resampleFit,
+         type = "rank", xlim = c(0, 1), xlab = "BER")
+ggplotPerm(actual = actualFit, distribution = resampleFit,
+           type = "rank", curve = FALSE, xlim = c(0, 1), xlab = "BER")
+```
+
+You can put several of them on one plot to see how much they disagree:
+
+```{r perm-multi}
+ggplotPerm(actual = actualFit, distribution = resampleFit,
+           multiple_p_shown = c("t", "smooth"), xlim = c(0, 1), xlab = "BER")
+```
+
+`pPerm()` gives you the p-value without the plot, and `permutationPlot()` /
+`ggpermutationPlot()` wrap all of this up if you would rather pass the model and
+the `H0_test()` result directly instead of extracting the fitness yourself.
+
+```{r pperm}
+pPerm(actual = actualFit, permutation_distribution = resampleFit, type = "smooth")$p
+```
+
+## The check most people skip: is the *modelling* overfitting?
+
+Everything above assumes the null distribution is a fair picture of "no
+association". But it might not be. The resampled models are still models — they
+still fit, and they can still overfit the noise. If the machine learning method
+suits the resampled data badly, the whole null distribution shifts, and the p-value
+you computed against it is not measuring what you think.
+
+`H0_reference()` gives you the yardstick. It computes the fitness **directly from
+the resampled target variables, with no modelling and no prediction at all** — so
+by construction it contains no overfitting. It is what the null distribution
+*should* look like.
+
+`H0_reference()` draws its histogram and hands back the distribution itself:
+
+```{r h0ref, fig.width = 6, fig.height = 4}
+reference <- H0_reference(Y = Yotu, n = 1000, fitness = "BER")
+
+summary(reference)
+```
+
+Now compare the two distributions:
+
+- **They line up** → the modelling strategy is not contributing overfitting, and
+  your p-value means what it says.
+- **They are systematically shifted** → the modelling strategy does not fit this
+  data, and the shift is overfitting. Fix that before interpreting any p-value.
+
+```{r compare, fig.width = 7, fig.height = 4}
+library(ggplot2)
+
+comparison <- rbind(
+  data.frame(BER = as.numeric(resampleFit), source = "Resampled models"),
+  data.frame(BER = as.numeric(reference),   source = "Reference (no modelling)")
+)
+
+ggplot(comparison, aes(x = BER, fill = source)) +
+  geom_density(alpha = 0.5) +
+  geom_vline(xintercept = actualFit, linewidth = 0.8) +
+  annotate("text", x = actualFit, y = 0, label = "actual model",
+           hjust = -0.1, vjust = -0.5) +
+  labs(fill = NULL, y = "Density") +
+  theme_bw()
+```
+
+## Choosing a fitness metric
+
+- **Regression**: Q2.
+- **Classification**: BER by default. Number of misclassifications also works, but
+  handles imbalanced classes poorly.
+- **Multilevel**: any of BER, misclassifications, or Q2.
+
+A closing practical note: start with few resamplings to get a rough sense of where
+the actual fitness sits relative to the null, and only then spend the compute on
+enough resamplings for a p-value you would put in a paper.

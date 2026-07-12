@@ -4,10 +4,21 @@
 \name{XRVIP2}
 \alias{XRVIP2}
 \title{Metabolomics data for the rye metabolomics regression tutorial, using unique individuals}
+\format{
+A numeric matrix with 58 rows (individuals) and 1147 columns
+(metabolomics features).
+}
+\source{
+Hanhineva K. et al. (2015).
+}
 \usage{
 data(freelive2)
 }
 \description{
-Metabolomics data for the rye metabolomics regression tutorial, using unique individuals
+Urine metabolomics features for 58 individuals, one sample each. This is the
+predictor matrix used in most of the regression examples.
+}
+\seealso{
+\link{YR2}, \link{IDR2}, and \link{XRVIP} for the repeated-samples version
 }
 \keyword{data}

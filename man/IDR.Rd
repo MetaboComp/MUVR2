@@ -4,10 +4,18 @@
 \name{IDR}
 \alias{IDR}
 \title{Subject identifiers for the rye metabolomics regression tutorial}
+\format{
+A numeric vector of length 112.
+}
 \usage{
 data(freelive)
 }
 \description{
-Subject identifiers for the rye metabolomics regression tutorial
+Identifies which individual each of the 112 samples in \link{XRVIP} came from. Some
+individuals contributed more than one sample, which is what makes this dataset
+the one to use when demonstrating the \code{ID} argument.
+}
+\seealso{
+\link{XRVIP}, \link{YR}, \link{IDR2}
 }
 \keyword{data}

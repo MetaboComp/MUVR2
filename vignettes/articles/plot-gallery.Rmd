@@ -1,0 +1,252 @@
+---
+title: "Plot gallery: base vs ggplot2 vs plotly"
+description: >
+  Every MUVR2 plot, in all three flavours, side by side.
+---
+
+```{r, include = FALSE}
+source("_common.R")
+knitr::opts_chunk$set(fig.height = 4.5)
+```
+
+Every plot in MUVR2 comes in two flavours:
+
+- **`plotMV()`, `plotVAL()`, …** — base graphics. Draws to the device, returns
+  nothing. This is what the package has always had.
+- **`ggplotMV()`, `ggplotVAL()`, …** — the same plot, returning a `ggplot` object.
+  Theme it, compose it, `ggsave()` it — and because it is a real object, hand it to
+  `plotly::ggplotly()` and it becomes interactive for free.
+
+They draw the same information. Where they differ deliberately, this page says so.
+
+```{r setup}
+library(MUVR2)
+library(ggplot2)
+library(plotly)
+
+data("freelive2")
+data("mosquito")
+data("crisp")
+```
+
+```{r models}
+regrModel <- MUVR2(X = XRVIP2, Y = YR2,
+                   nRep = nRep_article, nOuter = nOuter_article,
+                   varRatio = varRatio_article, method = "PLS", modReturn = TRUE)
+
+classModel <- MUVR2_EN(X = Xotu, Y = Yotu,
+                       nRep = nRep_article, nOuter = nOuter_article,
+                       DA = TRUE, modReturn = TRUE)
+classModel <- getVar(classModel)
+
+MLModel <- MUVR2(X = crispEM, ML = TRUE,
+                 nRep = nRep_article, nOuter = nOuter_article,
+                 varRatio = varRatio_article, method = "RF", modReturn = TRUE)
+```
+
+## plotMV — predictions
+
+### Regression
+
+Actual target on x, prediction on y. Grey dots are individual repetitions, black
+dots the consensus.
+
+```{r mv-regr, fig.show = "hold", out.width = "49%", fig.width = 5.5}
+plotMV(regrModel, model = "min")
+ggplotMV(regrModel, model = "min")
+```
+
+Hover to read off individual samples:
+
+```{r mv-regr-plotly}
+ggplotly(ggplotMV(regrModel, model = "min"))
+```
+
+### Classification — the swimlane plot
+
+One lane per observation; class probabilities colour-coded and nudged apart.
+Misclassified samples are ringed at the probability of their true class.
+
+This is the plot where interactivity earns its keep: with 29 lanes the base plot is
+already crowded, and hovering tells you which sample and which class each dot
+belongs to.
+
+```{r mv-class, fig.width = 9, fig.height = 5}
+plotMV(classModel)
+```
+
+```{r mv-class-gg, fig.width = 9, fig.height = 5}
+ggplotMV(classModel)
+```
+
+```{r mv-class-plotly, fig.width = 9}
+ggplotly(ggplotMV(classModel))
+```
+
+### Multilevel
+
+Each individual appears twice — once per half of the effect matrix — with expected
+values of −1 (top) and +1 (bottom), and a decision boundary at 0.
+
+```{r mv-ml, fig.show = "hold", out.width = "49%", fig.width = 5.5, fig.height = 6}
+plotMV(MLModel, model = "min")
+ggplotMV(MLModel, model = "min")
+```
+
+## plotVAL — validation metric vs number of variables
+
+### PLS / RF
+
+Light grey: individual inner segments. Dark grey: averaged per repetition. Black:
+averaged over everything. Vertical lines: the min, mid and max selections.
+
+```{r val-pls, fig.show = "hold", out.width = "49%", fig.width = 5.5}
+plotVAL(regrModel)
+ggplotVAL(regrModel)
+```
+
+```{r val-pls-plotly}
+ggplotly(ggplotVAL(regrModel))
+```
+
+### Elastic net
+
+Different plot, different meaning: each point is one calibration model, and the
+curve is the fitness curve `getVar()` smoothed through them.
+
+```{r val-en, fig.show = "hold", out.width = "49%", fig.width = 5.5}
+plotVAL(classModel)
+ggplotVAL(classModel)
+```
+
+## plotVIRank — variable importance
+
+### PLS / RF: rank boxplots
+
+Each box is a variable's rank across repetitions; lower is better. A tight box near
+the left is a reproducible predictor. Yellow (base) / highlighted (ggplot2) marks
+the variables inside the selection.
+
+```{r virank-pls, fig.show = "hold", out.width = "49%", fig.width = 5.5, fig.height = 6}
+plotVIRank(regrModel, n = 20)
+ggplotVIRank(regrModel, n = 20)
+```
+
+```{r virank-pls-plotly, fig.height = 6}
+ggplotly(ggplotVIRank(regrModel, n = 20))
+```
+
+### Elastic net: a selection map
+
+Rows are calibration models, columns are variables, red means selected. Long
+variable names are exactly the case where hovering beats squinting at an axis.
+
+```{r virank-en, fig.show = "hold", out.width = "49%", fig.width = 5.5}
+plotVIRank(classModel, model = "mid", maptype = "heatmap")
+ggplotVIRank(classModel, model = "mid", maptype = "heatmap")
+```
+
+```{r virank-en-dot, fig.width = 8}
+ggplotly(ggplotVIRank(classModel, model = "mid", maptype = "dotplot"))
+```
+
+## plotStability — did it converge?
+
+The base version stacks its panels with `par(mfrow=)`; the ggplot2 version facets
+them, which means the panels share an x-axis and stay aligned when you resize.
+
+Watch the *cumulative* (black) series: once it is flat, `nRep` is high enough.
+
+```{r stability, fig.show = "hold", out.width = "49%", fig.width = 5.5, fig.height = 7}
+plotStability(regrModel, model = "min")
+ggplotStability(regrModel, model = "min")
+```
+
+```{r stability-plotly, fig.height = 7}
+ggplotly(ggplotStability(regrModel, model = "min"))
+```
+
+## plotPerm — model fitness vs the null
+
+One deliberate difference here. The base version draws the Student's t curve on a
+*second, hidden axis*, so the curve and the histogram are not on a common scale.
+The ggplot2 version puts both on the density scale, so they can be read against
+each other.
+
+```{r perm, fig.show = "hold", out.width = "49%", fig.width = 5.5}
+set.seed(11)
+distribution <- rnorm(200, mean = 0.15, sd = 0.08)
+actual <- 0.42
+
+plotPerm(actual, distribution, type = "t", xlab = "Q2")
+ggplotPerm(actual, distribution, type = "t", xlab = "Q2")
+```
+
+Several tests at once:
+
+```{r perm-multi, fig.show = "hold", out.width = "49%", fig.width = 5.5}
+plotPerm(actual, distribution, multiple_p_shown = c("t", "smooth"), xlab = "Q2")
+ggplotPerm(actual, distribution, multiple_p_shown = c("t", "smooth"), xlab = "Q2")
+```
+
+See [resampling tests](resampling-tests.html) for what these p-values mean and
+which one to trust.
+
+## plotPCA
+
+`plotPCA()` takes a `file` argument and writes a png as a side effect.
+`ggplotPCA()` does not: it returns the object, and you save it with `ggsave()`.
+
+```{r pca, fig.show = "hold", out.width = "49%", fig.width = 5.5}
+pca <- prcomp(XRVIP2)
+
+plotPCA(pca, colVar = YR2)
+ggplotPCA(pca, colVar = YR2)
+```
+
+```{r pca-plotly}
+ggplotly(ggplotPCA(pca, colVar = YR2))
+```
+
+## biplotPLS
+
+Scores and loadings in one panel: scores on the primary axes, loadings on the
+secondary ones.
+
+A caveat worth knowing: `plotly` does not render ggplot2's secondary axes, so the
+interactive version loses the loadings axis labels even though the arrows are still
+correctly placed and still hoverable. Use the static version when the loadings scale
+matters.
+
+```{r biplot, fig.show = "hold", out.width = "49%", fig.width = 5.5, fig.height = 5.5}
+PLSfit <- regrModel$Fit$plsFitMin
+
+biplotPLS(PLSfit, comps = 1:2, xCol = YR2, labPlSc = FALSE, labPlLo = FALSE)
+ggbiplotPLS(PLSfit, comps = 1:2, xCol = YR2, labPlSc = FALSE, labPlLo = FALSE)
+```
+
+## plotPred
+
+```{r pred, fig.show = "hold", out.width = "49%", fig.width = 5.5}
+plotPred(YR2, regrModel$yPred)
+ggplotPred(YR2, regrModel$yPred)
+```
+
+## Customising the ggplot2 versions
+
+The point of returning an object is that it is yours to change afterwards:
+
+```{r customise}
+ggplotMV(regrModel, model = "min") +
+  labs(title = "Wholegrain rye intake: predicted vs actual",
+       subtitle = "Grey: individual repetitions. Black: consensus.",
+       caption = "MUVR2-PLS, minimal-optimal model") +
+  theme_minimal(base_size = 13)
+```
+
+And saving one:
+
+```r
+p <- ggplotVIRank(regrModel, n = 20)
+ggsave("virank.png", p, width = 8, height = 6, dpi = 300)
+```

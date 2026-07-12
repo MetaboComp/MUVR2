@@ -1,0 +1,139 @@
+---
+title: "Covariate adjustment"
+description: >
+  Force a covariate into every model, so that what survives is what predicts the
+  target over and above it.
+---
+
+```{r, include = FALSE}
+source("_common.R")
+```
+
+Suppose age predicts your outcome, and half of your metabolites correlate with age.
+A plain variable selection will happily hand you those metabolites, and you will
+have discovered age.
+
+MUVR2 lets you adjust for a covariate by **suppressing regularization on it**: the
+covariate is exempted from the elastic net penalty, so it is in every model,
+always, for free. Every other variable then has to earn its place by predicting the
+target *over and above* what the covariate already explains. Variables that were
+only riding on the covariate lose their rank and stop being selected.
+
+This is available in **`MUVR2_EN()` only**. There is no equivalent for the PLS or
+random forest cores.
+
+Doing it is almost anticlimactic — pass `keep`:
+
+```r
+MUVR2_EN(X = X, Y = Y, keep = c("age", "sex"), ...)
+```
+
+The names in `keep` must match column names in `X` exactly.
+
+## A worked example
+
+We will reuse the mosquito classification from the
+[elastic net article](classification-en.html). There is no real covariate in that
+data, so we will manufacture one: pick a predictor, declare it the covariate, and
+watch what happens to the variables correlated with it. (Not a real research
+question — but it makes the mechanism visible.)
+
+```{r setup}
+library(MUVR2)
+data("mosquito")
+
+classModel <- MUVR2_EN(X = Xotu,
+                       Y = Yotu,
+                       nRep = nRep_article,
+                       nOuter = nOuter_article,
+                       DA = TRUE,
+                       modReturn = TRUE)
+classModel <- getVar(classModel)
+```
+
+### Choosing the covariate
+
+A covariate should not be a *strong* predictor of the target. If it is, the model is
+pushed toward a Hauck–Donner effect and the algorithm will in practice throw an
+error. So: pick something inside the `max` selection but not near the top of the
+ranking.
+
+```{r rank-before}
+ranks_before <- getVIRank(classModel, model = "max")
+head(ranks_before)
+
+covariate <- "OTU_100"
+ranks_before[covariate, ]
+```
+
+Now find what correlates with it, among the selected variables:
+
+```{r correlated}
+max_predictors <- Xotu[, classModel$Var$max]
+cors <- cor(max_predictors)[, covariate]
+correlated <- cors[abs(cors) > 0.75 & names(cors) != covariate]
+correlated
+
+## and how strong that correlation is
+if (length(correlated) > 0) {
+  partner <- names(correlated)[1]
+  cor.test(Xotu[, covariate], Xotu[, partner])$p.value
+}
+```
+
+The tutorial's full-scale model (`nRep = 35, nOuter = 8`) finds `OTU_1962`
+correlating with `OTU_100` at r = 0.83, p < 0.001. Whether the smaller model on this
+page reproduces exactly that depends on which variables land in its `max` selection.
+
+### Refitting with the covariate held in
+
+```{r fit-adjusted}
+classModel2 <- MUVR2_EN(X = Xotu,
+                        Y = Yotu,
+                        keep = c(covariate),   # <- the adjustment
+                        nRep = nRep_article,
+                        nOuter = nOuter_article,
+                        DA = TRUE,
+                        modReturn = TRUE)
+classModel2 <- getVar(classModel2)
+```
+
+### What changed
+
+Two things move for a variable that was only predicting the target *through* the
+covariate: its **rank drops**, and the **number of calibration models that select
+it falls**, often to zero.
+
+```{r compare}
+ranks_after <- getVIRank(classModel2, model = "max")
+
+compareVar <- function(v) {
+  data.frame(
+    variable = v,
+    rank_before = if (v %in% rownames(ranks_before)) ranks_before[v, "rank"] else NA,
+    rank_after = if (v %in% rownames(ranks_after)) ranks_after[v, "rank"] else NA,
+    selected_before = ifelse(is.na(classModel$varTable[v]), 0, classModel$varTable[v]),
+    selected_after = ifelse(is.na(classModel2$varTable[v]), 0, classModel2$varTable[v]),
+    row.names = NULL
+  )
+}
+
+do.call(rbind, lapply(names(correlated), compareVar))
+```
+
+In the tutorial's full-scale model, `OTU_1962` falls from rank 20 to rank 703, and
+from being selected in 150 of the 280 calibration models to being selected in none
+of them. The numbers here will be smaller and noisier, because this model is
+smaller — but the direction is the story.
+
+Rank and selection counts fluctuate between runs anyway, thanks to the random
+segment sampling. Do not over-read a small movement in a single variable.
+
+## What to take away
+
+- `keep` exempts a variable from regularization; it does not remove it. It is always
+  in the model, and everything else is judged relative to it.
+- Use it when you have a genuine confounder you can name — age, sex, batch, BMI —
+  and you want associations that survive it.
+- It is elastic net only.
+- The covariate must not be a strong predictor of the target.

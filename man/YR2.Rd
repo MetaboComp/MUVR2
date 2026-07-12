@@ -4,10 +4,17 @@
 \name{YR2}
 \alias{YR2}
 \title{Rye consumption for the rye metabolomics regression tutorial, using unique individuals}
+\format{
+A numeric vector of length 58.
+}
 \usage{
 data(freelive2)
 }
 \description{
-Rye consumption for the rye metabolomics regression tutorial, using unique individuals
+Wholegrain rye intake for the 58 individuals in \link{XRVIP2}. This is the continuous
+target variable of the regression examples.
+}
+\seealso{
+\link{XRVIP2}, \link{IDR2}
 }
 \keyword{data}

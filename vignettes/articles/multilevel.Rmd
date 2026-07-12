@@ -1,0 +1,161 @@
+---
+title: "Repeated samples and multilevel analysis"
+description: >
+  Two different kinds of sample dependency, and the two different things you have
+  to do about them.
+---
+
+```{r, include = FALSE}
+source("_common.R")
+```
+
+Both of the other analysis articles assume one sample per individual. When that is
+not true, cross-validation will happily put two samples from the same person in
+both the training and the test set, and the model will look better than it is.
+
+There are two distinct situations here, and they need different fixes.
+
+## 1. Repeated samples: use `ID`
+
+If the same individual contributed several samples but there is no systematic
+effect distinguishing them — e.g. two measurement occasions, both under
+free-living conditions — the dependency is a nuisance, not a signal. The fix is to
+keep an individual's samples together when the data is split into segments, which
+is what the `ID` argument does.
+
+The `freelive` data is `freelive2` with the repeats put back: 112 samples from 58
+individuals, with `IDR` saying which sample came from whom.
+
+```{r setup}
+library(MUVR2)
+
+data("freelive")
+
+dim(XRVIP)         # 112 samples this time, not 58
+length(unique(IDR))
+```
+
+The only change to the model call is `ID = IDR`:
+
+```{r fit-id}
+regrModel <- MUVR2(X = XRVIP,
+                   Y = YR,
+                   ID = IDR,                 # <- keeps an individual's samples together
+                   nRep = nRep_article,
+                   nOuter = nOuter_article,
+                   varRatio = varRatio_article,
+                   method = "PLS",
+                   modReturn = TRUE)
+
+regrModel$fitMetric
+```
+
+`ID` works with every core method (`MUVR2()` with PLS or RF, and `MUVR2_EN()`) and
+with every problem type. If your samples are not independent, use it.
+
+## 2. A systematic within-individual effect: multilevel analysis
+
+Now suppose the dependency *is* the signal: a crossover trial where each subject
+received both treatments, or a before/after intervention. Here `ID` alone is not
+enough, because the between-individual variation — which is usually large, and
+which you do not care about — gets conflated with the within-individual treatment
+effect, which is the whole question.
+
+If a standard classification is the multivariate analogue of an unpaired t-test,
+multilevel analysis is the analogue of a **paired** one.
+
+Mechanically, multilevel analysis is not a new algorithm at all. It is a
+preprocessing trick: instead of modelling the two conditions as separate
+observations, you model their *difference*.
+
+$$EM = X_B - X_A \qquad \text{(or } EM = \log(X_B / X_A) \text{)}$$
+
+That **effect matrix** becomes the predictor matrix, and the target is a dummy
+variable that MUVR2 constructs internally. **You must compute the effect matrix
+yourself**; MUVR2 will not do it for you. Then pass it as `X` with `ML = TRUE`,
+and pass no `Y` at all.
+
+(This is unrelated to "multilevel models" in the classical-statistics sense of
+random effects. Same word, different thing.)
+
+The `crisp` data is a crossover study: untargeted plasma metabolomics from 21
+subjects who each received two different breakfast interventions. `crispEM` is
+already an effect matrix — 21 rows, one per individual, 1508 columns of
+differences in area-under-the-curve between the two meals.
+
+```{r ml-data}
+data("crisp")
+dim(crispEM)
+```
+
+```{r ml-fit}
+MLModel <- MUVR2(X = crispEM,
+                 ML = TRUE,      # <- multilevel; note there is no Y argument
+                 nRep = nRep_article,
+                 nOuter = nOuter_article,
+                 varRatio = varRatio_article,
+                 method = "RF",
+                 modReturn = TRUE)
+```
+
+```{r ml-metrics}
+MLModel$nVar       # variables in the min, mid and max models
+MLModel$miss       # misclassified observations
+MLModel$ber        # balanced error rate
+MLModel$fitMetric  # R2/Q2 of the underlying dummy regression
+```
+
+## Reading the multilevel prediction plot
+
+This one deserves care, because it looks like neither the regression plot nor the
+classification swimlane.
+
+Internally, MUVR2 models both the effect matrix and its negation, so each of the
+21 individuals appears **twice**: once in the top half with an expected dummy value
+of −1, once in the bottom half with +1. The decision boundary is at 0.
+
+So: points in the top half should fall left of zero, points in the bottom half
+right of zero. Any point on the wrong side of the dashed vertical line is a
+misclassification. And this is why `MLModel$miss` reports twice as many misses as
+there are misclassified individuals — it counts both halves.
+
+```{r ml-mv, fig.show = "hold", out.width = "49%", fig.width = 5.5, fig.height = 6}
+plotMV(MLModel, model = "min")
+ggplotMV(MLModel, model = "min")
+```
+
+## Everything else behaves as usual
+
+The validation plot is read exactly as in the [regression article](regression-pls.html):
+
+```{r ml-val}
+ggplotVAL(MLModel)
+```
+
+The stability plot gives Q2 (of the dummy regression), misclassifications and BER:
+
+```{r ml-stability, fig.height = 8}
+ggplotStability(MLModel, model = "min")
+```
+
+And variable ranks come out as the familiar boxplot:
+
+```{r ml-virank, fig.height = 6}
+ggplotVIRank(MLModel, model = "min")
+```
+
+```{r ml-getvirank}
+head(getVIRank(MLModel, model = "min"))
+```
+
+## Recap
+
+Any of the three cores — PLS, RF, elastic net — can do any of the three problem
+types: regression, classification, multilevel. And all of them accept `ID`.
+
+What differs between the cores is *how variables get selected*: `MUVR2()` (PLS and
+RF) does it by recursive elimination during fitting, and therefore reports separate
+predictions and fitness for min, mid and max. `MUVR2_EN()` does it afterwards, from
+how often each variable earned a non-zero coefficient, and therefore reports one
+prediction and one fitness — with min/mid/max variable selections layered on top by
+[`getVar()`](classification-en.html).

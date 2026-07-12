@@ -16,7 +16,8 @@ H0_reference(Y, n = 1000, fitness = c("Q2", "BER", "MISS", "AUROC"), ...)
 \item{...}{additional arguments for sampling from distribution}
 }
 \value{
-a histogram of reference distribution
+The reference distribution, invisibly: a numeric vector of length \code{n}.
+A histogram of it is drawn as a side effect.
 }
 \description{
 Make reference distribution for resampling tests to assess overfitting.
@@ -26,4 +27,8 @@ Make reference distribution for resampling tests to assess overfitting.
 data("freelive2")
 H0_reference(YR2)
 }
+}
+\seealso{
+\code{\link[=H0_test]{H0_test()}} for the resampled \emph{modelling} distribution. Comparing the
+two is how you tell whether the modelling strategy is itself overfitting.
 }

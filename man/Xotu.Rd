@@ -4,10 +4,22 @@
 \name{Xotu}
 \alias{Xotu}
 \title{Microbiota composition in mosquitos for the classification tutorial}
+\format{
+A numeric matrix with 29 rows (mosquitoes) and 1678 columns (OTUs).
+}
+\source{
+Buck M., Nilsson L.K., Brunius C., Dabiré R.K., Hopkins R., Terenius O.
+(2016). Bacterial associations reveal spatial population dynamics in Anopheles
+gambiae mosquitoes. \emph{Scientific Reports}, 6(1), 1-9.
+}
 \usage{
 data(mosquito)
 }
 \description{
-Microbiota composition in mosquitos for the classification tutorial
+16S rRNA operational taxonomic unit (OTU) counts for 29 \emph{Anopheles gambiae}
+mosquitoes caught in three villages in western Burkina Faso.
+}
+\seealso{
+\link{Yotu}
 }
 \keyword{data}

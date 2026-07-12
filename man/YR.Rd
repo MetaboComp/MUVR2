@@ -4,10 +4,16 @@
 \name{YR}
 \alias{YR}
 \title{Rye consumption for the rye metabolomics regression tutorial}
+\format{
+A numeric vector of length 112.
+}
 \usage{
 data(freelive)
 }
 \description{
-Rye consumption for the rye metabolomics regression tutorial
+Wholegrain rye intake for the 112 samples in \link{XRVIP}.
+}
+\seealso{
+\link{XRVIP}, \link{IDR}
 }
 \keyword{data}
