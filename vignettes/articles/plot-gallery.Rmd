@@ -137,6 +137,10 @@ plotVAL(classModelQ)
 ggplotVAL(classModelQ)
 ```
 
+```{r val-en-quantile-plotly}
+ggplotly(ggplotVAL(classModelQ))
+```
+
 ## plotVIRank — variable importance
 
 ### PLS / RF: rank boxplots
@@ -186,7 +190,10 @@ ggplotly(ggplotVIRank(classModel, model = "mid", maptype = "heatmap"))
 ```
 
 And the dot plot, which unlike the heatmap leaves the variables in
-selection-ratio order rather than clustering them:
+selection-ratio order rather than clustering them. Note one deliberate
+difference: `ggplotVIRank()` draws the *not selected* variables as faint grey
+dots, where `plotVIRank()` draws them in white — that is, invisibly. Showing them
+makes the grid readable as a grid.
 
 ```{r virank-en-dot, fig.show = "hold", out.width = "49%", fig.width = 5.5}
 plotVIRank(classModel, model = "mid", maptype = "dotplot")

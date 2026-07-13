@@ -13,7 +13,7 @@ ggpermutationPlot(
   xlab = NULL,
   xlim = NULL,
   ylim = NULL,
-  bins = 30,
+  breaks = "Sturges",
   main = NULL,
   ...
 )
@@ -36,7 +36,8 @@ than H0 (guessed if not specified)}
 
 \item{ylim}{Optional y-range}
 
-\item{bins}{Number of histogram bins}
+\item{breaks}{Histogram breaks, passed through to \code{\link[=ggplotPerm]{ggplotPerm()}} and hence to
+\code{\link[graphics:hist]{graphics::hist()}}, as in \code{\link[=permutationPlot]{permutationPlot()}}}
 
 \item{main}{Optional plot title}
 

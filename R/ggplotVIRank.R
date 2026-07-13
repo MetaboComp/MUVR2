@@ -15,6 +15,11 @@
 #' Those models therefore get a selected/not-selected map instead, as either a
 #' heatmap (`maptype = "heatmap"`) or a dot plot (`maptype = "dotplot"`).
 #'
+#' One deliberate difference from [plotVIRank()]: in the dot plot, variables that
+#' were *not* selected are drawn as faint grey dots. The base version draws them
+#' in white, i.e. not at all, which leaves the reader unable to tell an empty cell
+#' from a missing one. Showing them makes the grid legible as a grid.
+#'
 #' @param MUVRclassObject An MUVR class object. Elastic net models must be passed
 #'   through [getVar()] first.
 #' @param n Number of top ranking variables to plot (defaults to those selected
@@ -83,17 +88,24 @@ ggplotVIRank <- function(MUVRclassObject,
 
   ## PLS / RF: boxplot of ranks per variable.
   ##
-  ## Built with the variable on x and flipped, rather than with the variable on
-  ## y: plotly renders a boxplot whose grouping variable is on y as a set of bare
-  ## vertical lines, and coord_flip() is the way to get a horizontal boxplot that
-  ## survives ggplotly().
+  ## The boxes are drawn from statistics computed by boxplot.stats(), i.e. with
+  ## Tukey's hinges, rather than by geom_boxplot's own type-7 quantiles. With a
+  ## handful of repetitions the two disagree: type-7 gives a narrower box, a
+  ## tighter 1.5*IQR fence, and so whiskers cut short and points flagged as
+  ## outliers. Same data, different picture. This way both flavours of the plot
+  ## show the same box.
+  ##
+  ## Variable on x and flipped, rather than variable on y, because plotly renders
+  ## a boxplot whose grouping variable is on y as a row of bare vertical lines.
   showSelection <- d$n > d$nFeat
+  stats <- d$stats
 
   if (showSelection) {
-    p <- ggplot(d$long, aes(x = .data$variable,
-                            y = .data$rank,
-                            fill = .data$selected)) +
-      geom_boxplot(outlier.size = 0.6) +
+    p <- ggplot(stats, aes(x = .data$variable, fill = .data$selected)) +
+      geom_boxplot(aes(ymin = .data$ymin, lower = .data$lower,
+                       middle = .data$middle, upper = .data$upper,
+                       ymax = .data$ymax),
+                   stat = "identity") +
       scale_fill_manual(values = c("TRUE" = "yellow", "FALSE" = "grey"),
                         breaks = c("TRUE", "FALSE"),
                         labels = c("TRUE" = "Selected", "FALSE" = "Not selected"),
@@ -103,8 +115,19 @@ ggplotVIRank <- function(MUVRclassObject,
   } else {
     ## Every variable shown is inside the selection: nothing to colour-code, so
     ## leave the boxes plain, as the base version does.
-    p <- ggplot(d$long, aes(x = .data$variable, y = .data$rank)) +
-      geom_boxplot(outlier.size = 0.6)
+    p <- ggplot(stats, aes(x = .data$variable)) +
+      geom_boxplot(aes(ymin = .data$ymin, lower = .data$lower,
+                       middle = .data$middle, upper = .data$upper,
+                       ymax = .data$ymax),
+                   stat = "identity",
+                   fill = "white")
+  }
+
+  if (nrow(d$outliers) > 0) {
+    p <- p + geom_point(data = d$outliers,
+                        aes(x = .data$variable, y = .data$rank),
+                        size = 0.8,
+                        inherit.aes = FALSE)
   }
 
   p +

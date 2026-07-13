@@ -13,7 +13,7 @@ ggplotPerm(
   type = "t",
   xlim = NULL,
   ylim = NULL,
-  bins = 30,
+  breaks = "Sturges",
   main = NULL,
   permutation_visual = "none",
   curve = TRUE,
@@ -43,7 +43,9 @@ distribution (defaults to the side of median(H0))}
 
 \item{ylim}{Optional y-limits}
 
-\item{bins}{Number of histogram bins}
+\item{breaks}{Histogram breaks, passed to \code{\link[graphics:hist]{graphics::hist()}} exactly as in
+\code{\link[=plotPerm]{plotPerm()}}, so both flavours bin the distribution identically. Defaults to
+"Sturges".}
 
 \item{main}{Optional plot title}
 

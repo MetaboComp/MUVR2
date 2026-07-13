@@ -14,7 +14,8 @@
 #' @param xlab Optional x label
 #' @param xlim Optional x-range
 #' @param ylim Optional y-range
-#' @param bins Number of histogram bins
+#' @param breaks Histogram breaks, passed through to [ggplotPerm()] and hence to
+#'   [graphics::hist()], as in [permutationPlot()]
 #' @param main Optional plot title
 #' @param ... Further arguments passed to [ggplotPerm()]
 #'
@@ -43,7 +44,7 @@ ggpermutationPlot <- function(MUVRclassObject,
                               xlab = NULL,
                               xlim = NULL,
                               ylim = NULL,
-                              bins = 30,
+                              breaks = "Sturges",
                               main = NULL,
                               ...) {
   assertMUVR(MUVRclassObject, "ggpermutationPlot")
@@ -98,7 +99,7 @@ ggpermutationPlot <- function(MUVRclassObject,
                       xlab = xlab,
                       xlim = xlim,
                       ylim = ylim,
-                      bins = bins,
+                      breaks = breaks,
                       main = main,
                       ...))
   }
@@ -125,7 +126,7 @@ ggpermutationPlot <- function(MUVRclassObject,
                xlab = xlab,
                xlim = xlim,
                ylim = ylim,
-               bins = bins,
+               breaks = breaks,
                main = if (is.null(main)) {
                  paste("Permutation analysis of", modelName, metric,
                        "- group", groups[s])

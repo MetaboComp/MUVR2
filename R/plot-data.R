@@ -242,12 +242,23 @@ valData <- function(MUVRclassObject) {
 
     if (names(nVar)[1] == "Qmin") {
       dist <- as.matrix(MUVRclassObject$nonZeroRep)
+      breaks <- nrow(dist) * ncol(dist)
+      ## Bin exactly as the base version does. `breaks` is only a suggestion to
+      ## hist(), which then picks pretty breakpoints; asking ggplot2 for the same
+      ## *number* of bins would put the bars somewhere else entirely.
+      h <- hist(dist, breaks = breaks, plot = FALSE)
+      bins <- data.frame(
+        xmin = h$breaks[-length(h$breaks)],
+        xmax = h$breaks[-1],
+        count = h$counts
+      )
       return(list(
         type = "quantile",
         metric = metric,
         nVar = nVar,
         nonZeroRep = dist,
-        breaks = nrow(dist) * ncol(dist),
+        breaks = breaks,
+        bins = bins,
         xlim = range(0, max(MUVRclassObject$nonZeroRep) * 1.1)
       ))
     }
@@ -316,6 +327,7 @@ valData <- function(MUVRclassObject) {
     stringsAsFactors = FALSE
   )
   segments$series <- paste(segments$repetition, segments$segment, sep = "-")
+  segments <- segments[order(segments$series, segments$count), ]
 
   ## Mean over outer segments, one curve per repetition
   repMeanMat <- apply(VAL, c(2, 3), mean)
@@ -325,6 +337,21 @@ valData <- function(MUVRclassObject) {
     repetition = factor(rep(seq_len(nRep), each = length(count))),
     stringsAsFactors = FALSE
   )
+
+  ## The many curves of a series, joined into a single line with an NA between
+  ## each one. A `group` aesthetic would do the same job in ggplot2, but plotly
+  ## splits a grouped layer into one trace per group and names them after the
+  ## group -- which is where the "(Validation segments,1)" legend entries came
+  ## from. One line, one trace, one legend entry.
+  breakUp <- function(df, by) {
+    pieces <- split(df, df[[by]])
+    gap <- df[1, , drop = FALSE]
+    gap$count <- NA
+    gap$value <- NA
+    do.call(rbind, lapply(pieces, function(p) rbind(p, gap)))
+  }
+  segmentsLine <- breakUp(segments, "series")
+  repMeansLine <- breakUp(repMeans, "repetition")
 
   overall <- data.frame(count = count,
                         value = apply(VAL, 2, mean),
@@ -339,6 +366,8 @@ valData <- function(MUVRclassObject) {
     nRep = nRep,
     segments = segments,
     repMeans = repMeans,
+    segmentsLine = segmentsLine,
+    repMeansLine = repMeansLine,
     overall = overall
   )
 }
@@ -670,13 +699,49 @@ viRankData <- function(MUVRclassObject,
     stringsAsFactors = FALSE
   )
 
+  ## Box statistics computed the way boxplot() computes them, i.e. with Tukey's
+  ## hinges (fivenum). ggplot2's geom_boxplot instead uses type-7 quantiles,
+  ## which with a handful of repetitions gives a narrower box, a tighter
+  ## 1.5*IQR fence, and hence points flagged as outliers and whiskers cut short.
+  ## The two flavours of this plot would then disagree about the same data.
+  boxes <- lapply(seq_len(nrow(VIRankRep)), function(i) {
+    bs <- grDevices::boxplot.stats(VIRankRep[i, ])
+    data.frame(
+      variable = labels[i],
+      ymin = bs$stats[1],
+      lower = bs$stats[2],
+      middle = bs$stats[3],
+      upper = bs$stats[4],
+      ymax = bs$stats[5],
+      selected = i <= nFeat,
+      stringsAsFactors = FALSE
+    )
+  })
+  stats <- do.call(rbind, boxes)
+  stats$variable <- factor(stats$variable, levels = rev(labels))
+
+  outliers <- lapply(seq_len(nrow(VIRankRep)), function(i) {
+    out <- grDevices::boxplot.stats(VIRankRep[i, ])$out
+    if (length(out) == 0) {
+      return(NULL)
+    }
+    data.frame(variable = labels[i], rank = out, stringsAsFactors = FALSE)
+  })
+  outliers <- do.call(rbind, outliers)
+  if (is.null(outliers)) {
+    outliers <- data.frame(variable = character(0), rank = numeric(0))
+  }
+  outliers$variable <- factor(outliers$variable, levels = rev(labels))
+
   list(
     type = "rank",
     n = n,
     nFeat = nFeat,
     VIRankRep = VIRankRep,
     labels = labels,
-    long = long
+    long = long,
+    stats = stats,
+    outliers = outliers
   )
 }
 

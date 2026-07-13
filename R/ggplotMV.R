@@ -60,8 +60,8 @@ ggplotMV <- function(MUVRclassObject,
     )
 
     p <- ggplot(d$overall, aes(x = .data$Y, y = .data$yPred)) +
-      geom_point(data = d$perRep, colour = "grey", size = 1) +
-      geom_point(colour = "black", size = 1.5) +
+      geom_point(data = d$perRep, colour = "grey", size = 1, shape = 16) +
+      geom_point(colour = "black", size = 1.5, shape = 16) +
       geom_abline(intercept = coef(fit)[1],
                   slope = coef(fit)[2]) +
       geom_text(data = labels,
@@ -77,8 +77,8 @@ ggplotMV <- function(MUVRclassObject,
 
   if (d$type == "multilevel") {
     p <- ggplot(d$overall, aes(x = .data$yPred, y = .data$sample)) +
-      geom_point(data = d$perRep, colour = "grey", size = 1) +
-      geom_point(colour = "black", size = 1.5) +
+      geom_point(data = d$perRep, colour = "grey", size = 1, shape = 16) +
+      geom_point(colour = "black", size = 1.5, shape = 16) +
       geom_hline(yintercept = d$nSamp / 2 + 0.5, linetype = 2) +
       geom_vline(xintercept = 0, linetype = 2) +
       scale_y_reverse() +
@@ -103,8 +103,10 @@ ggplotMV <- function(MUVRclassObject,
                              colour = .data$class)) +
     geom_vline(xintercept = seq_len(d$nSamp + 1) - 0.5,
                linetype = 3, colour = "grey") +
-    geom_point(data = d$perRep, size = 0.8, alpha = 0.5) +
-    geom_point(size = 1.6) +
+    ## Solid dots, fully opaque, as in the base version (pch = 20): the smaller
+    ## ones are the individual repetitions, the larger the consensus
+    geom_point(data = d$perRep, size = 0.8, shape = 16) +
+    geom_point(size = 1.6, shape = 16) +
     scale_colour_manual(values = factCols, name = NULL) +
     scale_x_continuous(breaks = seq_len(d$nSamp),
                        labels = as.character(d$sampLabels)) +

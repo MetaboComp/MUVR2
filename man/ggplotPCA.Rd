@@ -4,7 +4,16 @@
 \alias{ggplotPCA}
 \title{PCA score plot (ggplot2)}
 \usage{
-ggplotPCA(pca, PC1 = 1, PC2 = 2, colVar, symbVar, main = NULL)
+ggplotPCA(
+  pca,
+  PC1 = 1,
+  PC2 = 2,
+  colVar,
+  symbVar,
+  colLab = NULL,
+  symbLab = NULL,
+  main = NULL
+)
 }
 \arguments{
 \item{pca}{A \code{prcomp} object}
@@ -16,6 +25,12 @@ ggplotPCA(pca, PC1 = 1, PC2 = 2, colVar, symbVar, main = NULL)
 \item{colVar}{Continuous variable for colouring observations}
 
 \item{symbVar}{Categorical/discrete variable for multiple plot symbols}
+
+\item{colLab}{Legend title for \code{colVar} (defaults to the name of the variable
+passed in)}
+
+\item{symbLab}{Legend title for \code{symbVar} (defaults to the name of the
+variable passed in)}
 
 \item{main}{Optional plot title}
 }
@@ -29,8 +44,17 @@ continuous variable and to use different plotting symbols for a categorical
 variable.
 }
 \details{
-Unlike \code{\link[=plotPCA]{plotPCA()}}, this function has no \code{file} argument: it returns a
-\code{ggplot} object, which you save with \code{ggplot2::ggsave()}.
+Two deliberate differences from \code{\link[=plotPCA]{plotPCA()}}:
+\itemize{
+\item The colour legend is a continuous scale showing the actual values of
+\code{colVar}, rather than the base version's three-swatch "low / mid / high"
+key. \code{colVar} \emph{is} continuous -- the base plot cuts it into 40 shades and
+then labels only three of them -- so a colour bar says what is plotted and
+at what value, where the key only says which end is which. Both legends are
+titled with the name of the variable, so it is clear what is being shown.
+\item There is no \code{file} argument. This returns a \code{ggplot} object, which you save
+with \code{ggplot2::ggsave()}.
+}
 }
 \examples{
 data("freelive2")

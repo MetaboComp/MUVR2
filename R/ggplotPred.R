@@ -20,8 +20,8 @@ ggplotPred <- function(Ytrue, Ypreds) {
   d <- predData(Ytrue, Ypreds)
 
   ggplot(d$consensus, aes(x = .data$Ytrue, y = .data$Ypred)) +
-    geom_point(data = d$perPred, colour = "grey", size = 1) +
-    geom_point(colour = "black", size = 1.5) +
+    geom_point(data = d$perPred, colour = "grey", size = 1, shape = 16) +
+    geom_point(colour = "black", size = 1.5, shape = 16) +
     labs(x = "Original Y", y = "Predicted Y") +
     theme_muvr()
 }

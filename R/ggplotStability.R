@@ -73,6 +73,15 @@ ggplotStability <- function(MUVRrdCVclassObject,
                     paste(d$panels, "Cumulative", sep = " | "))
   )
 
+  ## Each panel has its own colour pair, so a legend cannot show them all without
+  ## becoming a wall of ten entries. It instead shows the two *series*, keyed to
+  ## the first panel's colours, and the panels vary the hue exactly as the base
+  ## plot's per-panel legends do. Light is always per repetition; dark is always
+  ## cumulative.
+  firstPanel <- d$panels[1]
+  legendBreaks <- paste(firstPanel, c("Per repetition", "Cumulative"),
+                        sep = " | ")
+
   ggplot(long, aes(x = .data$repetition,
                    y = .data$value,
                    colour = .data$key)) +
@@ -83,10 +92,13 @@ ggplotStability <- function(MUVRrdCVclassObject,
                inherit.aes = FALSE) +
     facet_wrap(~ .data$metric, ncol = 1, scales = "free_y",
                strip.position = "left") +
-    scale_colour_manual(values = values, guide = "none") +
-    labs(x = "Number of repetitions", y = NULL,
-         subtitle = "Light line: per repetition. Dark line: cumulative.") +
+    scale_colour_manual(values = values,
+                        breaks = legendBreaks,
+                        labels = c("Per repetition", "Cumulative"),
+                        name = NULL) +
+    labs(x = "Number of repetitions", y = NULL) +
     theme_muvr() +
     theme(strip.background = element_blank(),
-          strip.placement = "outside")
+          strip.placement = "outside",
+          legend.position = "top")
 }

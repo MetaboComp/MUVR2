@@ -45,10 +45,12 @@ ggplotVAL <- function(MUVRclassObject,
   cutTypes <- cutoffLinetypes(cutNames)
 
   if (d$type == "quantile") {
-    p <- ggplot(data.frame(nVar = as.numeric(d$nonZeroRep)),
-                aes(x = .data$nVar)) +
-      geom_histogram(bins = min(30, d$breaks),
-                     fill = "grey80", colour = "grey40") +
+    ## Bars drawn from the breakpoints hist() chose, so the bins land where the
+    ## base version puts them rather than merely being the same in number.
+    p <- ggplot(d$bins) +
+      geom_rect(aes(xmin = .data$xmin, xmax = .data$xmax,
+                    ymin = 0, ymax = .data$count),
+                fill = "grey80", colour = "grey40") +
       geom_vline(data = cutoffs,
                  aes(xintercept = .data$nVar,
                      colour = .data$model,
@@ -99,26 +101,31 @@ ggplotVAL <- function(MUVRclassObject,
                      "Repetitions" = "darkgrey",
                      "Overall" = "black")
 
-  ggplot(d$segments, aes(x = .data$count, y = .data$value)) +
-    geom_line(aes(group = .data$series, colour = "Validation segments"),
-              linewidth = 0.3) +
-    geom_line(data = d$repMeans,
-              aes(group = .data$repetition, colour = "Repetitions"),
+  ## The cut-offs get their line types fixed per layer rather than mapped through
+  ## a linetype scale. ggplotly() names a trace after *every* discrete scale in
+  ## the plot, so with both a colour and a linetype scale the curves -- which have
+  ## no linetype -- came out as "(Validation segments,1)". One scale, one name.
+  cutoffLayers <- lapply(seq_len(nrow(cutoffs)), function(i) {
+    geom_vline(data = cutoffs[i, , drop = FALSE],
+               aes(xintercept = .data$nVar, colour = .data$model),
+               linetype = cutTypes[[i]],
+               linewidth = 0.8)
+  })
+
+  ggplot(d$segmentsLine, aes(x = .data$count, y = .data$value)) +
+    geom_line(aes(colour = "Validation segments"), linewidth = 0.3) +
+    geom_line(data = d$repMeansLine,
+              aes(colour = "Repetitions"),
               linewidth = 0.5) +
     geom_line(data = d$overall,
               aes(colour = "Overall"),
               linewidth = 0.9) +
-    geom_vline(data = cutoffs,
-               aes(xintercept = .data$nVar,
-                   colour = .data$model,
-                   linetype = .data$model),
-               linewidth = 0.8) +
+    cutoffLayers +
     scale_colour_manual(
       values = c(seriesColours, cutColours),
       breaks = c(names(seriesColours), cutNames),
       name = NULL
     ) +
-    scale_linetype_manual(values = cutTypes, name = "Selection") +
     scale_x_log10() +
     labs(x = "Number of variables (log scale)", y = d$metric) +
     theme_muvr()

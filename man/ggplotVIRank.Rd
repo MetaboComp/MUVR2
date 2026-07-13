@@ -45,6 +45,11 @@ For elastic net models ranks do not exist in the same sense: a variable is
 either given a non-zero coefficient in a given calibration model or it is not.
 Those models therefore get a selected/not-selected map instead, as either a
 heatmap (\code{maptype = "heatmap"}) or a dot plot (\code{maptype = "dotplot"}).
+
+One deliberate difference from \code{\link[=plotVIRank]{plotVIRank()}}: in the dot plot, variables that
+were \emph{not} selected are drawn as faint grey dots. The base version draws them
+in white, i.e. not at all, which leaves the reader unable to tell an empty cell
+from a missing one. Showing them makes the grid legible as a grid.
 }
 \examples{
 \donttest{

@@ -19,7 +19,9 @@
 #' @param type One of 't', 'non', "smooth", "rank" or "ecdf"
 #' @param xlim Optional x-limits
 #' @param ylim Optional y-limits
-#' @param bins Number of histogram bins
+#' @param breaks Histogram breaks, passed to [graphics::hist()] exactly as in
+#'   [plotPerm()], so both flavours bin the distribution identically. Defaults to
+#'   "Sturges".
 #' @param main Optional plot title
 #' @param permutation_visual Mark the "median" or "mean" of the H0 distribution,
 #'   or "none" (default)
@@ -47,7 +49,7 @@ ggplotPerm <- function(actual,
                        type = "t",
                        xlim = NULL,
                        ylim = NULL,
-                       bins = 30,
+                       breaks = "Sturges",
                        main = NULL,
                        permutation_visual = "none",
                        curve = TRUE,
@@ -96,12 +98,21 @@ ggplotPerm <- function(actual,
     xlim <- c(from, to)
   }
 
-  hist_df <- data.frame(value = as.numeric(distribution))
-  p <- ggplot(hist_df, aes(x = .data$value)) +
-    geom_histogram(aes(y = after_stat(.data$density)),
-                   bins = bins,
-                   fill = "grey80",
-                   colour = "grey40")
+  ## Bin with hist() itself, and draw the bars it decided on, rather than asking
+  ## ggplot2 for a similar-looking histogram: `breaks` is a suggestion that hist()
+  ## turns into pretty breakpoints, so the same argument must go through the same
+  ## function if the two flavours are to bin the data the same way.
+  h <- hist(distribution, breaks = breaks, plot = FALSE)
+  hist_df <- data.frame(
+    xmin = h$breaks[-length(h$breaks)],
+    xmax = h$breaks[-1],
+    density = h$density
+  )
+  p <- ggplot(hist_df) +
+    geom_rect(aes(xmin = .data$xmin, xmax = .data$xmax,
+                  ymin = 0, ymax = .data$density),
+              fill = "grey80",
+              colour = "grey40")
 
   ## Density curves, on the same scale as the histogram
   curves <- list()
@@ -141,8 +152,7 @@ ggplotPerm <- function(actual,
   }
 
   ## Where to hang the annotations: at the top of whatever is tallest
-  yMax <- max(c(unlist(lapply(curves, function(d) d$y)),
-                max(hist(distribution, breaks = bins, plot = FALSE)$density)))
+  yMax <- max(c(unlist(lapply(curves, function(d) d$y)), h$density))
 
   p <- p + geom_vline(xintercept = actual, linewidth = 0.6)
 
