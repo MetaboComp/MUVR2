@@ -122,13 +122,19 @@ ggplotPerm <- function(actual,
   }
   if (length(curves) > 0) {
     curveDf <- do.call(rbind, curves)
+    ## Same colours as the base version: a lone curve is red, whichever type it
+    ## is; when several are drawn together, t is darkgreen and smooth is red.
+    curveColours <- if (length(curves) == 1) {
+      stats::setNames("red", names(curves))
+    } else {
+      c("t" = "darkgreen", "smooth" = "red")
+    }
     p <- p +
       geom_line(data = curveDf,
                 aes(x = .data$x, y = .data$y, colour = .data$curve),
                 linewidth = 0.9,
                 inherit.aes = FALSE) +
-      scale_colour_manual(values = c("t" = "darkgreen", "smooth" = "red"),
-                          name = NULL)
+      scale_colour_manual(values = curveColours, name = NULL)
     if (length(curves) == 1) {
       p <- p + guides(colour = "none")
     }
@@ -177,5 +183,5 @@ ggplotPerm <- function(actual,
   p +
     coord_cartesian(xlim = xlim, ylim = ylim) +
     labs(x = xlab, y = ylab, title = main) +
-    theme_bw()
+    theme_muvr()
 }

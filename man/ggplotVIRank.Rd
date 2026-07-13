@@ -35,8 +35,13 @@ is better.
 }
 \details{
 For PLS and RF models, this is a boxplot of each variable's rank across the
-model repetitions; variables inside the selection of \code{model} are highlighted.
-For elastic net models, ranks do not exist in the same sense: a variable is
+model repetitions. As in the base version, the boxes are only coloured when
+\code{n} is larger than the model's variable selection: the variables inside the
+selection are then yellow and those outside it grey, separated by a line. When
+every variable shown is inside the selection there is nothing to distinguish,
+and the boxes are left plain.
+
+For elastic net models ranks do not exist in the same sense: a variable is
 either given a non-zero coefficient in a given calibration model or it is not.
 Those models therefore get a selected/not-selected map instead, as either a
 heatmap (\code{maptype = "heatmap"}) or a dot plot (\code{maptype = "dotplot"}).

@@ -2,7 +2,8 @@
 #'
 #' `ggplot2` version of [plotVAL()]. Plots the validation metric against the
 #' number of variables in the model, and marks the 'min', 'mid' and 'max'
-#' variable selections.
+#' variable selections with the same coloured, dashed lines the base version
+#' uses.
 #'
 #' The plot differs by core method. For PLS and RF, one line is drawn per inner
 #' validation segment, per repetition, plus the overall mean. For elastic net,
@@ -33,14 +34,15 @@ ggplotVAL <- function(MUVRclassObject,
                       show_outlier = TRUE) {
   d <- valData(MUVRclassObject)
 
-  ## The three vertical lines marking the min/mid/max variable selections. The
-  ## base version uses line types 1:3 and colours 2:4; keep that recognisable.
+  ## The min/mid/max cut-offs, drawn as the base version draws them: red, green
+  ## and blue, solid, dashed and dotted.
+  cutNames <- names(d$nVar)
   cutoffs <- data.frame(
     nVar = as.numeric(d$nVar),
-    model = factor(names(d$nVar), levels = names(d$nVar))
+    model = factor(cutNames, levels = cutNames)
   )
-  cutColours <- c("red", "green3", "blue")
-  names(cutColours) <- names(d$nVar)
+  cutColours <- cutoffColours(cutNames)
+  cutTypes <- cutoffLinetypes(cutNames)
 
   if (d$type == "quantile") {
     p <- ggplot(data.frame(nVar = as.numeric(d$nonZeroRep)),
@@ -53,10 +55,10 @@ ggplotVAL <- function(MUVRclassObject,
                      linetype = .data$model),
                  linewidth = 0.8) +
       scale_colour_manual(values = cutColours, name = "Selection") +
-      scale_linetype_manual(values = c(1, 2, 3), name = "Selection") +
+      scale_linetype_manual(values = cutTypes, name = "Selection") +
       labs(x = "Number of variables selected across nOuter*nRep loops",
            y = "Count") +
-      theme_bw()
+      theme_muvr()
     return(p)
   }
 
@@ -80,10 +82,10 @@ ggplotVAL <- function(MUVRclassObject,
                          name = "Outlier",
                          labels = c("FALSE" = "No", "TRUE" = "Yes")) +
       scale_colour_manual(values = cutColours, name = "Selection") +
-      scale_linetype_manual(values = c(1, 2, 3), name = "Selection") +
+      scale_linetype_manual(values = cutTypes, name = "Selection") +
       labs(x = "Number of variables selected across nOuter*nRep loops",
            y = d$metric) +
-      theme_bw()
+      theme_muvr()
 
     if (!any(d$points$outlier)) {
       p <- p + guides(shape = "none", alpha = "none")
@@ -91,7 +93,12 @@ ggplotVAL <- function(MUVRclassObject,
     return(p)
   }
 
-  ## PLS / RF
+  ## PLS / RF. The validation curves and the cut-off lines share one colour
+  ## scale, so that both can keep their own legend entries.
+  seriesColours <- c("Validation segments" = "lightgrey",
+                     "Repetitions" = "darkgrey",
+                     "Overall" = "black")
+
   ggplot(d$segments, aes(x = .data$count, y = .data$value)) +
     geom_line(aes(group = .data$series, colour = "Validation segments"),
               linewidth = 0.3) +
@@ -102,17 +109,17 @@ ggplotVAL <- function(MUVRclassObject,
               aes(colour = "Overall"),
               linewidth = 0.9) +
     geom_vline(data = cutoffs,
-               aes(xintercept = .data$nVar, linetype = .data$model),
-               colour = "black", linewidth = 0.6, show.legend = TRUE) +
+               aes(xintercept = .data$nVar,
+                   colour = .data$model,
+                   linetype = .data$model),
+               linewidth = 0.8) +
     scale_colour_manual(
-      values = c("Validation segments" = "lightgrey",
-                 "Repetitions" = "darkgrey",
-                 "Overall" = "black"),
-      breaks = c("Validation segments", "Repetitions", "Overall"),
+      values = c(seriesColours, cutColours),
+      breaks = c(names(seriesColours), cutNames),
       name = NULL
     ) +
-    scale_linetype_manual(values = c(1, 2, 3), name = "Selection") +
+    scale_linetype_manual(values = cutTypes, name = "Selection") +
     scale_x_log10() +
     labs(x = "Number of variables (log scale)", y = d$metric) +
-    theme_bw()
+    theme_muvr()
 }

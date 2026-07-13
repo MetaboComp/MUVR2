@@ -27,21 +27,6 @@
 </defs>
 <g clip-path='url(#cpNTAuNjZ8NjU1LjE2fDUuNDh8NTQ1LjEx)'>
 <rect x='50.66' y='5.48' width='604.50' height='539.63' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<polyline points='50.66,425.42 655.16,425.42 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='50.66,299.52 655.16,299.52 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='50.66,173.63 655.16,173.63 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='50.66,47.73 655.16,47.73 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='93.63,545.11 93.63,5.48 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='260.78,545.11 260.78,5.48 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='427.93,545.11 427.93,5.48 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='595.07,545.11 595.07,5.48 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='50.66,488.37 655.16,488.37 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='50.66,362.47 655.16,362.47 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='50.66,236.58 655.16,236.58 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='50.66,110.68 655.16,110.68 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='177.20,545.11 177.20,5.48 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='344.35,545.11 344.35,5.48 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='511.50,545.11 511.50,5.48 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
 <line x1='50.66' y1='236.58' x2='655.16' y2='236.58' style='stroke-width: 1.07; stroke: #999999; stroke-dasharray: 5.69,5.69; stroke-linecap: butt;' />
 <line x1='511.50' y1='545.11' x2='511.50' y2='5.48' style='stroke-width: 1.07; stroke: #999999; stroke-dasharray: 5.69,5.69; stroke-linecap: butt;' />
 <circle cx='466.84' cy='379.21' r='1.95' style='stroke-width: 0.71; stroke: #6D2FEB; fill: #6D2FEB;' />

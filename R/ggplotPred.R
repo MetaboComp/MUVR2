@@ -23,5 +23,5 @@ ggplotPred <- function(Ytrue, Ypreds) {
     geom_point(data = d$perPred, colour = "grey", size = 1) +
     geom_point(colour = "black", size = 1.5) +
     labs(x = "Original Y", y = "Predicted Y") +
-    theme_bw()
+    theme_muvr()
 }

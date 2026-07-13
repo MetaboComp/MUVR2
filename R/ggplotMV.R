@@ -42,22 +42,36 @@ ggplotMV <- function(MUVRclassObject,
 
   if (d$type == "regression") {
     fit <- lm(d$overall$yPred ~ d$overall$Y)
-    label <- paste0("Model R2 = ", signif(d$R2, 3), "\n",
-                    "Model Q2 = ", signif(d$Q2, 3))
+
+    ## The R2/Q2 inlay is a geom in data coordinates, and it is *centred* on its
+    ## anchor rather than left-aligned at the panel edge. plotly ignores hjust and
+    ## centres text on its anchor point, so a left-aligned label at the edge of
+    ## the panel gets sliced in half by ggplotly(). Centring it, and putting the
+    ## anchor a short way in from the edge, renders identically in both.
+    xRange <- range(d$overall$Y)
+    yRange <- range(c(d$perRep$yPred, d$ylim))
+    step <- diff(yRange) * 0.07
+    labels <- data.frame(
+      Y = xRange[1] + diff(xRange) * 0.18,
+      yPred = c(yRange[2] + step, yRange[2]),
+      label = c(paste("Model R2 =", signif(d$R2, 3)),
+                paste("Model Q2 =", signif(d$Q2, 3))),
+      stringsAsFactors = FALSE
+    )
 
     p <- ggplot(d$overall, aes(x = .data$Y, y = .data$yPred)) +
       geom_point(data = d$perRep, colour = "grey", size = 1) +
       geom_point(colour = "black", size = 1.5) +
       geom_abline(intercept = coef(fit)[1],
                   slope = coef(fit)[2]) +
-      annotate("text",
-               x = min(d$overall$Y),
-               y = max(d$ylim),
-               hjust = 0,
-               vjust = 1,
-               label = label) +
+      geom_text(data = labels,
+                aes(label = .data$label),
+                hjust = 0.5,
+                vjust = 0.5,
+                size = 3.5) +
+      scale_y_continuous(expand = expansion(mult = c(0.05, 0.14))) +
       labs(x = "Original Y", y = "Predicted Y") +
-      theme_bw()
+      theme_muvr()
     return(p)
   }
 
@@ -69,7 +83,7 @@ ggplotMV <- function(MUVRclassObject,
       geom_vline(xintercept = 0, linetype = 2) +
       scale_y_reverse() +
       labs(x = "Predicted Y", y = "Sample number") +
-      theme_bw()
+      theme_muvr()
     return(p)
   }
 
@@ -95,7 +109,7 @@ ggplotMV <- function(MUVRclassObject,
     scale_x_continuous(breaks = seq_len(d$nSamp),
                        labels = as.character(d$sampLabels)) +
     labs(x = NULL, y = "Class prediction probability") +
-    theme_bw() +
+    theme_muvr() +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
           legend.position = "top")
 

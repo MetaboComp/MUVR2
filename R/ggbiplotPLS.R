@@ -111,7 +111,7 @@ ggbiplotPLS <- function(fit,
       limits = c(-d$rSc, d$rSc),
       sec.axis = sec_axis(~ . / d$scaleFactor, name = "Loadings")
     ) +
-    theme_bw()
+    theme_muvr()
 
   if (isTRUE(supLeg)) {
     p <- p + theme(legend.position = "none")

@@ -4,8 +4,13 @@
 #' is better.
 #'
 #' For PLS and RF models, this is a boxplot of each variable's rank across the
-#' model repetitions; variables inside the selection of `model` are highlighted.
-#' For elastic net models, ranks do not exist in the same sense: a variable is
+#' model repetitions. As in the base version, the boxes are only coloured when
+#' `n` is larger than the model's variable selection: the variables inside the
+#' selection are then yellow and those outside it grey, separated by a line. When
+#' every variable shown is inside the selection there is nothing to distinguish,
+#' and the boxes are left plain.
+#'
+#' For elastic net models ranks do not exist in the same sense: a variable is
 #' either given a non-zero coefficient in a given calibration model or it is not.
 #' Those models therefore get a selected/not-selected map instead, as either a
 #' heatmap (`maptype = "heatmap"`) or a dot plot (`maptype = "dotplot"`).
@@ -71,29 +76,39 @@ ggplotVIRank <- function(MUVRclassObject,
 
     return(p +
              labs(x = xlab, y = ylab) +
-             theme_bw() +
+             theme_muvr() +
              theme(axis.text.x = element_text(angle = 90, vjust = 0.5,
                                               hjust = 1, size = 7)))
   }
 
-  ## PLS / RF: boxplot of ranks per variable
-  p <- ggplot(d$long, aes(x = .data$rank,
-                          y = .data$variable,
-                          fill = .data$selected)) +
-    geom_boxplot(outlier.size = 0.6) +
-    scale_fill_manual(values = c("TRUE" = "yellow", "FALSE" = "grey80"),
-                      breaks = c("TRUE", "FALSE"),
-                      labels = c("TRUE" = "Selected", "FALSE" = "Not selected"),
-                      name = "Variable") +
-    labs(x = "Variable importance rank (lower is better)", y = NULL) +
-    theme_bw()
+  ## PLS / RF: boxplot of ranks per variable.
+  ##
+  ## Built with the variable on x and flipped, rather than with the variable on
+  ## y: plotly renders a boxplot whose grouping variable is on y as a set of bare
+  ## vertical lines, and coord_flip() is the way to get a horizontal boxplot that
+  ## survives ggplotly().
+  showSelection <- d$n > d$nFeat
 
-  ## The line separating variables inside the selection from those outside it
-  if (d$n > d$nFeat) {
-    p <- p + geom_hline(yintercept = d$n - d$nFeat + 0.5, linetype = 1)
+  if (showSelection) {
+    p <- ggplot(d$long, aes(x = .data$variable,
+                            y = .data$rank,
+                            fill = .data$selected)) +
+      geom_boxplot(outlier.size = 0.6) +
+      scale_fill_manual(values = c("TRUE" = "yellow", "FALSE" = "grey"),
+                        breaks = c("TRUE", "FALSE"),
+                        labels = c("TRUE" = "Selected", "FALSE" = "Not selected"),
+                        name = "Variable") +
+      ## The line separating the variables inside the selection from those outside
+      geom_vline(xintercept = d$n - d$nFeat + 0.5)
   } else {
-    p <- p + guides(fill = "none")
+    ## Every variable shown is inside the selection: nothing to colour-code, so
+    ## leave the boxes plain, as the base version does.
+    p <- ggplot(d$long, aes(x = .data$variable, y = .data$rank)) +
+      geom_boxplot(outlier.size = 0.6)
   }
 
-  p
+  p +
+    coord_flip() +
+    labs(x = NULL, y = "Variable importance rank (lower is better)") +
+    theme_muvr()
 }

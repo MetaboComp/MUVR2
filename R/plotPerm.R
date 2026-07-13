@@ -679,4 +679,9 @@ if(sd(x_values)!=0){
   }
 
 
+
+  ## Base plot functions draw and return nothing; without this, the empty
+  ## trailing `if` above makes the function return a *visible* NULL, which
+  ## knitr and the console then print under the plot.
+  invisible(NULL)
 }

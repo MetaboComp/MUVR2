@@ -507,6 +507,29 @@ stabilityData <- function(MUVRrdCVclassObject,
     long <- rbind(long, makeLong("Q2", q2Rep, q2))
   }
 
+  ## Each panel's y-axis is anchored the way the base plot anchors it: a
+  ## proportion runs 0 to 1 whether or not the data reaches either end, and
+  ## misclassifications run from 0 to the number of samples. Free y-scales would
+  ## zoom into the noise and make a converged model look unstable.
+  makeLimits <- function(metric, lower, upper) {
+    data.frame(metric = factor(metric, levels = panels),
+               value = c(lower, upper),
+               stringsAsFactors = FALSE)
+  }
+  limits <- rbind(
+    makeLimits("Number of selected variables", 0, nVarLim),
+    makeLimits("Proportion of selected variables", 0, 1)
+  )
+  if (DA | ML) {
+    limits <- rbind(limits,
+                    makeLimits("Number of misclassifications", 0, missLim),
+                    makeLimits("Balanced error rate", 0, 1))
+  }
+  if (regr | ML) {
+    limits <- rbind(limits, makeLimits("Q2", min(c(q2Rep, q2)), 1))
+  }
+  limits$repetition <- 1
+
   list(
     nRep = nRep,
     regr = regr,
@@ -521,7 +544,8 @@ stabilityData <- function(MUVRrdCVclassObject,
     nVarLim = nVarLim,
     missLim = missLim,
     panels = panels,
-    long = long
+    long = long,
+    limits = limits
   )
 }
 

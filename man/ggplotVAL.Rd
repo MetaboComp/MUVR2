@@ -19,7 +19,8 @@ A \code{ggplot} object
 \description{
 \code{ggplot2} version of \code{\link[=plotVAL]{plotVAL()}}. Plots the validation metric against the
 number of variables in the model, and marks the 'min', 'mid' and 'max'
-variable selections.
+variable selections with the same coloured, dashed lines the base version
+uses.
 }
 \details{
 The plot differs by core method. For PLS and RF, one line is drawn per inner

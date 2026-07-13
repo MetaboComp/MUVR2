@@ -51,7 +51,7 @@ ggplotPCA <- function(pca,
     geom_point() +
     labs(x = d$xlab, y = d$ylab, title = main,
          colour = NULL, shape = NULL) +
-    theme_bw()
+    theme_muvr()
 
   if (hasCol) {
     ## Same blue-yellow-red gradient as the base version

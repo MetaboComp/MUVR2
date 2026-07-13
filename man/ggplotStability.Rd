@@ -28,9 +28,15 @@ variables and of the prediction fitness as a function of the number of
 repetitions, as a faceted plot with one panel per metric.
 }
 \details{
-Each panel shows two series: the value obtained in each repetition on its own,
-and the cumulative value over repetitions 1 to i. When the cumulative series
-has flattened out, \code{nRep} was high enough.
+Each panel shows two series: the light line is the value obtained in each
+repetition on its own, and the dark line is the cumulative value over
+repetitions 1 to i. When the cumulative line has flattened out, \code{nRep} was
+high enough.
+
+As in the base version, each panel keeps the y-axis it deserves rather than
+one fitted to its data: proportions and balanced error rates run 0 to 1,
+misclassifications run from 0 to the number of samples. A free y-axis would
+zoom into the noise and make a converged model look unstable.
 }
 \examples{
 \donttest{
