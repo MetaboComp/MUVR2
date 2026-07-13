@@ -10,14 +10,17 @@
 knitr::opts_chunk$set(
   collapse = FALSE,
   comment = "#>",
-  ## SVG, not PNG: the plots are line art and should stay sharp when a reader
-  ## zooms in on a variable name or a cluster of points.
+  ## SVG rather than PNG, so the plots stay sharp when zoomed, and svglite rather
+  ## than grDevices::svg, so that the text in them stays real text: selectable,
+  ## searchable, and readable by a screen reader.
   ##
-  ## grDevices::svg, not svglite: svglite keeps text as text (selectable and
-  ## searchable), which would be nicer, but it errors out under pkgdown's article
-  ## renderer. The tradeoff is that text here becomes glyph outlines -- it still
-  ## scales and prints perfectly, it just cannot be selected.
-  dev = "svg",
+  ## This overrides the device set in _pkgdown.yml, which the reference pages use.
+  ## They cannot use svglite: pkgdown renders their examples through fig_save(),
+  ## which hardcodes bg = NA, and svglite rejects NA where it wants a colour
+  ## string. Here in the article path, bg is ours to set, so svglite is fine.
+  dev = "svglite",
+  fig.ext = "svg",
+  dev.args = list(bg = "transparent"),
   fig.width = 7,
   fig.height = 5,
   fig.align = "center",

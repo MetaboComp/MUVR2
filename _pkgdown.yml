@@ -9,8 +9,17 @@ template:
     code_font: {google: "Source Code Pro"}
 
 figures:
+  # Vector figures everywhere. This setting governs the *reference* pages;
+  # the articles override it with svglite in vignettes/articles/_common.R.
+  #
+  # The reference pages cannot use svglite: pkgdown's fig_save() hardcodes
+  # `dev.args$bg <- NA` when it renders examples, and svglite's C++ wants a
+  # colour string, rejecting NA with "Expected string vector of length 1".
+  # grDevices::svg accepts NA, at the cost of drawing text as glyph outlines.
+  # The article path (fig_opts_chunk()) honours `bg`, so it has no such problem.
   dev: svg
   fig.ext: svg
+  bg: transparent
 
 home:
   title: Multivariate modelling with unbiased variable selection

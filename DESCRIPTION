@@ -47,11 +47,13 @@ Roxygen: list(markdown = TRUE)
 Suggests:
     testthat (>= 3.0.0),
     vdiffr,
+    svglite,
     plotly,
     knitr,
     rmarkdown
 Config/testthat/edition: 3
 Config/Needs/website:
     pkgdown,
-    plotly
+    plotly,
+    svglite
 Config/roxygen2/version: 8.0.0
