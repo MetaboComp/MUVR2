@@ -32,7 +32,10 @@
 #' @examples
 #' data("freelive2")
 #' pca_object <- prcomp(XRVIP2)
-#' ggplotPCA(pca_object, colVar = YR2)
+#'
+#' # Without colLab the legend is titled "YR2", i.e. whatever expression was
+#' # passed in, which tells the reader nothing about what is being coloured
+#' ggplotPCA(pca_object, colVar = YR2, colLab = "Rye intake")
 ggplotPCA <- function(pca,
                       PC1 = 1,
                       PC2 = 2,

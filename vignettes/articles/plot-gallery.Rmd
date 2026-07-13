@@ -255,15 +255,25 @@ which one to trust.
 `plotPCA()` takes a `file` argument and writes a png as a side effect.
 `ggplotPCA()` does not: it returns the object, and you save it with `ggsave()`.
 
+The other difference is the colour legend. `plotPCA()` shows three swatches
+labelled low / mid / high; `ggplotPCA()` shows a colour bar reading in the
+variable's own units, so you can see not just which end is which but what value a
+given sample has. `colVar` really is continuous — the base version cuts it into 40
+shades and then labels only three of them.
+
+`colLab` names the legend. Without it the legend is titled with whatever
+expression you passed (here it would read `YR2`, which tells a reader nothing), so
+it is worth setting to something meaningful:
+
 ```{r pca, fig.show = "hold", out.width = "49%", fig.width = 5.5}
 pca <- prcomp(XRVIP2)
 
 plotPCA(pca, colVar = YR2)
-ggplotPCA(pca, colVar = YR2)
+ggplotPCA(pca, colVar = YR2, colLab = "Rye intake")
 ```
 
 ```{r pca-plotly}
-ggplotly(ggplotPCA(pca, colVar = YR2))
+ggplotly(ggplotPCA(pca, colVar = YR2, colLab = "Rye intake"))
 ```
 
 ## biplotPLS
