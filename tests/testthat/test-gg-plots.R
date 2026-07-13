@@ -24,6 +24,7 @@ test_that("ggplotVAL builds for every core method", {
   buildsOk(ggplotVAL(classModelPLS))
   buildsOk(ggplotVAL(classModelVar))
   buildsOk(ggplotVAL(getVar(classModel, option = "quantile")))
+  buildsOk(ggplotVAL(getVar(classModel, fit_curve = "gam")))
 })
 
 test_that("ggplotVAL tells you when an elastic net model has not seen getVar()", {

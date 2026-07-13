@@ -33,6 +33,25 @@ test_that("plotVAL snapshots are stable", {
     "plotVAL elastic net quantile",
     function() plotVAL(getVar(classModel, option = "quantile"))
   )
+  ## The gam curve used to hard-code ylab = "RMSEP" and draw no legend, even for
+  ## a model whose fitness metric is BER. Pin the corrected version.
+  vdiffr::expect_doppelganger(
+    "plotVAL elastic net fitness gam",
+    function() plotVAL(getVar(classModel, fit_curve = "gam"))
+  )
+})
+
+test_that("plotVAL labels the y-axis with the model's own fitness metric", {
+  ## Regression models are the only ones whose metric is RMSEP; a classification
+  ## elastic net model reports BER, and both curve fits must say so.
+  expect_equal(classModelVar$VAL$metric, "BER")
+
+  loessFit <- MUVR2:::valData(getVar(classModel, fit_curve = "loess"))
+  gamFit <- MUVR2:::valData(getVar(classModel, fit_curve = "gam"))
+
+  expect_equal(loessFit$metric, "BER")
+  expect_equal(gamFit$metric, "BER")
+  expect_equal(gamFit$fit_curve, "gam")
 })
 
 test_that("plotVIRank snapshots are stable", {
