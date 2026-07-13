@@ -93,6 +93,10 @@ plotMV(MLModel, model = "min")
 ggplotMV(MLModel, model = "min")
 ```
 
+```{r mv-ml-plotly, fig.height = 6}
+ggplotly(ggplotMV(MLModel, model = "min"))
+```
+
 ## plotVAL — validation metric vs number of variables
 
 ### PLS / RF
@@ -119,21 +123,50 @@ plotVAL(classModel)
 ggplotVAL(classModel)
 ```
 
+```{r val-en-plotly}
+ggplotly(ggplotVAL(classModel))
+```
+
+Selecting variables by quantile instead gives a third form of the plot — a
+histogram of how many variables the calibration models chose:
+
+```{r val-en-quantile, fig.show = "hold", out.width = "49%", fig.width = 5.5}
+classModelQ <- getVar(classModel, option = "quantile")
+
+plotVAL(classModelQ)
+ggplotVAL(classModelQ)
+```
+
 ## plotVIRank — variable importance
 
 ### PLS / RF: rank boxplots
 
 Each box is a variable's rank across repetitions; lower is better. A tight box near
-the left is a reproducible predictor. Yellow (base) / highlighted (ggplot2) marks
-the variables inside the selection.
+the left is a reproducible predictor.
+
+With `n` at or below the model's variable selection, every variable shown is inside
+the selection, so there is nothing to distinguish and the boxes are plain:
+
+(`cut` truncates the variable names, which are long enough here to crowd out the
+plot itself when it is shown at half width.)
 
 ```{r virank-pls, fig.show = "hold", out.width = "49%", fig.width = 5.5, fig.height = 6}
-plotVIRank(regrModel, n = 20)
-ggplotVIRank(regrModel, n = 20)
+plotVIRank(regrModel, n = 20, cut = 12)
+ggplotVIRank(regrModel, n = 20, cut = 12)
 ```
 
 ```{r virank-pls-plotly, fig.height = 6}
 ggplotly(ggplotVIRank(regrModel, n = 20))
+```
+
+Ask for more variables than the model selected, and the ones inside the selection
+turn yellow, the ones outside grey, with a line between them:
+
+```{r virank-pls-wide, fig.show = "hold", out.width = "49%", fig.width = 5.5, fig.height = 8}
+n <- regrModel$nVar["min"] + 20
+
+plotVIRank(regrModel, n = n, cut = 12)
+ggplotVIRank(regrModel, n = n, cut = 12)
 ```
 
 ### Elastic net: a selection map
@@ -141,12 +174,26 @@ ggplotly(ggplotVIRank(regrModel, n = 20))
 Rows are calibration models, columns are variables, red means selected. Long
 variable names are exactly the case where hovering beats squinting at an axis.
 
+Both `maptype`s exist in all three flavours. The heatmap:
+
 ```{r virank-en, fig.show = "hold", out.width = "49%", fig.width = 5.5}
 plotVIRank(classModel, model = "mid", maptype = "heatmap")
 ggplotVIRank(classModel, model = "mid", maptype = "heatmap")
 ```
 
-```{r virank-en-dot, fig.width = 8}
+```{r virank-en-heat-plotly, fig.width = 8}
+ggplotly(ggplotVIRank(classModel, model = "mid", maptype = "heatmap"))
+```
+
+And the dot plot, which unlike the heatmap leaves the variables in
+selection-ratio order rather than clustering them:
+
+```{r virank-en-dot, fig.show = "hold", out.width = "49%", fig.width = 5.5}
+plotVIRank(classModel, model = "mid", maptype = "dotplot")
+ggplotVIRank(classModel, model = "mid", maptype = "dotplot")
+```
+
+```{r virank-en-dot-plotly, fig.width = 8}
 ggplotly(ggplotVIRank(classModel, model = "mid", maptype = "dotplot"))
 ```
 
@@ -154,8 +201,12 @@ ggplotly(ggplotVIRank(classModel, model = "mid", maptype = "dotplot"))
 
 The base version stacks its panels with `par(mfrow=)`; the ggplot2 version facets
 them, which means the panels share an x-axis and stay aligned when you resize.
+Both anchor each panel's y-axis the same way — a proportion runs 0 to 1 whether or
+not the data goes near either end — so that a converged model does not look
+unstable just because the axis zoomed into the noise.
 
-Watch the *cumulative* (black) series: once it is flat, `nRep` is high enough.
+Watch the *cumulative* (dark) series in each panel: once it is flat, `nRep` is high
+enough.
 
 ```{r stability, fig.show = "hold", out.width = "49%", fig.width = 5.5, fig.height = 7}
 plotStability(regrModel, model = "min")
@@ -230,6 +281,10 @@ ggbiplotPLS(PLSfit, comps = 1:2, xCol = YR2, labPlSc = FALSE, labPlLo = FALSE)
 ```{r pred, fig.show = "hold", out.width = "49%", fig.width = 5.5}
 plotPred(YR2, regrModel$yPred)
 ggplotPred(YR2, regrModel$yPred)
+```
+
+```{r pred-plotly}
+ggplotly(ggplotPred(YR2, regrModel$yPred))
 ```
 
 ## Customising the ggplot2 versions

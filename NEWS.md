@@ -13,10 +13,20 @@
   rewritten as articles, and a plot gallery comparing the base, ggplot2 and plotly
   versions of every plot side by side.
 
+## Bug fixes
+
+* `plotPerm()` returned a *visible* `NULL` — its last statement is an empty `if` —
+  so knitr and the console printed `NULL` underneath every plot it drew. It now
+  returns invisibly, like the other plot functions.
+
 ## Improvements
 
 * `ggplotStability()` facets its panels rather than stacking them with
-  `par(mfrow=)`, so the panels stay aligned and share an x-axis.
+  `par(mfrow=)`, so the panels stay aligned and share an x-axis. As in the base
+  version, each panel's y-axis is anchored (proportions and balanced error rates
+  run 0 to 1, misclassifications 0 to the number of samples) rather than fitted to
+  its data, which would zoom into the noise and make a converged model look
+  unstable.
 
 * `ggplotPerm()` draws the histogram and the fitted curve on a common density
   scale. `plotPerm()` draws the Student's t curve on a second, hidden axis, which

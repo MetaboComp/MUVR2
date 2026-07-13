@@ -10,11 +10,18 @@
 knitr::opts_chunk$set(
   collapse = FALSE,
   comment = "#>",
+  ## SVG, not PNG: the plots are line art and should stay sharp when a reader
+  ## zooms in on a variable name or a cluster of points.
+  ##
+  ## grDevices::svg, not svglite: svglite keeps text as text (selectable and
+  ## searchable), which would be nicer, but it errors out under pkgdown's article
+  ## renderer. The tradeoff is that text here becomes glyph outlines -- it still
+  ## scales and prints perfectly, it just cannot be selected.
+  dev = "svg",
   fig.width = 7,
   fig.height = 5,
   fig.align = "center",
   out.width = "100%",
-  dpi = 96,
   warning = FALSE,
   message = FALSE
 )

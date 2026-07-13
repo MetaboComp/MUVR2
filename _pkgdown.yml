@@ -8,6 +8,10 @@ template:
     heading_font: {google: "Source Sans Pro"}
     code_font: {google: "Source Code Pro"}
 
+figures:
+  dev: svg
+  fig.ext: svg
+
 home:
   title: Multivariate modelling with unbiased variable selection
   description: >
