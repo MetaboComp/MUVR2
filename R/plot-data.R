@@ -91,6 +91,16 @@ mvData <- function(MUVRclassObject,
     stop("Length of sampLabels not equal to number of samples in Y.")
   }
 
+  ## A per-sample identifier, for hover text in the interactive versions. The
+  ## fitted predictions carry sample names as rownames; fall back to a number.
+  sampNames <- rownames(MUVRclassObject$yPred)
+  if (is.null(sampNames)) {
+    sampNames <- names(Y)
+  }
+  if (is.null(sampNames)) {
+    sampNames <- as.character(seq_len(nSamp))
+  }
+
   ## PLS/RF models keep one prediction object per model size; elastic net models
   ## have a single one, since the min/mid/max split happens after fitting.
   perRepIsList <- is.list(MUVRclassObject$yPredPerRep)
@@ -133,12 +143,14 @@ mvData <- function(MUVRclassObject,
     out$overall <- data.frame(Y = as.numeric(Y),
                               yPred = as.numeric(YP),
                               sample = seq_len(nSamp),
+                              label = sampNames,
                               stringsAsFactors = FALSE)
     nRep <- ncol(as.matrix(YPR))
     out$perRep <- data.frame(
       Y = rep(as.numeric(Y), times = nRep),
       yPred = as.numeric(as.matrix(YPR)),
       repetition = factor(rep(seq_len(nRep), each = nSamp)),
+      label = rep(sampNames, times = nRep),
       stringsAsFactors = FALSE
     )
     out$R2 <- MUVRclassObject$fitMetric$R2[modNum]
@@ -147,12 +159,14 @@ mvData <- function(MUVRclassObject,
   } else if (type == "multilevel") {
     out$overall <- data.frame(sample = seq_len(nSamp),
                               yPred = as.numeric(YP),
+                              label = sampNames,
                               stringsAsFactors = FALSE)
     nRep <- ncol(as.matrix(YPR))
     out$perRep <- data.frame(
       sample = rep(seq_len(nSamp), times = nRep),
       yPred = as.numeric(as.matrix(YPR)),
       repetition = factor(rep(seq_len(nRep), each = nSamp)),
+      label = rep(sampNames, times = nRep),
       stringsAsFactors = FALSE
     )
 
@@ -174,6 +188,7 @@ mvData <- function(MUVRclassObject,
 
     out$overall <- data.frame(
       sample = rep(seq_len(nSamp), times = nClass),
+      label = rep(sampNames, times = nClass),
       x = rep(seq_len(nSamp), times = nClass) +
         rep(classNudge, each = nSamp),
       class = factor(rep(levels(Y), each = nSamp), levels = levels(Y)),
@@ -184,6 +199,7 @@ mvData <- function(MUVRclassObject,
     nRep <- dim(YPR)[3]
     out$perRep <- data.frame(
       sample = rep(seq_len(nSamp), times = nClass * nRep),
+      label = rep(sampNames, times = nClass * nRep),
       x = rep(seq_len(nSamp), times = nClass * nRep) +
         rep(rep(classNudge, each = nSamp), times = nRep),
       class = factor(rep(rep(levels(Y), each = nSamp), times = nRep),
@@ -346,9 +362,8 @@ valData <- function(MUVRclassObject) {
   breakUp <- function(df, by) {
     pieces <- split(df, df[[by]])
     gap <- df[1, , drop = FALSE]
-    gap$count <- NA
-    gap$value <- NA
-    do.call(rbind, lapply(pieces, function(p) rbind(p, gap)))
+    gap[] <- NA
+    do.call(rbind, lapply(pieces, function(p) rbind(p[order(p$count), ], gap)))
   }
   segmentsLine <- breakUp(segments, "series")
   repMeansLine <- breakUp(repMeans, "repetition")
@@ -356,6 +371,7 @@ valData <- function(MUVRclassObject) {
   overall <- data.frame(count = count,
                         value = apply(VAL, 2, mean),
                         stringsAsFactors = FALSE)
+  overall <- overall[order(overall$count), ]
 
   list(
     type = "rdCV",

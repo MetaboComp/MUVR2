@@ -54,8 +54,24 @@ test_that("valData's rdCV curves match the underlying VAL array", {
   d <- MUVR2:::valData(regrModel)
   VAL <- regrModel$VAL$VAL
   expect_equal(nrow(d$segments), length(VAL))
-  expect_equal(d$overall$value, unname(apply(VAL, 2, mean)))
+  ## overall is sorted by count (for geom_path); compare against the same order
+  truth <- apply(VAL, 2, mean)
+  expect_equal(d$overall$value, unname(truth[order(as.numeric(names(truth)))]))
   expect_equal(nrow(d$repMeans), length(d$count) * dim(VAL)[3])
+})
+
+test_that("valData's segment lines reproduce each VAL[segment, , rep]", {
+  d <- MUVR2:::valData(regrModel)
+  VAL <- regrModel$VAL$VAL
+  ## Each series is one (repetition, segment); the base plot draws VAL[s, , r]
+  for (r in seq_len(dim(VAL)[3])) {
+    for (s in seq_len(dim(VAL)[1])) {
+      sub <- d$segments[d$segments$series == paste(r, s, sep = "-"), ]
+      sub <- sub[order(sub$count), ]
+      truth <- VAL[s, , r]
+      expect_equal(sub$value, unname(truth[order(as.numeric(names(truth)))]))
+    }
+  }
 })
 
 test_that("stabilityData produces one series pair per metric per repetition", {

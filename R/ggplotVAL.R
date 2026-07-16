@@ -112,12 +112,16 @@ ggplotVAL <- function(MUVRclassObject,
                linewidth = 0.8)
   })
 
+  ## geom_path, not geom_line: geom_line re-sorts points by the x variable before
+  ## joining them, which scrambles the many segment curves into one zigzag and
+  ## ignores the NA gaps that separate the series. geom_path joins in data order,
+  ## which is what the NA-gapped frame is built for.
   ggplot(d$segmentsLine, aes(x = .data$count, y = .data$value)) +
-    geom_line(aes(colour = "Validation segments"), linewidth = 0.3) +
-    geom_line(data = d$repMeansLine,
+    geom_path(aes(colour = "Validation segments"), linewidth = 0.3) +
+    geom_path(data = d$repMeansLine,
               aes(colour = "Repetitions"),
               linewidth = 0.5) +
-    geom_line(data = d$overall,
+    geom_path(data = d$overall,
               aes(colour = "Overall"),
               linewidth = 0.9) +
     cutoffLayers +

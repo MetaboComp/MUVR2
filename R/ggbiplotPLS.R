@@ -14,6 +14,9 @@
 #' @param labPlLo Boolean to plot variable names (defaults to TRUE)
 #' @param colSc Colour for observation scores (only used if `xCol` is omitted)
 #' @param colLo Colour for variable loadings (defaults to red)
+#' @param colLab Legend title for the `xCol` colour gradient. Defaults to the
+#'   name of the expression passed as `xCol`, so it is worth setting to something
+#'   meaningful (the base version has no legend to say what the shading is).
 #' @param supLeg Boolean for whether to suppress the legend
 #' @return A `ggplot` object
 #' @seealso [biplotPLS()] for the base graphics version
@@ -42,7 +45,14 @@ ggbiplotPLS <- function(fit,
                         labPlLo = TRUE,
                         colSc = "black",
                         colLo = "red",
+                        colLab = NULL,
                         supLeg = FALSE) {
+  ## Name the colour legend after whatever was passed as xCol, unless told
+  ## otherwise, so the shading is not a mystery gradient
+  if (is.null(colLab)) {
+    colLab <- if (missing(xCol)) NULL else deparse(substitute(xCol))
+  }
+
   d <- biplotData(fit, comps = comps, vars = vars)
   scores <- d$scores
   loads <- d$loads
@@ -60,6 +70,14 @@ ggbiplotPLS <- function(fit,
     scores$label <- as.character(labs)
   }
 
+  ## Hover text: the sample, and its colour value when there is one
+  scores$tooltip <- paste0("Sample: ", scores$label)
+  if (hasCol) {
+    scores$tooltip <- paste0(scores$tooltip, "\n",
+                             if (is.null(colLab)) "colour" else colLab,
+                             ": ", signif(scores$xCol, 3))
+  }
+
   p <- ggplot() +
     geom_hline(yintercept = 0, linetype = 2, colour = "grey70") +
     geom_vline(xintercept = 0, linetype = 2, colour = "grey70") +
@@ -73,13 +91,14 @@ ggbiplotPLS <- function(fit,
   if (hasCol) {
     p <- p +
       geom_point(data = scores,
-                 aes(x = .data$x, y = .data$y, colour = .data$xCol),
+                 aes(x = .data$x, y = .data$y, colour = .data$xCol,
+                     text = .data$tooltip),
                  size = 2) +
       scale_colour_gradient(low = "grey85", high = "grey10")
   } else {
     p <- p +
       geom_point(data = scores,
-                 aes(x = .data$x, y = .data$y),
+                 aes(x = .data$x, y = .data$y, text = .data$tooltip),
                  colour = colSc,
                  size = 2)
   }
@@ -117,7 +136,7 @@ ggbiplotPLS <- function(fit,
     p <- p + theme(legend.position = "none")
   } else if (hasCol) {
     ## ggplot2::labs() qualified: the `labs` argument of this function shadows it
-    p <- p + ggplot2::labs(colour = NULL)
+    p <- p + ggplot2::labs(colour = colLab)
   }
 
   p

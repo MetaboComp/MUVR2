@@ -60,15 +60,29 @@ ggplotPCA <- function(pca,
   hasCol <- !is.null(scores$colVar)
   hasSymb <- !is.null(scores$symbVar)
 
+  ## Hover text for the interactive version: the sample, and whatever variables
+  ## were mapped. `text` is read by plotly (pass tooltip = "text" to ggplotly);
+  ## on a static plot it warns and is ignored.
+  scores$tooltip <- paste0("Sample: ", scores$label)
+  if (hasCol) {
+    lab <- if (is.null(colLab)) "colour" else colLab
+    scores$tooltip <- paste0(scores$tooltip, "\n", lab, ": ",
+                             signif(scores$colVar, 3))
+  }
+  if (hasSymb) {
+    lab <- if (is.null(symbLab)) "group" else symbLab
+    scores$tooltip <- paste0(scores$tooltip, "\n", lab, ": ", scores$symbVar)
+  }
+
   mapping <- if (hasCol && hasSymb) {
-    aes(x = .data$x, y = .data$y,
+    aes(x = .data$x, y = .data$y, text = .data$tooltip,
         colour = .data$colVar, shape = .data$symbVar)
   } else if (hasCol) {
-    aes(x = .data$x, y = .data$y, colour = .data$colVar)
+    aes(x = .data$x, y = .data$y, text = .data$tooltip, colour = .data$colVar)
   } else if (hasSymb) {
-    aes(x = .data$x, y = .data$y, shape = .data$symbVar)
+    aes(x = .data$x, y = .data$y, text = .data$tooltip, shape = .data$symbVar)
   } else {
-    aes(x = .data$x, y = .data$y)
+    aes(x = .data$x, y = .data$y, text = .data$tooltip)
   }
 
   p <- ggplot(scores, mapping) +

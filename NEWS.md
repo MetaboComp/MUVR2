@@ -15,6 +15,11 @@
 
 ## Bug fixes
 
+* `ggplotVAL()` drew the PLS/RF validation curves as a single scrambled zigzag
+  rather than one line per segment. It used `geom_line()`, which re-sorts points by
+  the x variable before joining them, destroying the per-segment grouping; it now
+  uses `geom_path()`, which joins in data order.
+
 * `plotPerm()` returned a *visible* `NULL` — its last statement is an empty `if` —
   so knitr and the console printed `NULL` underneath every plot it drew. It now
   returns invisibly, like the other plot functions.
@@ -49,6 +54,19 @@
   `(Validation segments,1)`. plotly names a trace after every discrete scale in
   the plot, so the cut-offs' linetype scale was leaking into the curves' names;
   the cut-offs now take their line types directly.
+
+* The interactive versions gained the polish the review asked for:
+    * `ggplotMV()` (regression, classification and multilevel) and `ggplotPCA()`
+      carry a hover tooltip naming the sample, its prediction and — for the
+      swimlane — its class. Pass `tooltip = "text"` to `ggplotly()`.
+    * `ggplotVIRank()`'s boxplot survives `ggplotly()` (the previous
+      `geom_boxplot(stat = "identity")` came out empty) and its whiskers now have
+      end caps, as `boxplot()` draws them, because the box is built from rectangle
+      and segment primitives. There is also more space between the boxes.
+    * `ggplotPerm()`'s p-value and actual-value labels are `geom_text`, not
+      `annotate()`, so they survive `ggplotly()`, which drops plot annotations.
+    * `ggbiplotPLS()` titles its colour legend (`colLab`, defaulting to the name of
+      the `xCol` expression), so the shading is no longer an unlabelled gradient.
 
 * `ggplotStability()` facets its panels rather than stacking them with
   `par(mfrow=)`, so the panels stay aligned and share an x-axis. As in the base

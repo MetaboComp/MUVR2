@@ -156,20 +156,24 @@ ggplotPerm <- function(actual,
 
   p <- p + geom_vline(xintercept = actual, linewidth = 0.6)
 
+  ## The labels are geom_text, not annotate(): ggplotly() silently drops plot
+  ## annotations, so the p-value and the actual value would vanish from the
+  ## interactive version. A geom survives as a text trace.
+  hj <- if (side == "smaller") -0.1 else 1.1
+
   if (isTRUE(show_p)) {
-    p <- p + annotate("text",
-                      x = actual,
-                      y = yMax * 0.9,
-                      hjust = if (side == "smaller") -0.1 else 1.1,
-                      label = paste(pLabels, collapse = "\n"))
+    p <- p + geom_text(
+      data = data.frame(x = actual, y = yMax * 0.9,
+                        label = paste(pLabels, collapse = "\n")),
+      aes(x = .data$x, y = .data$y, label = .data$label),
+      hjust = hj, inherit.aes = FALSE)
   }
   if (isTRUE(show_actual_value)) {
-    p <- p + annotate("text",
-                      x = actual,
-                      y = 0,
-                      vjust = -0.5,
-                      hjust = if (side == "smaller") -0.1 else 1.1,
-                      label = signif(actual, round_number))
+    p <- p + geom_text(
+      data = data.frame(x = actual, y = 0,
+                        label = as.character(signif(actual, round_number))),
+      aes(x = .data$x, y = .data$y, label = .data$label),
+      vjust = -0.5, hjust = hj, inherit.aes = FALSE)
   }
   if (permutation_visual != "none") {
     centre <- if (permutation_visual == "mean") {
@@ -179,13 +183,12 @@ ggplotPerm <- function(actual,
     }
     p <- p +
       geom_vline(xintercept = centre, linetype = 2, colour = "grey30") +
-      annotate("text",
-               x = centre,
-               y = yMax,
-               vjust = 1,
-               hjust = -0.1,
-               label = paste0(permutation_visual, " = ",
-                              signif(centre, round_number)))
+      geom_text(
+        data = data.frame(x = centre, y = yMax,
+                          label = paste0(permutation_visual, " = ",
+                                         signif(centre, round_number))),
+        aes(x = .data$x, y = .data$y, label = .data$label),
+        vjust = 1, hjust = -0.1, inherit.aes = FALSE)
   }
 
   ## coord_cartesian rather than scale limits: zooming should not drop the

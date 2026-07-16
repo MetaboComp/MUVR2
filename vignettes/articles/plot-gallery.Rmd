@@ -56,16 +56,32 @@ plotMV(regrModel, model = "min")
 ggplotMV(regrModel, model = "min")
 ```
 
-Hover to read off individual samples:
+Hover to read off individual samples — pass `tooltip = "text"` so the tooltip
+shows the sample name rather than the raw coordinates:
 
 ```{r mv-regr-plotly}
-ggplotly(ggplotMV(regrModel, model = "min"))
+ggplotly(ggplotMV(regrModel, model = "min"), tooltip = "text")
 ```
 
 ### Classification — the swimlane plot
 
-One lane per observation; class probabilities colour-coded and nudged apart.
-Misclassified samples are ringed at the probability of their true class.
+This plot confuses people, so it is worth being precise about what a dot is.
+
+The x-axis is the sample (one lane per observation). For a *3-class* problem, the
+model does not output a single prediction per sample — it outputs, for each sample,
+a **probability of belonging to each of the three classes** (which sum to about 1).
+So every sample gets three coloured dots, one per class, and they are nudged apart
+horizontally within the lane so they do not sit on top of each other. A confident,
+correct prediction is a lane where the true class's dot sits high and alone.
+
+On top of that, each of those three positions carries both the **consensus**
+prediction (the larger dot) and the prediction from **each repetition** (the
+smaller dots) — so the spread of small dots around a large one shows how much that
+probability moved between repetitions. Misclassified samples are ringed at the
+probability of their true class.
+
+That is why a single lane can hold many dots: (3 classes) × (1 consensus + several
+per-repetition), colour-coded by class.
 
 This is the plot where interactivity earns its keep: with 29 lanes the base plot is
 already crowded, and hovering tells you which sample and which class each dot
@@ -80,7 +96,7 @@ ggplotMV(classModel)
 ```
 
 ```{r mv-class-plotly, fig.width = 9}
-ggplotly(ggplotMV(classModel))
+ggplotly(ggplotMV(classModel), tooltip = "text")
 ```
 
 ### Multilevel
@@ -94,7 +110,7 @@ ggplotMV(MLModel, model = "min")
 ```
 
 ```{r mv-ml-plotly, fig.height = 6}
-ggplotly(ggplotMV(MLModel, model = "min"))
+ggplotly(ggplotMV(MLModel, model = "min"), tooltip = "text")
 ```
 
 ## plotVAL — validation metric vs number of variables
@@ -146,30 +162,36 @@ ggplotly(ggplotVAL(classModelQ))
 ### PLS / RF: rank boxplots
 
 Each box is a variable's rank across repetitions; lower is better. A tight box near
-the left is a reproducible predictor.
+the left is a reproducible predictor. These are drawn full width, not side by side,
+because the variable names need the room to stay legible (`cut` trims them further).
 
 With `n` at or below the model's variable selection, every variable shown is inside
 the selection, so there is nothing to distinguish and the boxes are plain:
 
-(`cut` truncates the variable names, which are long enough here to crowd out the
-plot itself when it is shown at half width.)
-
-```{r virank-pls, fig.show = "hold", out.width = "49%", fig.width = 5.5, fig.height = 6}
+```{r virank-pls-base, fig.width = 9, fig.height = 6}
 plotVIRank(regrModel, n = 20, cut = 12)
+```
+
+```{r virank-pls-gg, fig.width = 9, fig.height = 6}
 ggplotVIRank(regrModel, n = 20, cut = 12)
 ```
 
-```{r virank-pls-plotly, fig.height = 6}
-ggplotly(ggplotVIRank(regrModel, n = 20))
+The interactive version renders a real boxplot (an earlier version came out empty
+through plotly), and hovering reads off the exact rank:
+
+```{r virank-pls-plotly, fig.width = 9, fig.height = 6}
+ggplotly(ggplotVIRank(regrModel, n = 20, cut = 12))
 ```
 
 Ask for more variables than the model selected, and the ones inside the selection
 turn yellow, the ones outside grey, with a line between them:
 
-```{r virank-pls-wide, fig.show = "hold", out.width = "49%", fig.width = 5.5, fig.height = 8}
+```{r virank-pls-wide-base, fig.width = 9, fig.height = 8}
 n <- regrModel$nVar["min"] + 20
-
 plotVIRank(regrModel, n = n, cut = 12)
+```
+
+```{r virank-pls-wide-gg, fig.width = 9, fig.height = 8}
 ggplotVIRank(regrModel, n = n, cut = 12)
 ```
 
@@ -247,6 +269,13 @@ plotPerm(actual, distribution, multiple_p_shown = c("t", "smooth"), xlab = "Q2")
 ggplotPerm(actual, distribution, multiple_p_shown = c("t", "smooth"), xlab = "Q2")
 ```
 
+The interactive version keeps the p-value label (plotly drops plot annotations, so
+`ggplotPerm()` draws it as a text layer instead) and lets you hover the histogram:
+
+```{r perm-plotly, fig.width = 8}
+ggplotly(ggplotPerm(actual, distribution, type = "t", xlab = "Q2"), tooltip = "text")
+```
+
 See [resampling tests](resampling-tests.html) for what these p-values mean and
 which one to trust.
 
@@ -273,13 +302,14 @@ ggplotPCA(pca, colVar = YR2, colLab = "Rye intake")
 ```
 
 ```{r pca-plotly}
-ggplotly(ggplotPCA(pca, colVar = YR2, colLab = "Rye intake"))
+ggplotly(ggplotPCA(pca, colVar = YR2, colLab = "Rye intake"), tooltip = "text")
 ```
 
 ## biplotPLS
 
 Scores and loadings in one panel: scores on the primary axes, loadings on the
-secondary ones.
+secondary ones. The points are shaded by a continuous variable — here rye intake —
+and `colLab` titles that legend, which the base version has no way to do.
 
 A caveat worth knowing: `plotly` does not render ggplot2's secondary axes, so the
 interactive version loses the loadings axis labels even though the arrows are still
@@ -290,7 +320,8 @@ matters.
 PLSfit <- regrModel$Fit$plsFitMin
 
 biplotPLS(PLSfit, comps = 1:2, xCol = YR2, labPlSc = FALSE, labPlLo = FALSE)
-ggbiplotPLS(PLSfit, comps = 1:2, xCol = YR2, labPlSc = FALSE, labPlLo = FALSE)
+ggbiplotPLS(PLSfit, comps = 1:2, xCol = YR2, colLab = "Rye intake",
+            labPlSc = FALSE, labPlLo = FALSE)
 ```
 
 ## plotPred

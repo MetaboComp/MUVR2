@@ -14,6 +14,7 @@ ggbiplotPLS(
   labPlLo = TRUE,
   colSc = "black",
   colLo = "red",
+  colLab = NULL,
   supLeg = FALSE
 )
 }
@@ -36,6 +37,10 @@ observations (e.g. the Y vector in a regression analysis)}
 \item{colSc}{Colour for observation scores (only used if \code{xCol} is omitted)}
 
 \item{colLo}{Colour for variable loadings (defaults to red)}
+
+\item{colLab}{Legend title for the \code{xCol} colour gradient. Defaults to the
+name of the expression passed as \code{xCol}, so it is worth setting to something
+meaningful (the base version has no legend to say what the shading is).}
 
 \item{supLeg}{Boolean for whether to suppress the legend}
 }

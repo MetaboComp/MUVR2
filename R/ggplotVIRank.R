@@ -95,17 +95,44 @@ ggplotVIRank <- function(MUVRclassObject,
   ## outliers. Same data, different picture. This way both flavours of the plot
   ## show the same box.
   ##
-  ## Variable on x and flipped, rather than variable on y, because plotly renders
-  ## a boxplot whose grouping variable is on y as a row of bare vertical lines.
+  ## The box is drawn from primitives -- a rectangle for the box, and segments for
+  ## the median, the whiskers and their end caps -- rather than with geom_boxplot.
+  ## Two reasons: ggplotly() turns a stat = "identity" geom_boxplot into an empty
+  ## plotly box trace, so the interactive version came out blank; and geom_boxplot
+  ## draws no whisker caps, which the base boxplot() does. Built from rects and
+  ## segments, the plot survives ggplotly() and gets the caps for free.
+  ##
+  ## Variable on a continuous x (its factor position) and flipped, so the box
+  ## width -- and hence the gap between boxes -- is ours to set, and so the axis
+  ## shows the variable names.
   showSelection <- d$n > d$nFeat
   stats <- d$stats
+  stats$pos <- as.integer(stats$variable)
+
+  hw <- 0.3   # box half-width; the 0.4 gap left on either side spaces the boxes
+  cw <- 0.15  # whisker-cap (staple) half-width
+
+  segs <- rbind(
+    ## median
+    data.frame(x = stats$pos - hw, xend = stats$pos + hw,
+               y = stats$middle, yend = stats$middle),
+    ## whiskers
+    data.frame(x = stats$pos, xend = stats$pos, y = stats$ymin, yend = stats$lower),
+    data.frame(x = stats$pos, xend = stats$pos, y = stats$upper, yend = stats$ymax),
+    ## caps
+    data.frame(x = stats$pos - cw, xend = stats$pos + cw, y = stats$ymin, yend = stats$ymin),
+    data.frame(x = stats$pos - cw, xend = stats$pos + cw, y = stats$ymax, yend = stats$ymax)
+  )
+
+  box <- geom_rect(data = stats,
+                   aes(xmin = .data$pos - hw, xmax = .data$pos + hw,
+                       ymin = .data$lower, ymax = .data$upper,
+                       fill = .data$selected),
+                   colour = "black")
 
   if (showSelection) {
-    p <- ggplot(stats, aes(x = .data$variable, fill = .data$selected)) +
-      geom_boxplot(aes(ymin = .data$ymin, lower = .data$lower,
-                       middle = .data$middle, upper = .data$upper,
-                       ymax = .data$ymax),
-                   stat = "identity") +
+    p <- ggplot() +
+      box +
       scale_fill_manual(values = c("TRUE" = "yellow", "FALSE" = "grey"),
                         breaks = c("TRUE", "FALSE"),
                         labels = c("TRUE" = "Selected", "FALSE" = "Not selected"),
@@ -114,23 +141,31 @@ ggplotVIRank <- function(MUVRclassObject,
       geom_vline(xintercept = d$n - d$nFeat + 0.5)
   } else {
     ## Every variable shown is inside the selection: nothing to colour-code, so
-    ## leave the boxes plain, as the base version does.
-    p <- ggplot(stats, aes(x = .data$variable)) +
-      geom_boxplot(aes(ymin = .data$ymin, lower = .data$lower,
-                       middle = .data$middle, upper = .data$upper,
-                       ymax = .data$ymax),
-                   stat = "identity",
-                   fill = "white")
+    ## leave the boxes white, as the base version does.
+    p <- ggplot() +
+      geom_rect(data = stats,
+                aes(xmin = .data$pos - hw, xmax = .data$pos + hw,
+                    ymin = .data$lower, ymax = .data$upper),
+                fill = "white", colour = "black")
   }
 
+  p <- p +
+    geom_segment(data = segs,
+                 aes(x = .data$x, xend = .data$xend,
+                     y = .data$y, yend = .data$yend))
+
   if (nrow(d$outliers) > 0) {
-    p <- p + geom_point(data = d$outliers,
-                        aes(x = .data$variable, y = .data$rank),
-                        size = 0.8,
-                        inherit.aes = FALSE)
+    outliers <- d$outliers
+    outliers$pos <- as.integer(outliers$variable)
+    p <- p + geom_point(data = outliers,
+                        aes(x = .data$pos, y = .data$rank),
+                        size = 0.8)
   }
 
   p +
+    scale_x_continuous(breaks = stats$pos,
+                       labels = as.character(stats$variable),
+                       expand = expansion(add = 0.6)) +
     coord_flip() +
     labs(x = NULL, y = "Variable importance rank (lower is better)") +
     theme_muvr()
