@@ -15,6 +15,9 @@
 #' @param factCols An optional vector with colors for the factor levels (in the same order as the levels)
 #' @param sampLabels Sample labels (optional; implemented for classification)
 #' @param ylim Optional for imposing y-limits for regression and classification analysis
+#' @param consensusOnly If `TRUE`, draw only the consensus predictions and omit
+#'   the smaller per-repetition dots. Useful for the classification swimlane,
+#'   which gets crowded, but works for all model types. Defaults to `FALSE`.
 #' @return A `ggplot` object
 #' @seealso [plotMV()] for the base graphics version
 #' @export
@@ -34,11 +37,21 @@ ggplotMV <- function(MUVRclassObject,
                      model = "min",
                      factCols,
                      sampLabels,
-                     ylim = NULL) {
+                     ylim = NULL,
+                     consensusOnly = FALSE) {
   d <- mvData(MUVRclassObject,
               model = model,
               sampLabels = sampLabels,
               ylim = ylim)
+
+  ## The per-repetition dots are the smaller/grey layer in each plot type;
+  ## consensusOnly drops them and keeps only the consensus predictions.
+  perRepLayer <- function(mapping = NULL, ...) {
+    if (consensusOnly) {
+      return(NULL)
+    }
+    geom_point(mapping = mapping, ...)
+  }
 
   if (d$type == "regression") {
     fit <- lm(d$overall$yPred ~ d$overall$Y)
@@ -70,8 +83,8 @@ ggplotMV <- function(MUVRclassObject,
                                "\nPredicted: ", signif(d$perRep$yPred, 3))
 
     p <- ggplot(d$overall, aes(x = .data$Y, y = .data$yPred)) +
-      geom_point(data = d$perRep, aes(text = .data$tooltip),
-                 colour = "grey", size = 1, shape = 16) +
+      perRepLayer(data = d$perRep, mapping = aes(text = .data$tooltip),
+                  colour = "grey", size = 1, shape = 16) +
       geom_point(aes(text = .data$tooltip),
                  colour = "black", size = 1.5, shape = 16) +
       geom_abline(intercept = coef(fit)[1],
@@ -94,8 +107,8 @@ ggplotMV <- function(MUVRclassObject,
                                "\nRepetition: ", d$perRep$repetition,
                                "\nPredicted: ", signif(d$perRep$yPred, 3))
     p <- ggplot(d$overall, aes(x = .data$yPred, y = .data$sample)) +
-      geom_point(data = d$perRep, aes(text = .data$tooltip),
-                 colour = "grey", size = 1, shape = 16) +
+      perRepLayer(data = d$perRep, mapping = aes(text = .data$tooltip),
+                  colour = "grey", size = 1, shape = 16) +
       geom_point(aes(text = .data$tooltip),
                  colour = "black", size = 1.5, shape = 16) +
       geom_hline(yintercept = d$nSamp / 2 + 0.5, linetype = 2) +
@@ -132,7 +145,8 @@ ggplotMV <- function(MUVRclassObject,
                linetype = 3, colour = "grey") +
     ## Solid dots, fully opaque, as in the base version (pch = 20): the smaller
     ## ones are the individual repetitions, the larger the consensus
-    geom_point(data = d$perRep, aes(text = .data$tooltip), size = 0.8, shape = 16) +
+    perRepLayer(data = d$perRep, mapping = aes(text = .data$tooltip),
+                size = 0.8, shape = 16) +
     geom_point(aes(text = .data$tooltip), size = 1.6, shape = 16) +
     scale_colour_manual(values = factCols, name = NULL) +
     scale_x_continuous(breaks = seq_len(d$nSamp),

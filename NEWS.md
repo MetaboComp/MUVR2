@@ -2,6 +2,11 @@
 
 ## New features
 
+* `plotMV()` and `ggplotMV()` gained a `consensusOnly` argument. With
+  `consensusOnly = TRUE` they draw only the consensus predictions and omit the
+  smaller per-repetition dots — useful for the classification swimlane, which
+  gets crowded, though it works for every model type.
+
 * Every plot now has a `ggplot2` version, returning a `ggplot` object rather than
   drawing to the graphics device: `ggplotMV()`, `ggplotVAL()`, `ggplotVIRank()`,
   `ggplotStability()`, `ggplotPerm()`, `ggpermutationPlot()`, `ggplotPred()`,

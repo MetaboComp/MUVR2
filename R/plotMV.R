@@ -6,6 +6,9 @@
 #' @param factCols An optional vector with colors for the factor levels (in the same order as the levels)
 #' @param sampLabels Sample labels (optional; implemented for classification)
 #' @param ylim Optional for imposing y-limits for regression and classification analysis
+#' @param consensusOnly If `TRUE`, draw only the consensus predictions and omit
+#'   the smaller per-repetition dots. Useful for the classification swimlane,
+#'   which gets crowded, but works for all model types. Defaults to `FALSE`.
 #' @return A plot of results from multivariate predictions
 #' @seealso [ggplotMV()] for the ggplot2 version
 #' @export
@@ -32,7 +35,8 @@ plotMV <- function(MUVRclassObject,
                    model = 'min',
                    factCols,
                    sampLabels,
-                   ylim = NULL) {
+                   ylim = NULL,
+                   consensusOnly = FALSE) {
   d <- mvData(MUVRclassObject,
               model = model,
               sampLabels = sampLabels,
@@ -50,20 +54,33 @@ plotMV <- function(MUVRclassObject,
     ###########################
     # REGRESSION PLOT
     ###########################
-    # Plot Y-predicted per repetition in grey
-    matplot(
-      Y,
-      #####X axis 112 observations
-      YPR,
-      ####Y axis 112 obsevations each of them have 7 repetitions
-      pch = 20,
-      xlab = 'Original Y',
-      ylab = 'Predicted Y',
-      col = 'grey',
-      bty = 'l',
-      cex = 0.5,
-      ylim = ylim
-    )
+    if (consensusOnly) {
+      # Just the plotting frame; no per-repetition dots
+      plot(
+        Y,
+        YP,
+        type = 'n',
+        xlab = 'Original Y',
+        ylab = 'Predicted Y',
+        bty = 'l',
+        ylim = ylim
+      )
+    } else {
+      # Plot Y-predicted per repetition in grey
+      matplot(
+        Y,
+        #####X axis 112 observations
+        YPR,
+        ####Y axis 112 obsevations each of them have 7 repetitions
+        pch = 20,
+        xlab = 'Original Y',
+        ylab = 'Predicted Y',
+        col = 'grey',
+        bty = 'l',
+        cex = 0.5,
+        ylim = ylim
+      )
+    }
     # Add in overall Y-predictions of repitions in black
     points(Y,
            YP,
@@ -117,13 +134,15 @@ plotMV <- function(MUVRclassObject,
     # Plot each Y level separately
     for (cl in classes) {
       # Y-pred per rep
-      matpoints((1:nSamp) + classNudge[cl],
-                YPR[, cl, ],
-                ##For all the observations for all repetition in each class
-                pch = 20,
-                col = factCols[cl],
-                cex = 0.5
-      )
+      if (!consensusOnly) {
+        matpoints((1:nSamp) + classNudge[cl],
+                  YPR[, cl, ],
+                  ##For all the observations for all repetition in each class
+                  pch = 20,
+                  col = factCols[cl],
+                  cex = 0.5
+        )
+      }
       # Y-pred overall
       points((1:nSamp) + classNudge[cl],
              YP[, cl],
@@ -176,16 +195,27 @@ plotMV <- function(MUVRclassObject,
     ###########################
     # MULTILEVEL PLOT
     ###########################
-    matplot(
-      YPR,
-      1:nSamp,
-      pch = 20,
-      col = 'grey',
-      cex = 0.5,
-      ylim = c(nSamp, 1),
-      ylab = 'Sample number',
-      xlab = 'Predicted Y'
-    )
+    if (consensusOnly) {
+      plot(
+        YP,
+        1:nSamp,
+        type = 'n',
+        ylim = c(nSamp, 1),
+        ylab = 'Sample number',
+        xlab = 'Predicted Y'
+      )
+    } else {
+      matplot(
+        YPR,
+        1:nSamp,
+        pch = 20,
+        col = 'grey',
+        cex = 0.5,
+        ylim = c(nSamp, 1),
+        ylab = 'Sample number',
+        xlab = 'Predicted Y'
+      )
+    }
     # Plot Y-predicted overall in black
     points(YP,
            1:nSamp,

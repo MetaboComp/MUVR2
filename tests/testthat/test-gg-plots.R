@@ -19,6 +19,18 @@ test_that("ggplotMV rejects a bad factCols length", {
                "factCols")
 })
 
+test_that("ggplotMV consensusOnly drops the per-repetition layer", {
+  countLayers <- function(p) length(p$layers)
+
+  for (m in list(regrModel, classModelPLS, classModel, MLModel)) {
+    full <- ggplotMV(m)
+    consensus <- ggplotMV(m, consensusOnly = TRUE)
+    buildsOk(consensus)
+    ## exactly one fewer geom_point layer (the per-repetition dots) when consensusOnly
+    expect_equal(countLayers(full) - countLayers(consensus), 1)
+  }
+})
+
 test_that("ggplotVAL builds for every core method", {
   buildsOk(ggplotVAL(regrModel))
   buildsOk(ggplotVAL(classModelPLS))

@@ -99,6 +99,14 @@ ggplotMV(classModel)
 ggplotly(ggplotMV(classModel), tooltip = "text")
 ```
 
+When the per-repetition cloud is more than you need, `consensusOnly = TRUE` drops
+it and keeps only the consensus dots (and the misclassification rings). It works
+for every model type, but the swimlane is where it helps most:
+
+```{r mv-class-consensus, fig.width = 9, fig.height = 5}
+ggplotMV(classModel, consensusOnly = TRUE)
+```
+
 ### Multilevel
 
 Each individual appears twice — once per half of the effect matrix — with expected
