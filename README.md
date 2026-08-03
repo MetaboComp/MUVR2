@@ -100,8 +100,8 @@ flavours, is at **<https://metabocomp.github.io/MUVR2/>**:
 
 ## Authors
 
-PhD candidate Yingxiao Yan <yingxiao@chalmers.se> Associate Professor
-Carl Brunius <carl.brunius@chalmers.se>
+PhD candidate Yingxiao Yan <yingxiao@chalmers.se><br> Associate
+Professor Carl Brunius <carl.brunius@chalmers.se>
 
 Department of Life Sciences, Chalmers University of Technology,
 www.chalmers.se
