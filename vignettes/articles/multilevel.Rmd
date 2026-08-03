@@ -119,8 +119,7 @@ right of zero. Any point on the wrong side of the dashed vertical line is a
 misclassification. And this is why `MLModel$miss` reports twice as many misses as
 there are misclassified individuals — it counts both halves.
 
-```{r ml-mv, fig.show = "hold", out.width = "49%", fig.width = 5.5, fig.height = 6}
-plotMV(MLModel, model = "min")
+```{r ml-mv, fig.height = 6}
 ggplotMV(MLModel, model = "min")
 ```
 

@@ -92,9 +92,7 @@ curve fitted to the resampled distribution. **This is the recommended one.**
 Resampled fitness distributions are frequently not Gaussian, and this test does not
 assume they are.
 
-```{r perm-smooth, fig.show = "hold", out.width = "49%", fig.width = 5.5}
-plotPerm(actual = actualFit, distribution = resampleFit,
-         type = "smooth", curve = TRUE, xlim = c(0, 1), xlab = "BER")
+```{r perm-smooth}
 ggplotPerm(actual = actualFit, distribution = resampleFit,
            type = "smooth", curve = TRUE, xlim = c(0, 1), xlab = "BER")
 ```
@@ -103,9 +101,7 @@ ggplotPerm(actual = actualFit, distribution = resampleFit,
 t-distributed and takes the cumulative probability from that. Fine when the
 distribution really is Gaussian; misleading when it is not.
 
-```{r perm-t, fig.show = "hold", out.width = "49%", fig.width = 5.5}
-plotPerm(actual = actualFit, distribution = resampleFit,
-         type = "t", curve = TRUE, xlim = c(0, 1), xlab = "BER")
+```{r perm-t}
 ggplotPerm(actual = actualFit, distribution = resampleFit,
            type = "t", curve = TRUE, xlim = c(0, 1), xlab = "BER")
 ```
@@ -115,9 +111,7 @@ ggplotPerm(actual = actualFit, distribution = resampleFit,
 distribution. Assumption-free, but its resolution is bounded: it can never report a
 p-value below 1/`nResample`. With 25 resamplings, that floor is 0.04.
 
-```{r perm-rank, fig.show = "hold", out.width = "49%", fig.width = 5.5}
-plotPerm(actual = actualFit, distribution = resampleFit,
-         type = "rank", xlim = c(0, 1), xlab = "BER")
+```{r perm-rank}
 ggplotPerm(actual = actualFit, distribution = resampleFit,
            type = "rank", curve = FALSE, xlim = c(0, 1), xlab = "BER")
 ```

@@ -94,7 +94,7 @@ is overfitting.
 
 ## Validation: how many variables?
 
-`plotVAL()` shows the validation metric (here RMSEP) against the number of
+`ggplotVAL()` shows the validation metric (here RMSEP) against the number of
 variables surviving the recursive elimination. Light grey lines are individual
 inner segments, darker grey lines are those averaged within a repetition, and the
 black line is the average over all repetitions. The three vertical lines are the
@@ -104,48 +104,45 @@ The `min` and `max` cutoffs are placed at the outer edges of the region where
 validation performance is within a slack allowance (5% by default) of the best
 value observed, after rescaling the fitness range to {0, 1}.
 
+These articles use MUVR2's `ggplot2` plotting throughout: the `gg`-prefixed
+functions return a `ggplot` object you can theme, save with `ggsave()`, or hand to
+`plotly::ggplotly()` for an interactive version. Each has a base-graphics twin
+(`plotVAL()`, `plotMV()`, …); the [plot gallery](plot-gallery.html) sets the two
+side by side.
+
 ```{r val}
-plotVAL(regrModel)
-```
-
-Every plot in MUVR2 also has a `ggplot2` version, which returns an object you can
-theme, save or make interactive:
-
-```{r val-gg}
 ggplotVAL(regrModel)
 ```
 
 ## Predictions
 
-For regression, `plotMV()` puts the actual target on the x-axis and the
+For regression, `ggplotMV()` puts the actual target on the x-axis and the
 predictions on the y-axis. Small grey dots are the predictions of individual
 repetitions, black dots the consensus — so the spread of grey around each black
 dot tells you how much the prediction moved between repetitions.
 
-```{r mv, fig.show = "hold", out.width = "49%", fig.width = 5.5}
-plotMV(regrModel, model = "min")
+```{r mv}
 ggplotMV(regrModel, model = "min")
 ```
 
 ## Interpreting the PLS model
 
-`biplotPLS()` overlays observation scores and variable loadings from the
+`ggbiplotPLS()` overlays observation scores and variable loadings from the
 consensus PLS fit. Here the samples are shaded by their rye exposure (`xCol = YR2`),
 and the labels are suppressed to keep it readable.
 
-```{r biplot, fig.show = "hold", out.width = "49%", fig.width = 5.5}
+```{r biplot}
 PLSfit <- regrModel$Fit$plsFitMin
 
-biplotPLS(PLSfit, comps = 1:2, xCol = YR2, labPlSc = FALSE, labPlLo = FALSE)
 ggbiplotPLS(PLSfit, comps = 1:2, xCol = YR2, labPlSc = FALSE, labPlLo = FALSE)
 ```
 
 ## Was `nRep` high enough?
 
-`plotStability()` is the check that tells you whether the model has converged. For
-regression it draws three panels — number of selected variables, the proportion of
-them that match the final selection, and Q2 — each as both a per-repetition series
-and a cumulative average.
+`ggplotStability()` is the check that tells you whether the model has converged. For
+regression it draws three panels, as facets — number of selected variables, the
+proportion of them that match the final selection, and Q2 — each as both a
+per-repetition series and a cumulative average.
 
 Individual repetitions bounce around, because samples are randomly assigned to
 segments. What matters is that the **cumulative** curves have flattened. If they
@@ -154,24 +151,17 @@ article's model uses `nRep = `r nRep_article`, deliberately far short of that, s
 expect the curves to still be moving.
 
 ```{r stability, fig.height = 7}
-plotStability(regrModel, model = "min")
-```
-
-The `ggplot2` version puts the same panels in facets:
-
-```{r stability-gg, fig.height = 7}
 ggplotStability(regrModel, model = "min")
 ```
 
 ## Which variables?
 
-`plotVIRank()` shows the rank of each variable across repetitions, as a boxplot;
+`ggplotVIRank()` shows the rank of each variable across repetitions, as a boxplot;
 lower is better. Variables inside the selection of `model` are highlighted. A
 variable that is consistently ranked low across repetitions is a reproducible
 predictor; one whose box is wide is not.
 
-```{r virank, fig.show = "hold", out.width = "49%", fig.width = 5.5, fig.height = 6}
-plotVIRank(regrModel, n = 20)
+```{r virank, fig.height = 6}
 ggplotVIRank(regrModel, n = 20)
 ```
 

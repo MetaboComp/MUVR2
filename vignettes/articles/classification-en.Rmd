@@ -85,8 +85,7 @@ classModel$nVar
 coverage across the range of variable counts is uneven, and with too few
 repetitions the smoothed curve will not show the U-shape it should:
 
-```{r val-fitness, fig.show = "hold", out.width = "49%", fig.width = 5.5}
-plotVAL(classModel)
+```{r val-fitness}
 ggplotVAL(classModel)
 ```
 
@@ -105,11 +104,10 @@ If no amount of tuning produces a usable curve, ignore performance altogether an
 select directly from the *distribution* of how many variables the calibration
 models chose. `mid` is the median; `quantile` sets where `min` and `max` fall.
 
-```{r getvar-quantile, fig.show = "hold", out.width = "49%", fig.width = 5.5}
+```{r getvar-quantile}
 classModelQ <- getVar(classModel, option = "quantile", quantile = 0.25, outlier = "none")
 classModelQ$nVar
 
-plotVAL(classModelQ)
 ggplotVAL(classModelQ)
 ```
 
@@ -136,7 +134,7 @@ head(cbind.data.frame(actual = Yotu, predicted = classModel$yClass))
 
 ## Predictions: the swimlane plot
 
-For classification, `plotMV()` gives a "swimlane" plot. Each lane is one
+For classification, `ggplotMV()` gives a "swimlane" plot. Each lane is one
 observation. Within a lane, the class prediction probabilities are colour-coded and
 nudged apart by class; small dots are individual repetitions, large dots the
 consensus. Misclassified observations are ringed at the probability of their
@@ -147,10 +145,6 @@ high and alone, with its repetitions tightly clustered. A wide spread of small d
 means the prediction moved a lot between repetitions.
 
 ```{r mv, fig.width = 9, fig.height = 5}
-plotMV(classModel)
-```
-
-```{r mv-gg, fig.width = 9, fig.height = 5}
 ggplotMV(classModel)
 ```
 
@@ -165,7 +159,7 @@ ggplotStability(classModel, model = "mid")
 
 ## Which variables?
 
-`plotVIRank()` is also different for elastic net, and necessarily so: there are no
+`ggplotVIRank()` is also different for elastic net, and necessarily so: there are no
 ranks per repetition to draw a boxplot of. Instead each row is one calibration
 model, each column a variable, and red means that variable had a non-zero
 coefficient in that model. Models are ordered from most to fewest variables
@@ -175,10 +169,6 @@ What you are looking for is a solid red block on the left: a core set of variabl
 that got picked regardless of how many variables the model felt like selecting.
 
 ```{r virank, fig.width = 8, fig.height = 5}
-plotVIRank(classModel, model = "mid", maptype = "heatmap")
-```
-
-```{r virank-gg, fig.width = 8, fig.height = 5}
 ggplotVIRank(classModel, model = "mid", maptype = "heatmap")
 ```
 
