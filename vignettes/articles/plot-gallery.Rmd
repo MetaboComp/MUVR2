@@ -30,18 +30,29 @@ data("crisp")
 ```
 
 ```{r models}
-regrModel <- MUVR2(X = XRVIP2, Y = YR2,
-                   nRep = nRep_article, nOuter = nOuter_article,
-                   varRatio = varRatio_article, method = "PLS", modReturn = TRUE)
+regrModel <- MUVR2(X =         XRVIP2,
+                   Y =         YR2,
+                   nRep =      4,     # tutorial uses 35
+                   nOuter =    6,     # tutorial uses 8
+                   varRatio =  0.75,
+                   method =    "PLS",
+                   modReturn = TRUE)
 
-classModel <- MUVR2_EN(X = Xotu, Y = Yotu,
-                       nRep = nRep_article, nOuter = nOuter_article,
-                       DA = TRUE, modReturn = TRUE)
+classModel <- MUVR2_EN(X =         Xotu,
+                       Y =         Yotu,
+                       nRep =      4,     # tutorial uses 35
+                       nOuter =    6,     # tutorial uses 8
+                       DA =        TRUE,
+                       modReturn = TRUE)
 classModel <- getVar(classModel)
 
-MLModel <- MUVR2(X = crispEM, ML = TRUE,
-                 nRep = nRep_article, nOuter = nOuter_article,
-                 varRatio = varRatio_article, method = "RF", modReturn = TRUE)
+MLModel <- MUVR2(X =         crispEM,
+                 ML =        TRUE,
+                 nRep =      4,     # tutorial uses 35
+                 nOuter =    6,     # tutorial uses 8
+                 varRatio =  0.75,
+                 method =    "RF",
+                 modReturn = TRUE)
 ```
 
 ## plotMV — predictions
@@ -266,22 +277,38 @@ set.seed(11)
 distribution <- rnorm(200, mean = 0.15, sd = 0.08)
 actual <- 0.42
 
-plotPerm(actual, distribution, type = "t", xlab = "Q2")
-ggplotPerm(actual, distribution, type = "t", xlab = "Q2")
+plotPerm(actual,
+         distribution,
+         type = "t",
+         xlab = "Q2")
+ggplotPerm(actual,
+           distribution,
+           type = "t",
+           xlab = "Q2")
 ```
 
 Several tests at once:
 
 ```{r perm-multi, fig.show = "hold", out.width = "49%", fig.width = 5.5}
-plotPerm(actual, distribution, multiple_p_shown = c("t", "smooth"), xlab = "Q2")
-ggplotPerm(actual, distribution, multiple_p_shown = c("t", "smooth"), xlab = "Q2")
+plotPerm(actual,
+         distribution,
+         multiple_p_shown = c("t", "smooth"),
+         xlab =             "Q2")
+ggplotPerm(actual,
+           distribution,
+           multiple_p_shown = c("t", "smooth"),
+           xlab =             "Q2")
 ```
 
 The interactive version keeps the p-value label (plotly drops plot annotations, so
 `ggplotPerm()` draws it as a text layer instead) and lets you hover the histogram:
 
 ```{r perm-plotly, fig.width = 8}
-ggplotly(ggplotPerm(actual, distribution, type = "t", xlab = "Q2"), tooltip = "text")
+ggplotly(ggplotPerm(actual,
+                    distribution,
+                    type = "t",
+                    xlab = "Q2"),
+         tooltip = "text")
 ```
 
 See [resampling tests](resampling-tests.html) for what these p-values mean and
@@ -327,9 +354,17 @@ matters.
 ```{r biplot, fig.show = "hold", out.width = "49%", fig.width = 5.5, fig.height = 5.5}
 PLSfit <- regrModel$Fit$plsFitMin
 
-biplotPLS(PLSfit, comps = 1:2, xCol = YR2, labPlSc = FALSE, labPlLo = FALSE)
-ggbiplotPLS(PLSfit, comps = 1:2, xCol = YR2, colLab = "Rye intake",
-            labPlSc = FALSE, labPlLo = FALSE)
+biplotPLS(PLSfit,
+          comps =   1:2,
+          xCol =    YR2,
+          labPlSc = FALSE,
+          labPlLo = FALSE)
+ggbiplotPLS(PLSfit,
+            comps =   1:2,
+            xCol =    YR2,
+            colLab =  "Rye intake",
+            labPlSc = FALSE,
+            labPlLo = FALSE)
 ```
 
 ## plotPred
@@ -359,5 +394,9 @@ And saving one:
 
 ```r
 p <- ggplotVIRank(regrModel, n = 20)
-ggsave("virank.png", p, width = 8, height = 6, dpi = 300)
+ggsave("virank.png",
+       p,
+       width =  8,
+       height = 6,
+       dpi =    300)
 ```

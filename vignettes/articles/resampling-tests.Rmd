@@ -49,12 +49,12 @@ data("mosquito")
 ```{r actual}
 model <- 1   # 1 = min, 2 = mid, 3 = max
 
-MUVR2_actual <- MUVR2(X = Xotu,
-                      Y = Yotu,
-                      nRep = nRep_article,
-                      nOuter = 5,
-                      varRatio = 0.75,
-                      method = "RF",
+MUVR2_actual <- MUVR2(X =         Xotu,
+                      Y =         Yotu,
+                      nRep =      4,     # tutorial uses 35
+                      nOuter =    5,
+                      varRatio =  0.75,
+                      method =    "RF",
                       modReturn = TRUE)
 
 actualFit <- MUVR2_actual$ber[model]
@@ -93,8 +93,12 @@ Resampled fitness distributions are frequently not Gaussian, and this test does 
 assume they are.
 
 ```{r perm-smooth}
-ggplotPerm(actual = actualFit, distribution = resampleFit,
-           type = "smooth", curve = TRUE, xlim = c(0, 1), xlab = "BER")
+ggplotPerm(actual =       actualFit,
+           distribution = resampleFit,
+           type =         "smooth",
+           curve =        TRUE,
+           xlim =         c(0, 1),
+           xlab =         "BER")
 ```
 
 **Student's t (`type = "t"`)** — assumes the resampled distribution is
@@ -102,8 +106,12 @@ t-distributed and takes the cumulative probability from that. Fine when the
 distribution really is Gaussian; misleading when it is not.
 
 ```{r perm-t}
-ggplotPerm(actual = actualFit, distribution = resampleFit,
-           type = "t", curve = TRUE, xlim = c(0, 1), xlab = "BER")
+ggplotPerm(actual =       actualFit,
+           distribution = resampleFit,
+           type =         "t",
+           curve =        TRUE,
+           xlim =         c(0, 1),
+           xlab =         "BER")
 ```
 
 **Rank-order (`type = "rank"`)** — the non-parametric test of Szymańska *et al.*
@@ -112,15 +120,22 @@ distribution. Assumption-free, but its resolution is bounded: it can never repor
 p-value below 1/`nResample`. With 25 resamplings, that floor is 0.04.
 
 ```{r perm-rank}
-ggplotPerm(actual = actualFit, distribution = resampleFit,
-           type = "rank", curve = FALSE, xlim = c(0, 1), xlab = "BER")
+ggplotPerm(actual =       actualFit,
+           distribution = resampleFit,
+           type =         "rank",
+           curve =        FALSE,
+           xlim =         c(0, 1),
+           xlab =         "BER")
 ```
 
 You can put several of them on one plot to see how much they disagree:
 
 ```{r perm-multi}
-ggplotPerm(actual = actualFit, distribution = resampleFit,
-           multiple_p_shown = c("t", "smooth"), xlim = c(0, 1), xlab = "BER")
+ggplotPerm(actual =       actualFit,
+           distribution =     resampleFit,
+           multiple_p_shown = c("t", "smooth"),
+           xlim =             c(0, 1),
+           xlab =             "BER")
 ```
 
 `pPerm()` gives you the p-value without the plot, and `permutationPlot()` /
@@ -170,8 +185,12 @@ comparison <- rbind(
 ggplot(comparison, aes(x = BER, fill = source)) +
   geom_density(alpha = 0.5) +
   geom_vline(xintercept = actualFit, linewidth = 0.8) +
-  annotate("text", x = actualFit, y = 0, label = "actual model",
-           hjust = -0.1, vjust = -0.5) +
+  annotate("text",
+           x =     actualFit,
+           y =     0,
+           label = "actual model",
+           hjust = -0.1,
+           vjust = -0.5) +
   labs(fill = NULL, y = "Density") +
   theme_bw()
 ```

@@ -45,15 +45,23 @@ classification) analysis, though it is inferred anyway when `Y` is a factor or
 character vector.
 
 ```{r fit}
-classModel <- MUVR2_EN(X = Xotu,
-                       Y = Yotu,
-                       nRep = nRep_article,      # tutorial uses nRep = 35
-                       nOuter = nOuter_article,  # tutorial uses nOuter = 8
-                       DA = TRUE,
+classModel <- MUVR2_EN(X =         Xotu,
+                       Y =         Yotu,
+                       nRep =      4,     # tutorial uses 35
+                       nOuter =    6,     # tutorial uses 8
+                       DA =        TRUE,
                        modReturn = TRUE)
 ```
 
 ## Why elastic net needs `getVar()`
+
+Elastic net runs in the same repeated double cross-validation scheme as PLS and RF,
+but with one structural difference: it does **not** perform recursive variable
+elimination inside the loop (there is no elimination step in the diagram below).
+
+```{r en-scheme, echo = FALSE, out.width = "100%", fig.cap = "The MUVR2 scheme for elastic net — the same rdCV as PLS and RF, but with no recursive variable-elimination loop. Figure from the MUVR2 tutorial."}
+knitr::include_graphics("figures/en-scheme.png")
+```
 
 PLS and RF whittle variables away by recursive elimination, which produces a
 continuous validation curve and hence an obvious place to cut. **Elastic net does
@@ -77,7 +85,10 @@ same way PLS and RF are cut — at the edges of the region within `robust` (5% b
 default) of the best value.
 
 ```{r getvar-fitness}
-classModel <- getVar(classModel, option = "fitness", robust = 0.05, outlier = "none")
+classModel <- getVar(classModel,
+                     option =  "fitness",
+                     robust =  0.05,
+                     outlier = "none")
 classModel$nVar
 ```
 
@@ -105,7 +116,10 @@ select directly from the *distribution* of how many variables the calibration
 models chose. `mid` is the median; `quantile` sets where `min` and `max` fall.
 
 ```{r getvar-quantile}
-classModelQ <- getVar(classModel, option = "quantile", quantile = 0.25, outlier = "none")
+classModelQ <- getVar(classModel,
+                      option =   "quantile",
+                      quantile = 0.25,
+                      outlier =  "none")
 classModelQ$nVar
 
 ggplotVAL(classModelQ)

@@ -38,13 +38,13 @@ length(unique(IDR))
 The only change to the model call is `ID = IDR`:
 
 ```{r fit-id}
-regrModel <- MUVR2(X = XRVIP,
-                   Y = YR,
-                   ID = IDR,                 # <- keeps an individual's samples together
-                   nRep = nRep_article,
-                   nOuter = nOuter_article,
-                   varRatio = varRatio_article,
-                   method = "PLS",
+regrModel <- MUVR2(X =         XRVIP,
+                   Y =         YR,
+                   ID =        IDR,   # <- keeps an individual's samples together
+                   nRep =      4,     # tutorial uses 35
+                   nOuter =    6,     # tutorial uses 8
+                   varRatio =  0.75,
+                   method =    "PLS",
                    modReturn = TRUE)
 
 regrModel$fitMetric
@@ -64,19 +64,62 @@ effect, which is the whole question.
 If a standard classification is the multivariate analogue of an unpaired t-test,
 multilevel analysis is the analogue of a **paired** one.
 
-Mechanically, multilevel analysis is not a new algorithm at all. It is a
-preprocessing trick: instead of modelling the two conditions as separate
-observations, you model their *difference*.
+(This is unrelated to "multilevel models" in the classical-statistics sense of
+random effects. Same word, different thing.)
+
+### Step 1: you build the effect matrix
+
+Multilevel analysis is **not a new modelling algorithm** — it is a preprocessing
+strategy. Instead of modelling the two conditions as separate observations, you
+collapse each subject's pair into a single within-subject *difference*, the
+**effect matrix**:
 
 $$EM = X_B - X_A \qquad \text{(or } EM = \log(X_B / X_A) \text{)}$$
 
-That **effect matrix** becomes the predictor matrix, and the target is a dummy
-variable that MUVR2 constructs internally. **You must compute the effect matrix
-yourself**; MUVR2 will not do it for you. Then pass it as `X` with `ML = TRUE`,
-and pass no `Y` at all.
+Subtracting a subject's two conditions cancels that subject's own baseline, so the
+between-subject variation disappears and only the within-subject treatment effect
+is left. **You compute this yourself** — MUVR2 does not; it expects the predictors
+you hand it to already be within-subject contrasts.
 
-(This is unrelated to "multilevel models" in the classical-statistics sense of
-random effects. Same word, different thing.)
+Because the effect matrix is a *single* contrast per subject, this workflow is for
+**paired, two-condition designs**: before vs after, or treatment A vs B in a
+crossover. It does not extend to repeated-measures designs with three or more
+conditions — there is no single difference to take.
+
+### Step 2: MUVR2 builds the response for you
+
+You pass the effect matrix as `X` with `ML = TRUE`, and **no `Y`**. That last part
+puzzles people: every other MUVR2 analysis needs a target, so what is a supervised
+learner predicting here?
+
+The biological comparison is *already encoded in the predictors* — it is the
+direction of each difference. MUVR2 turns that into an ordinary supervised problem
+internally: it stacks the effect matrix on top of its own negation and labels the
+two halves −1 and +1 (`R/MUVR2.R`):
+
+```r
+X <- rbind(EM, -EM)     # each subject appears twice: the difference and its mirror
+Y <- c(-1, +1)          # ... labelled -1 and +1
+```
+
+```{r ml-scheme, echo = FALSE, out.width = "100%", fig.cap = "How MUVR2 sets up a multilevel analysis internally. You supply the effect matrix (X_B − X_A); MUVR2 stacks it with its negation and assigns the artificial ±1 response. Figure from the MUVR2 tutorial."}
+knitr::include_graphics("figures/multilevel-scheme.png")
+```
+
+MUVR2 then fits this as a regression towards −1/+1 (you will see the message
+`Multilevel -> Regression on (-1, 1)`). Because the two halves are mirror images,
+the only thing a model *can* learn is the multivariate direction that consistently
+separates a positive treatment effect from a negative one. The variables driving
+that separation are those most consistently associated with the treatment effect
+across subjects.
+
+**The ±1 response is a mathematical device, not a biological grouping.** It does
+*not* stand for treatment groups or phenotypes — that comparison already lives in
+the effect matrix. The artificial labels exist only to phrase the estimation as a
+task a supervised algorithm (RF or PLS) can solve. This is why you supply no `Y`:
+there is no biological outcome left to predict once the contrast is in `X`.
+
+### The data
 
 The `crisp` data is a crossover study: untargeted plasma metabolomics from 21
 subjects who each received two different breakfast interventions. `crispEM` is
@@ -89,12 +132,12 @@ dim(crispEM)
 ```
 
 ```{r ml-fit}
-MLModel <- MUVR2(X = crispEM,
-                 ML = TRUE,      # <- multilevel; note there is no Y argument
-                 nRep = nRep_article,
-                 nOuter = nOuter_article,
-                 varRatio = varRatio_article,
-                 method = "RF",
+MLModel <- MUVR2(X =         crispEM,
+                 ML =        TRUE,   # <- multilevel; note there is no Y argument
+                 nRep =      4,      # tutorial uses 35
+                 nOuter =    6,      # tutorial uses 8
+                 varRatio =  0.75,
+                 method =    "RF",
                  modReturn = TRUE)
 ```
 
@@ -149,12 +192,15 @@ head(getVIRank(MLModel, model = "min"))
 
 ## Recap
 
-Any of the three cores — PLS, RF, elastic net — can do any of the three problem
-types: regression, classification, multilevel. And all of them accept `ID`.
+This article covered the two kinds of sample dependency and their different fixes:
 
-What differs between the cores is *how variables get selected*: `MUVR2()` (PLS and
-RF) does it by recursive elimination during fitting, and therefore reports separate
-predictions and fitness for min, mid and max. `MUVR2_EN()` does it afterwards, from
-how often each variable earned a non-zero coefficient, and therefore reports one
-prediction and one fitness — with min/mid/max variable selections layered on top by
-[`getVar()`](classification-en.html).
+- **Repeated samples with no systematic effect** — a nuisance. Keep each
+  individual's samples in the same cross-validation segment with `ID`. This works
+  with any core and any problem type.
+- **A systematic within-individual effect** — the signal. Reduce each subject to a
+  within-subject effect matrix and fit it with `ML = TRUE`. MUVR2 builds the ±1
+  response internally and estimates the direction of the common treatment effect,
+  for paired two-condition designs.
+
+Both are preprocessing decisions made before the model sees the data; the modelling
+itself is the same repeated double cross-validation used throughout MUVR2.

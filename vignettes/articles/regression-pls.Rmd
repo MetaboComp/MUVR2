@@ -33,6 +33,22 @@ dim(XRVIP2)
 length(YR2)
 ```
 
+## How MUVR2 works
+
+MUVR2 wraps the core method (PLS, RF or elastic net) in a **repeated double
+cross-validation** (rdCV) scheme. The data is split into outer segments; each outer
+segment is held out as a test set while the rest is used to tune the model and — for
+PLS and RF — to eliminate uninformative variables recursively. The whole procedure
+is repeated many times to average out the luck of the split. Every prediction a
+MUVR2 model reports comes from a test set that was never seen during its own
+training or tuning.
+
+```{r rdcv-scheme, echo = FALSE, out.width = "100%", fig.cap = "The MUVR2 repeated double cross-validation scheme for PLS and RF. Figure from the MUVR2 tutorial."}
+knitr::include_graphics("figures/rdcv-scheme.png")
+```
+
+That machinery is behind the settings below and every plot further down.
+
 ## Fitting the model
 
 Three settings drive the algorithm:
@@ -51,12 +67,12 @@ of the number of cores — and confirm convergence with `plotStability()`. This
 article uses a small model so that the site builds in reasonable time:
 
 ```{r fit}
-regrModel <- MUVR2(X = XRVIP2,
-                   Y = YR2,
-                   nRep = nRep_article,      # tutorial uses nRep = 35
-                   nOuter = nOuter_article,  # tutorial uses nOuter = 8
-                   varRatio = varRatio_article,
-                   method = "PLS",
+regrModel <- MUVR2(X =         XRVIP2,
+                   Y =         YR2,
+                   nRep =      4,     # tutorial uses 35
+                   nOuter =    6,     # tutorial uses 8
+                   varRatio =  0.75,
+                   method =    "PLS",
                    modReturn = TRUE)
 ```
 
@@ -65,8 +81,13 @@ For a real analysis, register a parallel backend first and MUVR2 will use it:
 ```r
 cl <- makeCluster(detectCores() - 1)
 registerDoParallel(cl)
-regrModel <- MUVR2(X = XRVIP2, Y = YR2, nRep = 35, nOuter = 8,
-                   varRatio = 0.85, method = "PLS", modReturn = TRUE)
+regrModel <- MUVR2(X =         XRVIP2,
+                   Y =         YR2,
+                   nRep =      35,
+                   nOuter =    8,
+                   varRatio =  0.85,
+                   method =    "PLS",
+                   modReturn = TRUE)
 stopCluster(cl)
 ```
 
@@ -134,7 +155,11 @@ and the labels are suppressed to keep it readable.
 ```{r biplot}
 PLSfit <- regrModel$Fit$plsFitMin
 
-ggbiplotPLS(PLSfit, comps = 1:2, xCol = YR2, labPlSc = FALSE, labPlLo = FALSE)
+ggbiplotPLS(PLSfit,
+            comps =   1:2,
+            xCol =    YR2,
+            labPlSc = FALSE,
+            labPlLo = FALSE)
 ```
 
 ## Was `nRep` high enough?
@@ -147,8 +172,8 @@ per-repetition series and a cumulative average.
 Individual repetitions bounce around, because samples are randomly assigned to
 segments. What matters is that the **cumulative** curves have flattened. If they
 have not, raise `nRep`. Convergence usually arrives within 20–50 repetitions; this
-article's model uses `nRep = `r nRep_article`, deliberately far short of that, so
-expect the curves to still be moving.
+article's model uses `nRep = 4`, deliberately far short of that, so expect the
+curves to still be moving.
 
 ```{r stability, fig.height = 7}
 ggplotStability(regrModel, model = "min")
@@ -164,6 +189,12 @@ predictor; one whose box is wide is not.
 ```{r virank, fig.height = 6}
 ggplotVIRank(regrModel, n = 20)
 ```
+
+The y-axis labels are the column names of `X`. In `freelive2` these are LC–MS
+feature identifiers that encode each feature's chromatographic mode, *m/z* and
+retention time — e.g. `RPX100.0527.1.76` is the reversed-phase feature at
+*m/z* ≈ 100.0527 and retention time ≈ 1.76 min. Your own data will carry whatever
+names you gave its columns.
 
 The same ranking as a table:
 
