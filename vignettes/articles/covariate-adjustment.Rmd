@@ -42,11 +42,11 @@ question — but it makes the mechanism visible.)
 library(MUVR2)
 data("mosquito")
 
-classModel <- MUVR2_EN(X = Xotu,
-                       Y = Yotu,
-                       nRep = nRep_article,
-                       nOuter = nOuter_article,
-                       DA = TRUE,
+classModel <- MUVR2_EN(X =         Xotu,
+                       Y =         Yotu,
+                       nRep =      4,     # tutorial uses 35
+                       nOuter =    6,     # tutorial uses 8
+                       DA =        TRUE,
                        modReturn = TRUE)
 classModel <- getVar(classModel)
 ```
@@ -88,12 +88,12 @@ page reproduces exactly that depends on which variables land in its `max` select
 ### Refitting with the covariate held in
 
 ```{r fit-adjusted}
-classModel2 <- MUVR2_EN(X = Xotu,
-                        Y = Yotu,
-                        keep = c(covariate),   # <- the adjustment
-                        nRep = nRep_article,
-                        nOuter = nOuter_article,
-                        DA = TRUE,
+classModel2 <- MUVR2_EN(X =         Xotu,
+                        Y =         Yotu,
+                        keep =      c(covariate),   # <- the adjustment
+                        nRep =      4,
+                        nOuter =    6,
+                        DA =        TRUE,
                         modReturn = TRUE)
 classModel2 <- getVar(classModel2)
 ```

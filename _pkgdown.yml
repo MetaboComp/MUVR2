@@ -40,6 +40,8 @@ navbar:
       - text: "Analysis"
       - text: Regression with PLS
         href: articles/regression-pls.html
+      - text: Classification with PLS or RF
+        href: articles/classification-pls.html
       - text: Classification with elastic net
         href: articles/classification-en.html
       - text: Repeated samples and multilevel analysis
@@ -60,6 +62,7 @@ articles:
   navbar: Analysis
   contents:
   - '"articles/regression-pls"'
+  - '"articles/classification-pls"'
   - '"articles/classification-en"'
   - '"articles/multilevel"'
 - title: Going further

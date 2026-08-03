@@ -15,7 +15,9 @@
   smaller per-repetition dots — useful for the classification swimlane, which
   gets crowded, though it works for every model type.
 
-* A pkgdown website, with the tutorial rewritten as articles and a plot gallery
+* A pkgdown website, with the tutorial rewritten as step-by-step articles —
+  regression, classification with a core method and with elastic net, multilevel
+  analysis, covariate adjustment and resampling tests — and a plot gallery
   comparing the base, ggplot2 and plotly versions of every plot side by side.
 
 ## Bug fixes
