@@ -4,10 +4,21 @@
 \name{Yotu}
 \alias{Yotu}
 \title{Village of capture of mosquitos for the classification tutorial}
+\format{
+A factor of length 29 with three levels: VK3, VK5, VK7.
+}
+\source{
+Buck M. et al. (2016). \emph{Scientific Reports}, 6(1), 1-9.
+}
 \usage{
 data(mosquito)
 }
 \description{
-Village of capture of mosquitos for the classification tutorial
+The village each of the 29 mosquitoes in \link{Xotu} was caught in. This is the
+categorical target variable of the classification examples. Class sizes are 10,
+11 and 8, which is why \code{nOuter} should not exceed 8 for this data.
+}
+\seealso{
+\link{Xotu}
 }
 \keyword{data}

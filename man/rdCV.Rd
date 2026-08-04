@@ -33,7 +33,7 @@ rdCV(
 
 \item{nInner}{Number of inner CV loop segments.}
 
-\item{DA}{Logical for Classification (discriminant analysis) (Defaults do FALSE, i.e. regression). PLS is limited to two-class problems (see `Y` above).}
+\item{DA}{Logical for Classification (discriminant analysis) (Defaults do FALSE, i.e. regression). PLS is limited to two-class problems (see \code{Y} above).}
 
 \item{fitness}{Fitness function for model tuning (choose either 'AUROC' or 'MISS'or 'BER' for classification; or 'RMSEP' (default) for regression.)}
 
@@ -45,7 +45,7 @@ rdCV(
 
 \item{modReturn}{Logical for returning outer segment models (defaults to FALSE)}
 
-\item{logg}{Logical for whether to sink model progressions to `log.txt`}
+\item{logg}{Logical for whether to sink model progressions to \code{log.txt}}
 }
 \value{
 An object containing stuff...

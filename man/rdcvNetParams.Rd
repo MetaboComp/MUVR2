@@ -24,7 +24,7 @@ rdcvNetParams(
 \item{oneHot}{TRUE or FALSE using onehot endcoding or not}
 }
 \value{
-a `methParam` object
+a \code{methParam} object
 }
 \description{
 Custom parameters can be set in the function call or by manually setting "slots" in the resulting methParam object.

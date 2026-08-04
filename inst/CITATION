@@ -1,0 +1,32 @@
+citHeader("To cite MUVR2 in publications, use the 2024 paper for the package itself, and the 2019 paper for the underlying MUVR algorithm:")
+
+bibentry(
+  bibtype = "Article",
+  title   = "Adjusting for covariates and assessing modeling fitness in machine learning using MUVR2",
+  author  = c(person("Yingxiao", "Yan"),
+              person("Tessa", "Schillemans"),
+              person("Viktor", "Skantze"),
+              person("Carl", "Brunius")),
+  journal = "Bioinformatics Advances",
+  year    = "2024",
+  volume  = "4",
+  number  = "1",
+  pages   = "vbae051",
+  doi     = "10.1093/bioadv/vbae051"
+)
+
+bibentry(
+  bibtype = "Article",
+  title   = "Variable selection and validation in multivariate modelling",
+  author  = c(person("Lin", "Shi"),
+              person("Johan A.", "Westerhuis"),
+              person("Johan", "Rosen"),
+              person("Rikard", "Landberg"),
+              person("Carl", "Brunius")),
+  journal = "Bioinformatics",
+  year    = "2019",
+  volume  = "35",
+  number  = "6",
+  pages   = "972--980",
+  doi     = "10.1093/bioinformatics/bty710"
+)

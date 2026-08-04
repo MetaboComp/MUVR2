@@ -1,0 +1,131 @@
+---
+title: "Classification with PLS or RF"
+description: >
+  Classify samples with a core method — the same recursive-elimination workflow as
+  the regression article, but with a categorical target.
+---
+
+```{r, include = FALSE}
+source("_common.R")
+```
+
+Classification in MUVR2 comes in two flavours. This article uses a **core method**
+(PLS or random forest) through `MUVR2()`; the [elastic net](classification-en.html)
+version, `MUVR2_EN()`, behaves differently enough to need its own walkthrough. With
+a core method the analysis is the same repeated double cross-validation with
+recursive variable elimination used for [regression](regression-pls.html) — the only
+change is that the target is a categorical variable.
+
+We use the `mosquito` data: 16S rRNA microbiota composition of 29 *Anopheles
+gambiae* mosquitoes caught in three villages in western Burkina Faso. The question
+is whether a mosquito's microbiota tells you which village it came from.
+
+```{r setup}
+library(MUVR2)
+library(doParallel)
+
+data("mosquito")
+```
+
+`mosquito` loads a categorical target `Yotu` (three villages) and a numeric matrix
+`Xotu` of 1678 operational taxonomic units (OTUs).
+
+```{r data}
+dim(Xotu)
+table(Yotu)
+```
+
+That class table matters for one setting: as a rule, **`nOuter` should not exceed
+the size of the smallest class**, so that every class can appear in every segment.
+Here the smallest class has 8 members, so `nOuter` ≤ 8.
+
+## Fitting the model
+
+The call is the regression call with a categorical `Y`. `DA = TRUE` asks for a
+discriminant (i.e. classification) analysis; it is inferred anyway when `Y` is a
+factor or character vector. Switch `method` to `"RF"` for a random forest core.
+
+```{r fit}
+classModel <- MUVR2(X =         Xotu,
+                    Y =         Yotu,
+                    nRep =      4,     # tutorial uses 35
+                    nOuter =    6,     # tutorial uses 8
+                    varRatio =  0.75,
+                    method =    "PLS",
+                    DA =        TRUE,
+                    modReturn = TRUE)
+```
+
+## What came out
+
+Classification uses different fitness metrics from regression — balanced error rate
+(BER) by default, with the number of misclassifications available too. Unlike
+elastic net, a core method **does** do recursive elimination, so you get the full
+`min`/`mid`/`max` triple: one BER, one misclassification count and one variable
+count for each.
+
+```{r metrics}
+classModel$ber    # balanced error rate for the min, mid and max models
+classModel$miss   # misclassifications
+classModel$nVar   # number of variables in each
+```
+
+```{r classes}
+head(cbind.data.frame(actual = Yotu, predicted = classModel$yClass$mid))
+```
+
+## Validation: how many variables?
+
+`ggplotVAL()` shows the validation metric — here BER — against the number of
+variables surviving the recursive elimination, with the `min`, `mid` and `max`
+selections marked.
+
+```{r val}
+ggplotVAL(classModel)
+```
+
+## Predictions: the swimlane plot
+
+For classification, `ggplotMV()` gives a "swimlane" plot: each lane is one
+observation, the class prediction probabilities are colour-coded and nudged apart
+by class, small dots are individual repetitions and large dots the consensus, and
+misclassified observations are ringed at the probability of their true class. With
+a core method you can switch between the three models with the `model` argument.
+
+```{r mv, fig.width = 9, fig.height = 5}
+ggplotMV(classModel, model = "mid")
+```
+
+## Stability
+
+Same as regression, except the bottom panels now show misclassifications and BER
+instead of Q2. Watch the cumulative curves: once they flatten, `nRep` is high
+enough.
+
+```{r stability, fig.height = 8}
+ggplotStability(classModel, model = "mid")
+```
+
+## Which variables?
+
+Because a core method ranks variables by recursive elimination, `ggplotVIRank()`
+draws the familiar rank boxplot — lower is a more reproducible predictor — rather
+than the elastic net selection map.
+
+```{r virank, fig.height = 6}
+ggplotVIRank(classModel, model = "mid", n = 20)
+```
+
+```{r getvirank}
+head(getVIRank(classModel, model = "mid"))
+```
+
+## Next steps
+
+- Elastic net is the other way to classify, and the only core that supports
+  [covariate adjustment](covariate-adjustment.html); see
+  [classification with elastic net](classification-en.html).
+- Before believing any of this, check the model against the null with
+  [resampling tests](resampling-tests.html).
+- When individuals contribute several samples, see
+  [repeated samples](multilevel.html).

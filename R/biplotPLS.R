@@ -2,7 +2,7 @@
 #'
 #' Makes a biplot of a fitted object (e.g. from a MUVR with PLS core).
 #'
-#' @param fit A PLS fit (e.g. from MUVRclassObject$Fit[[2]])
+#' @param fit A PLS fit (e.g. from `MUVRclassObject$Fit[[2]]`)
 #' @param comps Which components to plot
 #' @param xCol (Optional) Continuous vector for grey scale gradient of observation (sample) color (e.g. Y vector in regression analysis)
 #' @param labPlSc Boolean to plot observation (sample) names (defaults to TRUE)
@@ -14,6 +14,7 @@
 #' @param colLo Colors for variable loadings (defaults to red)
 #' @param supLeg Boolean for whether to suppress legends
 #' @return A PLS biplot
+#' @seealso [ggbiplotPLS()] for the ggplot2 version
 #' @export
 #' @examples
 #' \donttest{

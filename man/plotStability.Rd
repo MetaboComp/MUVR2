@@ -12,7 +12,7 @@ plotStability(MUVRrdCVclassObject, model = "min", VAll, nVarLim, missLim)
 \item{model}{'min' (default), 'mid' or 'max'}
 
 \item{VAll}{Option of specifying which variables (i.e. names) to consider as reference set.
-Defaults to variables selected from the `model` of the `MUVRrdCVclassObject`}
+Defaults to variables selected from the \code{model} of the \code{MUVRrdCVclassObject}}
 
 \item{nVarLim}{Option of specifying upper limit for number of variables}
 
@@ -39,4 +39,7 @@ regrModel <- MUVR2(X = XRVIP2,
                    modReturn = TRUE)
 plotStability(regrModel, model = "min")
 }
+}
+\seealso{
+\code{\link[=ggplotStability]{ggplotStability()}} for the ggplot2 version
 }

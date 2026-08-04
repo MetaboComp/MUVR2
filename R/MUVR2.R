@@ -23,8 +23,6 @@
 #' @param weighing_matrix The matrix used for get a miss classfication score
 #' @param ... additional argument
 #' @return A 'MUVR' object
-#' @importFrom randomForest randomForest
-#' @importFrom ranger ranger
 #' @export
 #' @examples
 #' \donttest{

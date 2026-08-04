@@ -7,7 +7,7 @@
 plotPCA(pca, PC1 = 1, PC2 = 2, file, colVar, symbVar, main = "")
 }
 \arguments{
-\item{pca}{A `prcomp` object}
+\item{pca}{A \code{prcomp} object}
 
 \item{PC1}{Principal component on x-axis}
 
@@ -22,7 +22,7 @@ plotPCA(pca, PC1 = 1, PC2 = 2, file, colVar, symbVar, main = "")
 \item{main}{If provided provides a main title of the plot}
 }
 \value{
-A PCA score plot. Exported as png if `file` specified in function call.
+A PCA score plot. Exported as png if \code{file} specified in function call.
 }
 \description{
 Customised PCA score plots with the possibility to choose PCs, exporting to png and the possibility to add color or different plotting symbols according to variable.
@@ -31,4 +31,7 @@ Customised PCA score plots with the possibility to choose PCs, exporting to png 
 data("freelive2")
 pca_object<-prcomp(XRVIP2)
 plotPCA(pca_object)
+}
+\seealso{
+\code{\link[=ggplotPCA]{ggplotPCA()}} for the ggplot2 version
 }

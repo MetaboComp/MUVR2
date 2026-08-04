@@ -7,7 +7,7 @@
 plotVAL(MUVRclassObject, show_outlier = TRUE)
 }
 \arguments{
-\item{MUVRclassObject}{An object of class `MUVR`}
+\item{MUVRclassObject}{An object of class \code{MUVR}}
 
 \item{show_outlier}{Boolean, show outliers}
 }
@@ -32,4 +32,7 @@ regrModel <- MUVR2(X = XRVIP2,
                    modReturn = TRUE)
 plotVAL(regrModel)
 }
+}
+\seealso{
+\code{\link[=ggplotVAL]{ggplotVAL()}} for the ggplot2 version
 }

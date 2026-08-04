@@ -4,10 +4,24 @@
 \name{crispEM}
 \alias{crispEM}
 \title{Effect matrix for the crisp multilevel tutorial}
+\format{
+A numeric matrix with 21 rows (one per individual) and 1508 columns
+(metabolic features).
+}
+\source{
+Hanhineva K. et al., as used in the MUVR2 tutorial.
+}
 \usage{
 data(crisp)
 }
 \description{
-Effect matrix for the crisp multilevel tutorial
+Untargeted plasma metabolomics from a crossover dietary intervention: 21
+subjects each received two different breakfast meals. The data is supplied as
+an \emph{effect matrix}, i.e. the within-individual difference in feature
+area-under-the-curve between the two meals, which is the form multilevel
+analysis needs (see \code{vignette("multilevel")}).
+}
+\seealso{
+\code{\link[=MUVR2]{MUVR2()}} with \code{ML = TRUE}
 }
 \keyword{data}

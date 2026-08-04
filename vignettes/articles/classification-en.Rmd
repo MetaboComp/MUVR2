@@ -1,0 +1,199 @@
+---
+title: "Classification with elastic net"
+description: >
+  Classify samples with the elastic net core, and pick variables from a model
+  that does not do recursive elimination.
+---
+
+```{r, include = FALSE}
+source("_common.R")
+```
+
+This article walks through a classification analysis with an elastic net (EN)
+core, using the `mosquito` data: 16S rRNA microbiota composition of 29
+*Anopheles gambiae* mosquitoes caught in three villages in western Burkina Faso.
+The question is whether a mosquito's microbiota tells you which village it came
+from.
+
+Elastic net behaves differently enough from PLS and RF that it needs its own
+walkthrough, even though the outline of the analysis is the same.
+
+```{r setup}
+library(MUVR2)
+library(doParallel)
+
+data("mosquito")
+```
+
+`mosquito` loads a categorical target `Yotu` (three villages) and a numeric matrix
+`Xotu` of 1678 operational taxonomic units (OTUs).
+
+```{r data}
+dim(Xotu)
+table(Yotu)
+```
+
+That class table is worth a moment: as a rule, **`nOuter` should not exceed the
+size of the smallest class**, so that every class can appear in every segment.
+Here the smallest class has 8 members, so `nOuter` ≤ 8.
+
+## Fitting the model
+
+Use `MUVR2_EN()` rather than `MUVR2()`. There is no `method` argument — the
+function only does elastic net. `DA = TRUE` asks for a discriminant (i.e.
+classification) analysis, though it is inferred anyway when `Y` is a factor or
+character vector.
+
+```{r fit}
+classModel <- MUVR2_EN(X =         Xotu,
+                       Y =         Yotu,
+                       nRep =      4,     # tutorial uses 35
+                       nOuter =    6,     # tutorial uses 8
+                       DA =        TRUE,
+                       modReturn = TRUE)
+```
+
+## Why elastic net needs `getVar()`
+
+Elastic net runs in the same repeated double cross-validation scheme as PLS and RF,
+but with one structural difference: it does **not** perform recursive variable
+elimination inside the loop (there is no elimination step in the diagram below).
+
+```{r en-scheme, echo = FALSE, out.width = "100%", fig.cap = "The MUVR2 scheme for elastic net — the same rdCV as PLS and RF, but with no recursive variable-elimination loop. Figure from the MUVR2 tutorial."}
+knitr::include_graphics("figures/en-scheme.png")
+```
+
+PLS and RF whittle variables away by recursive elimination, which produces a
+continuous validation curve and hence an obvious place to cut. **Elastic net does
+no such elimination.** It ranks a variable by how often it received a non-zero
+beta coefficient across the `nRep` × `nOuter` calibration models — and that is all
+it gives you. There is no curve, so `MUVR2_EN()` deliberately does not report a
+variable selection:
+
+```{r no-nvar}
+is.null(classModel$Var)
+head(classModel$varTable)  # times each variable had a non-zero coefficient
+```
+
+Variable selection is a separate, deliberate step, done with `getVar()`, and it
+offers two options.
+
+### Option 1: `option = "fitness"`
+
+Smooth a curve through the `nRep` × `nOuter` fitness estimates, then cut it the
+same way PLS and RF are cut — at the edges of the region within `robust` (5% by
+default) of the best value.
+
+```{r getvar-fitness}
+classModel <- getVar(classModel,
+                     option =  "fitness",
+                     robust =  0.05,
+                     outlier = "none")
+classModel$nVar
+```
+
+**Look at the curve before you trust it.** Each point is one calibration model, so
+coverage across the range of variable counts is uneven, and with too few
+repetitions the smoothed curve will not show the U-shape it should:
+
+```{r val-fitness}
+ggplotVAL(classModel)
+```
+
+If the curve is not U-shaped, that is the model telling you `nRep` (and possibly
+`nOuter`) is too low. This article's model is small, so do not be surprised if the
+curve here is unconvincing — with `nRep = 35, nOuter = 8` and its 280 underlying
+fitness estimates, the tutorial's version has a well-defined global minimum.
+
+Other levers: raise or lower `robust` to change the slack allowance, set
+`outlier = "IQR"` or `outlier = "residual"` to drop outlying points that make the
+curve squiggle, and lower `span` to reduce smoothing.
+
+### Option 2: `option = "quantile"`
+
+If no amount of tuning produces a usable curve, ignore performance altogether and
+select directly from the *distribution* of how many variables the calibration
+models chose. `mid` is the median; `quantile` sets where `min` and `max` fall.
+
+```{r getvar-quantile}
+classModelQ <- getVar(classModel,
+                      option =   "quantile",
+                      quantile = 0.25,
+                      outlier =  "none")
+classModelQ$nVar
+
+ggplotVAL(classModelQ)
+```
+
+This puts the selections where the data actually is, at the cost of no longer
+taking prediction performance into account. It is a fallback, not a default.
+
+## What came out
+
+Classification uses different fitness metrics from regression — balanced error
+rate (BER) by default. And note the other elastic net difference: because variable
+selection happens *after* fitting, there is only **one** model, hence one BER and
+one set of predictions, not one each for min/mid/max.
+
+```{r metrics}
+classModel$ber    # one balanced error rate, not three
+classModel$miss   # number of misclassifications
+classModel$auc    # AUROC per class
+classModel$nVar   # variables in the min, mid and max selections
+```
+
+```{r classes}
+head(cbind.data.frame(actual = Yotu, predicted = classModel$yClass))
+```
+
+## Predictions: the swimlane plot
+
+For classification, `ggplotMV()` gives a "swimlane" plot. Each lane is one
+observation. Within a lane, the class prediction probabilities are colour-coded and
+nudged apart by class; small dots are individual repetitions, large dots the
+consensus. Misclassified observations are ringed at the probability of their
+*true* class.
+
+Reading it: a confident, correct prediction is one where the true class's dot sits
+high and alone, with its repetitions tightly clustered. A wide spread of small dots
+means the prediction moved a lot between repetitions.
+
+```{r mv, fig.width = 9, fig.height = 5}
+ggplotMV(classModel)
+```
+
+## Stability
+
+Same as regression, except the bottom panels now show misclassifications and BER
+instead of Q2.
+
+```{r stability, fig.height = 8}
+ggplotStability(classModel, model = "mid")
+```
+
+## Which variables?
+
+`ggplotVIRank()` is also different for elastic net, and necessarily so: there are no
+ranks per repetition to draw a boxplot of. Instead each row is one calibration
+model, each column a variable, and red means that variable had a non-zero
+coefficient in that model. Models are ordered from most to fewest variables
+selected, variables by selection rate.
+
+What you are looking for is a solid red block on the left: a core set of variables
+that got picked regardless of how many variables the model felt like selecting.
+
+```{r virank, fig.width = 8, fig.height = 5}
+ggplotVIRank(classModel, model = "mid", maptype = "heatmap")
+```
+
+```{r getvirank}
+head(getVIRank(classModel, model = "mid"))
+```
+
+## Next steps
+
+- Elastic net is the only core that supports
+  [covariate adjustment](covariate-adjustment.html) — that is the main reason to
+  reach for it.
+- Check the model against the null with
+  [resampling tests](resampling-tests.html).

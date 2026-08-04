@@ -6,7 +6,11 @@
 #' @param factCols An optional vector with colors for the factor levels (in the same order as the levels)
 #' @param sampLabels Sample labels (optional; implemented for classification)
 #' @param ylim Optional for imposing y-limits for regression and classification analysis
+#' @param consensusOnly If `TRUE`, draw only the consensus predictions and omit
+#'   the smaller per-repetition dots. Useful for the classification swimlane,
+#'   which gets crowded, but works for all model types. Defaults to `FALSE`.
 #' @return A plot of results from multivariate predictions
+#' @seealso [ggplotMV()] for the ggplot2 version
 #' @export
 #' @examples
 #' \donttest{
@@ -31,65 +35,52 @@ plotMV <- function(MUVRclassObject,
                    model = 'min',
                    factCols,
                    sampLabels,
-                   ylim = NULL) {
-  # Basic sanity
-  if (!any(class(MUVRclassObject) == 'MUVR')) {
-    stop('Wrong object class')
-  }
+                   ylim = NULL,
+                   consensusOnly = FALSE) {
+  d <- mvData(MUVRclassObject,
+              model = model,
+              sampLabels = sampLabels,
+              ylim = ylim)
 
-  # Model number min 1, mid 2, max 3
-  modNum <- ifelse(model == 'min',
-                   1,
-                   ifelse(model == 'mid', 2, 3))
-  # Extract actual data of Y
-  Y <- MUVRclassObject$inData$Y
-  nSamp <- length(Y)
-  #################################
-  ##When it is classification it is useful, when it is regression, although it has a values it is not used
-  if (missing(sampLabels)) {
-    sampLabels <- Y
-  }
-  #####################
-  # Sanity check sample labels
-  if (length(sampLabels) != nSamp) {
-    stop('Length of sampLabels not equal to number of samples in Y.')
-  }
+  modNum <- d$modNum
+  Y <- d$Y
+  nSamp <- d$nSamp
+  sampLabels <- d$sampLabels
+  YP <- d$YP
+  YPR <- d$YPR
+  ylim <- d$ylim
 
-  if (any(class(MUVRclassObject) == 'Regression')) {
+  if (d$type == "regression") {
     ###########################
     # REGRESSION PLOT
     ###########################
-
-
-    if (class(MUVRclassObject$yPredPerRep)[1] == "list") {
-      # Y-predicted overall
-      YP <- MUVRclassObject$yPred[, modNum]
-      # Y-predicted per repetition
-      YPR <- MUVRclassObject$yPredPerRep[[modNum]]
-    } else{
-      YP <- MUVRclassObject$yPred
-      YPR <- MUVRclassObject$yPredPerRep
-
+    if (consensusOnly) {
+      # Just the plotting frame; no per-repetition dots
+      plot(
+        Y,
+        YP,
+        type = 'n',
+        xlab = 'Original Y',
+        ylab = 'Predicted Y',
+        bty = 'l',
+        ylim = ylim
+      )
+    } else {
+      # Plot Y-predicted per repetition in grey
+      matplot(
+        Y,
+        #####X axis 112 observations
+        YPR,
+        ####Y axis 112 obsevations each of them have 7 repetitions
+        pch = 20,
+        xlab = 'Original Y',
+        ylab = 'Predicted Y',
+        col = 'grey',
+        bty = 'l',
+        cex = 0.5,
+        ylim = ylim
+      )
     }
-    # Y-limits
-    if (is.null(ylim)) {
-      ylim <-
-        range(YPR)
-    }  ###returns a vector containing the minimum and maximum of all the given arguments
-    # Plot Y-predicted per repetition in grey
-    matplot(
-      Y,
-      #####X axis 112 observations
-      YPR,
-      ####Y axis 112 obsevations each of them have 7 repetitions
-      pch = 20,
-      xlab = 'Original Y',
-      ylab = 'Predicted Y',
-      col = 'grey',
-      bty = 'l',
-      cex = 0.5,
-      ylim = ylim
-    )
     # Add in overall Y-predictions of repitions in black
     points(Y,
            YP,
@@ -100,38 +91,15 @@ plotMV <- function(MUVRclassObject,
     abline(reg)
     # Add legend
     legend('topleft',
-           legend = c(paste(
-             'Model R2 =', signif(MUVRclassObject$fitMetric$R2[modNum], 3)
-           ),
-           paste(
-             'Model Q2 =', signif(MUVRclassObject$fitMetric$Q2[modNum], 3)
-           )),
-           ###x2<-c(3.141593e-02,3.141593e+00,3.141593e+02,3.141593e+04,3.141593e+06)
-           ###signif(x2,3)
+           legend = c(paste('Model R2 =', signif(d$R2, 3)),
+                      paste('Model Q2 =', signif(d$Q2, 3))),
            bty = 'n')  ##	the type of box to be drawn around the legend. The allowed values are "o" (the default) and "n".
-  } else if (any(class(MUVRclassObject) == 'Classification')) {
+  } else if (d$type == "classification") {
     ################################
     # CLASSIFICATION SWIMLANE PLOT
     ################################
-    if (class(MUVRclassObject$yPredPerRep)[1] == "list") {
-      # Y-predicted overall
-      YP <-
-        MUVRclassObject$yPred[[modNum]]     ####The probability that belongs to each class
-      # Y-predicted per repetition
-      YPR <- MUVRclassObject$yPredPerRep[[modNum]]
-    } else{
-      YP <-
-        MUVRclassObject$yPred     ####The probability that belongs to each class
-      # Y-predicted per repetition
-      YPR <- MUVRclassObject$yPredPerRep
-
-    }
-    # Y-limits
-    if (is.null(ylim)) {
-      ylim <- range(YPR)
-    }
     # Unique levels in Y
-    classes <- 1:length(levels(Y))
+    classes <- d$classes
     # Colors per level
     if (missing(factCols)) {
       factCols <- classes + 1
@@ -139,10 +107,8 @@ plotMV <- function(MUVRclassObject,
     if (length(factCols) != length(classes)) {
       stop('Length of factCols not equal to number of levels in Y.')
     }
-    # Sort out "jitter"/nudge between levels in the swimlane plot
-    ##
-    classNudge <-
-      0.2 * ((classes - mean(classes)) / (mean(classes) - 1))  ###create distance between different classification on x axis
+    # "jitter"/nudge between levels in the swimlane plot
+    classNudge <- d$classNudge
     # Allocate plot surface
     plot(
       1:nSamp,
@@ -168,13 +134,15 @@ plotMV <- function(MUVRclassObject,
     # Plot each Y level separately
     for (cl in classes) {
       # Y-pred per rep
-      matpoints((1:nSamp) + classNudge[cl],
-                YPR[, cl, ],
-                ##For all the observations for all repetition in each class
-                pch = 20,
-                col = factCols[cl],
-                cex = 0.5
-      )
+      if (!consensusOnly) {
+        matpoints((1:nSamp) + classNudge[cl],
+                  YPR[, cl, ],
+                  ##For all the observations for all repetition in each class
+                  pch = 20,
+                  col = factCols[cl],
+                  cex = 0.5
+        )
+      }
       # Y-pred overall
       points((1:nSamp) + classNudge[cl],
              YP[, cl],
@@ -188,21 +156,10 @@ plotMV <- function(MUVRclassObject,
              ####type of line
              col = 'grey')
     }
-    # Identify erroneous classifications
-    if (class(MUVRclassObject$yPredPerRep)[1] == "list") {
-      yClass <-
-        MUVRclassObject$yClass[, modNum]    ###The class of the most probabilityM
-    } else {
-      yClass <- MUVRclassObject$yClass
-    }
-    whichWrong <-
-      which(yClass != Y)               ###whichWrong is the sequence number of observations
-    wrongClass <-
-      as.numeric(Y[whichWrong])      ##Transform to the corresponding real class number of the miss classification ones
-    # Mark them out in the plot
-    for (w in 1:length(wrongClass)) {
-      points(whichWrong[w] + classNudge[wrongClass[w]],
-             YP[whichWrong[w], wrongClass[w]],
+    # Ring the misclassified samples at the probability of their true class
+    if (nrow(d$wrong) > 0) {
+      points(d$wrong$x,
+             d$wrong$probability,
              cex = 2)
     }
     ##################################################################################################################################################
@@ -234,37 +191,31 @@ plotMV <- function(MUVRclassObject,
 
 
     ##################################################################################################################################################
-  } else if (any(class(MUVRclassObject) == 'Multilevel')) {
+  } else if (d$type == "multilevel") {
     ###########################
     # MULTILEVEL PLOT
     ###########################
-
-
-
-    if (class(MUVRclassObject$yPredPerRep)[1] == "list") {
-      # Y-predicted overall
-      YP <-
-        MUVRclassObject$yPred[, modNum]     ####The probability that belongs to each class
-      # Y-predicted per repetition
-      YPR <- MUVRclassObject$yPredPerRep[[modNum]]
-    } else{
-      YP <-
-        MUVRclassObject$yPred     ####The probability that belongs to each class
-      # Y-predicted per repetition
-      YPR <- MUVRclassObject$yPredPerRep
-
+    if (consensusOnly) {
+      plot(
+        YP,
+        1:nSamp,
+        type = 'n',
+        ylim = c(nSamp, 1),
+        ylab = 'Sample number',
+        xlab = 'Predicted Y'
+      )
+    } else {
+      matplot(
+        YPR,
+        1:nSamp,
+        pch = 20,
+        col = 'grey',
+        cex = 0.5,
+        ylim = c(nSamp, 1),
+        ylab = 'Sample number',
+        xlab = 'Predicted Y'
+      )
     }
-
-    matplot(
-      YPR,
-      1:nSamp,
-      pch = 20,
-      col = 'grey',
-      cex = 0.5,
-      ylim = c(nSamp, 1),
-      ylab = 'Sample number',
-      xlab = 'Predicted Y'
-    )
     # Plot Y-predicted overall in black
     points(YP,
            1:nSamp,

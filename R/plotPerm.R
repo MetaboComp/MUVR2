@@ -21,6 +21,7 @@
 #' @param multiple_p_shown show many p values
 #' @param round_number How many digits does it keep
 #' @return Plot
+#' @seealso [ggplotPerm()] for the ggplot2 version
 #' @export
 #' @examples
 #' data("freelive2")
@@ -678,4 +679,9 @@ if(sd(x_values)!=0){
   }
 
 
+
+  ## Base plot functions draw and return nothing; without this, the empty
+  ## trailing `if` above makes the function return a *visible* NULL, which
+  ## knitr and the console then print under the plot.
+  invisible(NULL)
 }

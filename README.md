@@ -1,41 +1,107 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
 # MUVR2
-**Multivariate methods with Unbiased Variable selection in R**  
-PhD candidate Yingxiao Yan <yingxiao@chalmers.se>  
-Associate Professor Carl Brunius  <carl.brunius@chalmers.se>  
-Department of Life Sciences,
-Chalmers University of Technology www.chalmers.se
 
-## General description
-The MUVR package allows for predictive multivariate modelling with minimally biased variable selection incorporated into a repeated double cross-validation framework. The MUVR procedure simultaneously produces both minimal-optimal and all-relevant variable selections.
+<!-- badges: start -->
 
-The MUVR2 package is developed with new functionalities based on the MUVR package.
+[![R-CMD-check](https://github.com/MetaboComp/MUVR2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/MetaboComp/MUVR2/actions/workflows/R-CMD-check.yaml)
+[![pkgdown](https://github.com/MetaboComp/MUVR2/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/MetaboComp/MUVR2/actions/workflows/pkgdown.yaml)
+<!-- badges: end -->
 
-An easy-to-follow tutorial on how to use the MUVR2 package can be found at this repository at [inst/Tutorial/MUVR_Tutorial.docx](https://github.com/MetaboComp/MUVR2/blob/master/inst/Tutorial/MUVR2_tutorial.pdf)
+**Multivariate methods with unbiased variable selection.**
 
-In brief, MUVR2 proved the following functionality:
-- Types: classification, regression and multilevel.
-- Model cores: PLS,  Random Forest, Elastic Net.
-- Validation: repeated double cross-validation (rdCV; Westerhuis et al. 2008, Filzmoser et al. 2009).
-- Variable selection: recursive feature elimination embedded in the rdCV loop.
-- Resampling tests and permutation tests: assessment of modelling fitnness and overfitting.
+MUVR2 does predictive multivariate modelling for metabolomics, with
+minimally biased variable selection built into a repeated double
+cross-validation (rdCV) framework. It is aimed at the case that breaks
+most machine learning: many variables, few observations.
+
+Out of one model fit you get two variable selections at once — the
+**minimal-optimal** set (the smallest set of strong predictors, for
+biomarker discovery) and the **all-relevant** set (everything carrying
+relevant signal, for biological interpretation).
+
+- **Problem types**: regression, classification, multilevel.
+- **Core methods**: PLS, random forest, elastic net.
+- **Validation**: repeated double cross-validation (Westerhuis *et al.*
+  2008, Filzmoser *et al.* 2009).
+- **Variable selection**: recursive feature elimination inside the rdCV
+  loop (PLS/RF), or selection frequency across calibration models
+  (elastic net).
+- **Covariate adjustment**: by suppressing regularization on named
+  variables (elastic net).
+- **Resampling and permutation tests**: for model fitness and
+  overfitting.
 
 ## Installation
-- You will need to have installed R (https://www.r-project.org/)
-- Normally, you will want to work in RStudio (https://rstudio.com/) or some other IDE
 
-You also need to have the `remotes` R package installed. Just run the following from an R script or type it directly at the R console (normally the lower left window in RStudio):
+``` r
+install.packages("remotes")
+remotes::install_github("MetaboComp/MUVR2")
 ```
-install.packages('remotes')
+
+## A minimal example
+
+``` r
+library(MUVR2)
+data("freelive2")
+
+model <- MUVR2(X = XRVIP2,          # 1147 metabolomics features
+               Y = YR2,             # wholegrain rye intake, 58 individuals
+               nRep = 5,
+               nOuter = 6,
+               varRatio = 0.75,
+               method = "PLS",
+               modReturn = TRUE)
+
+model$fitMetric   # R2 and Q2 for the min, mid and max models
+model$nVar        # how many variables each of them uses
+
+ggplotMV(model, model = "min")        # predicted vs actual
+ggplotVAL(model)                      # validation curve
+ggplotStability(model, model = "min") # did nRep go high enough?
 ```
-When `remotes` is installed, you can install the `MUVR2` package by running:
-```
-library(remotes)
-install_github('MetaboComp/MUVR2')
-```
+
+Every plot exists twice: `plotMV()` and friends draw with base graphics,
+while `ggplotMV()` and friends return a `ggplot` object you can theme,
+save, or pass to `plotly::ggplotly()` for an interactive version.
+
+## Documentation
+
+Full documentation, including a plot gallery comparing all three
+flavours, is at **<https://metabocomp.github.io/MUVR2/>**:
+
+- [Regression with
+  PLS](https://metabocomp.github.io/MUVR2/articles/regression-pls.html)
+- [Classification with elastic
+  net](https://metabocomp.github.io/MUVR2/articles/classification-en.html)
+- [Repeated samples and multilevel
+  analysis](https://metabocomp.github.io/MUVR2/articles/multilevel.html)
+- [Covariate
+  adjustment](https://metabocomp.github.io/MUVR2/articles/covariate-adjustment.html)
+- [Resampling and permutation
+  tests](https://metabocomp.github.io/MUVR2/articles/resampling-tests.html)
+- [Plot
+  gallery](https://metabocomp.github.io/MUVR2/articles/plot-gallery.html)
 
 ## References
-- *Yan Y, Schillemans T, Skantze V, Brunius C. Adjusting for covariates and assessing modeling fitness in machine learning using MUVR2. Bioinformatics Advances. 2024, 4(1), vbae051.*
-- *Shi L, Westerhuis JA, Rosén J, Landberg R, Brunius C. Variable selection and validation in multivariate modelling. Bioinformatics. 2019, 35(6), 972–80.*
-- *Filzmoser P, Liebmann B, Varmuza K. Repeated double cross validation. Journal of Chemometrics. 2009, 23(4), 160-171.*
-- *Westerhuis JA, Hoefsloot HCJ, Smit S, Vis DJ, Smilde AK, Velzen EJJ, Duijnhoven JPM, Dorsten FA. Assessment of PLSDA cross validation. Metabolomics. 2008, 4(1), 81-89.*
 
+- Yan Y, Schillemans T, Skantze V, Brunius C. Adjusting for covariates
+  and assessing modeling fitness in machine learning using MUVR2.
+  *Bioinformatics Advances*. 2024, 4(1), vbae051.
+- Shi L, Westerhuis JA, Rosén J, Landberg R, Brunius C. Variable
+  selection and validation in multivariate modelling. *Bioinformatics*.
+  2019, 35(6), 972–80.
+- Filzmoser P, Liebmann B, Varmuza K. Repeated double cross validation.
+  *Journal of Chemometrics*. 2009, 23(4), 160–171.
+- Westerhuis JA, Hoefsloot HCJ, Smit S, Vis DJ, Smilde AK, Velzen EJJ,
+  Duijnhoven JPM, Dorsten FA. Assessment of PLSDA cross validation.
+  *Metabolomics*. 2008, 4(1), 81–89.
+
+## Authors
+
+PhD candidate Yingxiao Yan <yingxiao@chalmers.se><br> Associate
+Professor Carl Brunius <carl.brunius@chalmers.se>
+
+Department of Life Sciences, Chalmers University of Technology,
+www.chalmers.se

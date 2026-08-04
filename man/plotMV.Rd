@@ -4,7 +4,14 @@
 \alias{plotMV}
 \title{Plot predictions}
 \usage{
-plotMV(MUVRclassObject, model = "min", factCols, sampLabels, ylim = NULL)
+plotMV(
+  MUVRclassObject,
+  model = "min",
+  factCols,
+  sampLabels,
+  ylim = NULL,
+  consensusOnly = FALSE
+)
 }
 \arguments{
 \item{MUVRclassObject}{An MUVR class object}
@@ -16,6 +23,10 @@ plotMV(MUVRclassObject, model = "min", factCols, sampLabels, ylim = NULL)
 \item{sampLabels}{Sample labels (optional; implemented for classification)}
 
 \item{ylim}{Optional for imposing y-limits for regression and classification analysis}
+
+\item{consensusOnly}{If \code{TRUE}, draw only the consensus predictions and omit
+the smaller per-repetition dots. Useful for the classification swimlane,
+which gets crowded, but works for all model types. Defaults to \code{FALSE}.}
 }
 \value{
 A plot of results from multivariate predictions
@@ -38,4 +49,7 @@ regrModel <- MUVR2(X = XRVIP2,
                    modReturn = TRUE)
 plotMV(regrModel, model="min")
 }
+}
+\seealso{
+\code{\link[=ggplotMV]{ggplotMV()}} for the ggplot2 version
 }

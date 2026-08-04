@@ -2,7 +2,7 @@
 % Please edit documentation in R/predMV.R
 \name{predMV}
 \alias{predMV}
-\title{Predict outcomes 
+\title{Predict outcomes
 Predict MV object using a MUVR class object and a X testing set. At present, this function only supports predictions for PLS regression type problems.}
 \usage{
 predMV(MUVRclassobject, newdata, model = "min")
@@ -18,7 +18,7 @@ predMV(MUVRclassobject, newdata, model = "min")
 The predicted result based on the MUVR model and the newdata
 }
 \description{
-Predict outcomes 
+Predict outcomes
 Predict MV object using a MUVR class object and a X testing set. At present, this function only supports predictions for PLS regression type problems.
 }
 \examples{

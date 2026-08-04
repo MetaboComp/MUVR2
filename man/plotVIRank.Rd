@@ -21,7 +21,7 @@ plotVIRank(
 
 \item{model}{Which model to choose ('min', 'mid' (default) or 'max')}
 
-\item{cut}{Optional value to cut length of variable names to `cut` number of characters}
+\item{cut}{Optional value to cut length of variable names to \code{cut} number of characters}
 
 \item{maptype}{for rdCvnet dot plot or heat map}
 
@@ -34,7 +34,7 @@ Barplot of variable rankings (lower is better)
 }
 \description{
 Plot variable importance ranking in MUVR object. Regardless of MV core method, variables are sorted by rank, where lower is better.
-`plotVIRank` produces boxplots of variable rankings for all model repetitions.
+\code{plotVIRank} produces boxplots of variable rankings for all model repetitions.
 }
 \examples{
 \donttest{
@@ -51,4 +51,7 @@ regrModel <- MUVR2(X = XRVIP2,
                    modReturn = TRUE)
 plotVIRank(regrModel, n=20)
 }
+}
+\seealso{
+\code{\link[=ggplotVIRank]{ggplotVIRank()}} for the ggplot2 version
 }

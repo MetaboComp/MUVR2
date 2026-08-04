@@ -25,14 +25,6 @@
 ## @param percent_smoothcurve If select_variables_by smoothcurve, then it is robust
 ## @param Var_option quantile or smoothcurve
 #' @param ... Pass additional arguments
-#' @import splines glmnet pROC magrittr foreach doParallel graphics parallel psych
-#' @importFrom randomForest randomForest
-#' @importFrom ranger ranger
-#' @importFrom grDevices colorRampPalette dev.off png
-#' @importFrom mgcv predict.gam
-#' @importFrom magrittr %>%
-#' @importFrom dplyr filter mutate select
-#' @importFrom stats as.dist coef coefficients cor density dt ecdf hclust heatmap lm loess median predict pt quantile resid sd
 #' @return A MUVR object
 #' @export
 #' @examples

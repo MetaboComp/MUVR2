@@ -1,0 +1,172 @@
+url: https://metabocomp.github.io/MUVR2/
+
+template:
+  bootstrap: 5
+  bslib:
+    primary: "#0b5394"
+    base_font: {google: "Source Sans Pro"}
+    heading_font: {google: "Source Sans Pro"}
+    code_font: {google: "Source Code Pro"}
+
+figures:
+  # Vector figures everywhere. This setting governs the *reference* pages;
+  # the articles override it with svglite in vignettes/articles/_common.R.
+  #
+  # The reference pages cannot use svglite: pkgdown's fig_save() hardcodes
+  # `dev.args$bg <- NA` when it renders examples, and svglite's C++ wants a
+  # colour string, rejecting NA with "Expected string vector of length 1".
+  # grDevices::svg accepts NA, at the cost of drawing text as glyph outlines.
+  # The article path (fig_opts_chunk()) honours `bg`, so it has no such problem.
+  dev: svg
+  fig.ext: svg
+  bg: transparent
+
+home:
+  title: Multivariate modelling with unbiased variable selection
+  description: >
+    Predictive multivariate modelling for metabolomics, with minimally biased
+    variable selection embedded in a repeated double cross-validation framework.
+    PLS, random forest and elastic net cores; regression, classification and
+    multilevel analysis; covariate adjustment and resampling tests.
+
+navbar:
+  structure:
+    left: [intro, articles, reference, news]
+    right: [search, github]
+  components:
+    articles:
+      text: Articles
+      menu:
+      - text: "Analysis"
+      - text: Regression with PLS
+        href: articles/regression-pls.html
+      - text: Classification with PLS or RF
+        href: articles/classification-pls.html
+      - text: Classification with elastic net
+        href: articles/classification-en.html
+      - text: Repeated samples and multilevel analysis
+        href: articles/multilevel.html
+      - text: -------
+      - text: "Going further"
+      - text: Covariate adjustment
+        href: articles/covariate-adjustment.html
+      - text: Resampling and permutation tests
+        href: articles/resampling-tests.html
+      - text: -------
+      - text: "Reference"
+      - text: "Plot gallery: base vs ggplot2 vs plotly"
+        href: articles/plot-gallery.html
+
+articles:
+- title: Analysis
+  navbar: Analysis
+  contents:
+  - '"articles/regression-pls"'
+  - '"articles/classification-pls"'
+  - '"articles/classification-en"'
+  - '"articles/multilevel"'
+- title: Going further
+  navbar: Going further
+  contents:
+  - '"articles/covariate-adjustment"'
+  - '"articles/resampling-tests"'
+- title: Reference
+  navbar: Reference
+  contents:
+  - '"articles/plot-gallery"'
+
+reference:
+- title: Modelling
+  desc: >
+    Fit a MUVR model. `MUVR2()` covers the PLS and random forest cores;
+    `MUVR2_EN()` covers the elastic net core, which is the one that supports
+    covariate adjustment.
+  contents:
+  - MUVR2
+  - MUVR2_EN
+  - rdCV
+  - customParams
+  - rdcvNetParams
+  - mergeModels
+
+- title: Inspecting a model
+  desc: >
+    Pull the variable selections, rankings and fitness metrics out of a fitted
+    model. Elastic net models must go through `getVar()` before their min/mid/max
+    selections exist.
+  contents:
+  - getVar
+  - getVIRank
+  - getBER
+  - getMISS
+  - get_rmsep
+  - Q2_calculation
+  - confusionMatrix
+  - varClass
+  - predMV
+
+- title: Plots (base graphics)
+  desc: >
+    The original plots. Each draws to the current graphics device and returns
+    nothing; see the ggplot2 section below for versions that return an object.
+  contents:
+  - plotMV
+  - plotVAL
+  - plotVIRank
+  - plotStability
+  - plotPerm
+  - permutationPlot
+  - plotPred
+  - plotPCA
+  - biplotPLS
+
+- title: Plots (ggplot2)
+  desc: >
+    The same plots, returning a `ggplot` object you can theme, compose, save with
+    `ggsave()`, or make interactive with `plotly::ggplotly()`. See the
+    [plot gallery](articles/plot-gallery.html) for a side-by-side comparison.
+  contents:
+  - ggplotMV
+  - ggplotVAL
+  - ggplotVIRank
+  - ggplotStability
+  - ggplotPerm
+  - ggpermutationPlot
+  - ggplotPred
+  - ggplotPCA
+  - ggbiplotPLS
+
+- title: Resampling and permutation tests
+  desc: >
+    Assess whether a model is fit for purpose: how likely is its performance
+    under the null, and how much of it is overfitting?
+  contents:
+  - H0_test
+  - H0_reference
+  - pPerm
+  - sampling_from_distribution
+
+- title: Preparing data
+  contents:
+  - preProcess
+  - onehotencoding
+  - nearZeroVar
+  - checkinput
+
+- title: Datasets
+  desc: The example data used throughout the articles and the help pages.
+  contents:
+  - XRVIP2
+  - YR2
+  - IDR2
+  - XRVIP
+  - YR
+  - IDR
+  - Xotu
+  - Yotu
+  - crispEM
+
+- title: internal
+  contents:
+  - '"MUVR2-package"'
+  - qMUVR2
